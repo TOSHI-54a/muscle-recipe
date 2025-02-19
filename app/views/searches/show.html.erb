@@ -1,30 +1,37 @@
-<div>
-<h1>レシピ詳細</h1>
-    <% if @show_recipe.response_data.present? && @show_recipe.response_data["recipe"].present? %>
-      <ul>
-        <h1><strong><%= @show_recipe.response_data["recipe"]["title"] || "タイトルなし" %></strong></h1>
-        <p><%= @show_recipe.response_data["recipe"]["description"] || "説明なし" %></p>
-        <p><strong>材料:</strong></p>
-        <ul>
-          <% @show_recipe.response_data["recipe"]["ingredients"]&.each do |ingredient| %>
-            <ul>
-              <li><%= ingredient['name'] %>:<%= ingredient['amount'] %></li>
-            </ul>
-          <% end %>
-        </ul>
-        <p><strong>作り方:</strong></p>
-        <ol>
-          <% @show_recipe.response_data["recipe"]["steps"]&.each do |step| %>
-            <li><%= step %></li>
-          <% end %>
-        </ol>
-      </ul>
-    <% else %>
-      <li>レシピデータがありません</li>
-    <% end %>
-    <%= link_to "一覧に戻る", saved_searches_path %>
-    <% if current_user.present? %>
-      <%= button_to "削除", search_path(@show_recipe), method: :delete, data: { turbo_confirm: '削除しますか？' } %>
-    <% end %>
-</div>
+<div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
 
+  <div class="p-6 space-y-4">
+    <h1 class="text-2xl font-bold text-gray-900">レシピ詳細</h1>
+
+    <% if @show_recipe.response_data.present? && @show_recipe.response_data["recipe"].present? %>
+      <h2 class="text-xl font-semibold text-blue-600"><%= @show_recipe.response_data["recipe"]["title"] || "タイトルなし" %></h2>
+      <p class="text-gray-700"><%= @show_recipe.response_data["recipe"]["description"] || "説明なし" %></p>
+
+      <h3 class="text-lg font-semibold text-gray-800 mt-4">材料</h3>
+      <ul class="grid grid-cols-2 gap-2">
+        <% @show_recipe.response_data["recipe"]["ingredients"]&.each do |ingredient| %>
+          <li class="bg-gray-100 p-2 rounded-md shadow-sm">
+            <span class="font-medium"><%= ingredient['name'] %></span>: <%= ingredient['amount'] %>
+          </li>
+        <% end %>
+      </ul>
+
+      <h3 class="text-lg font-semibold text-gray-800 mt-4">作り方</h3>
+      <ol class="list-decimal list-inside space-y-2">
+        <% @show_recipe.response_data["recipe"]["steps"]&.each do |step| %>
+          <li class="bg-gray-50 p-2 rounded-md shadow-sm"><%= step %></li>
+        <% end %>
+      </ol>
+    <% else %>
+      <p class="text-red-500 font-medium">レシピデータがありません</p>
+    <% end %>
+
+    <div class="flex justify-between items-center mt-6">
+      <%= link_to "一覧に戻る", saved_searches_path, class: "px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition" %>
+
+      <% if current_user.present? %>
+        <%= button_to "削除", search_path(@show_recipe), method: :delete, data: { turbo_confirm: '削除しますか？' }, class: "px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition" %>
+      <% end %>
+    </div>
+  </div>
+</div>
