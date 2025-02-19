@@ -42,14 +42,6 @@
       <%= f.label :ingredients_avoid, "避けたい具材 (カンマ区切り)" %>
       <%= f.text_field :ingredients_avoid, name: "user[ingredients][avoid]" %>
     </div>
-    <div>
-      <%= f.label :available_name, "利用可能な具材の名前" %>
-      <%= f.text_field :available_name, name: "user[available][name]" %>
-    </div>
-    <div>
-      <%= f.label :available_amount, "量" %>
-      <%= f.text_field :available_amount, name: "user[available][amount]" %>
-    </div>
   </fieldset>
 
   <fieldset>
@@ -65,10 +57,6 @@
     <div>
       <%= f.label :preferences_goal, "料理の目的" %>
       <%= f.text_field :preferences_goal, name: "user[preferences][goal]" %>
-    </div>
-    <div>
-      <%= f.label :preferences_calorie_and_pfc, "カロリーとPFC情報を含める" %>
-      <%= f.check_box :preferences_calorie_and_pfc, name: "user[preferences][calorie_and_pfc]" %>
     </div>
   </fieldset>
 
