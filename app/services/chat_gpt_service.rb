@@ -43,7 +43,7 @@ class ChatGptService
         { role: "system", content: "You are a professional nutritionist. Generate structured JSON-formatted healthy recipes." },
         { role: "user", content: generate_prompt(prompt) }
       ],
-      max_tokens: 500,
+      max_tokens: 1000,
       temperature: 0.3
     }
   end

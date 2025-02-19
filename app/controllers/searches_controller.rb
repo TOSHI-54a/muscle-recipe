@@ -14,28 +14,34 @@ class SearchesController < ApplicationController
   end
 
   def create
-    Rails.logger.debug "Received !params: #{params.inspect}"
+    # Rails.logger.debug "Received !params: #{params.inspect}"
 
     prompt = recipe_params
-    Rails.logger.debug "Filtered !params: #{prompt.inspect}"
+    # Rails.logger.debug "Filtered !params: #{prompt.inspect}"
 
     recipe_response = ChatGptService.new.fetch_recipe(prompt)
-    Rails.logger.debug "ChatGPT API Response: #{recipe_response.inspect}"
-    @show_recipe = SearchRecipe.create!(
-      user: current_user,
-      query: prompt,
-      search_time: Time.current,
-      response_data: recipe_response
-    )
+    # Rails.logger.debug "ChatGPT API Response: #{recipe_response.inspect}"
+    if recipe_response.present?
+      @show_recipe = SearchRecipe.create!(
+        user: current_user,
+        query: prompt,
+        search_time: Time.current,
+        response_data: recipe_response
+      )
 
-    Rails.logger.debug "保存後のSearchRecipe: #{@show_recipe.inspect}"
-    Rails.logger.debug "保存後のresponse_data: #{@show_recipe.response_data.inspect}"
+      # Rails.logger.debug "保存後のSearchRecipe: #{@show_recipe.inspect}"
+      # Rails.logger.debug "保存後のresponse_data: #{@show_recipe.response_data.inspect}"
 
-    # @recommendation = recipe_response
-    redirect_to search_path(@show_recipe)
-    # render json: { recipe: recipe_response }, status: ok
+      # @recommendation = recipe_response
+      redirect_to search_path(@show_recipe)
+    else
+      Rails.logger.debug("ChatGPT APIからのレスポンスが無効: #{recipe_response.inspect}")
+      flash[:error] = "レシピの取得に失敗しました。もう一度お試しください。"
+      render :new, status: :unprocessable_entity
+    end
+  # render json: { recipe: recipe_response }, status: ok
   rescue => e
-    Rails.logger.debug "Recipe response is empty or invalid: #{@recommendations.inspect}"
+    # Rails.logger.debug "Recipe response is empty or invalid: #{@recommendations.inspect}"
     Rails.logger.debug "Error in create action: #{e.message}"
     flash[:error] = 'レシピの取得に失敗しました: #{e.message}'
     render :new, status: :unprocessable_entity
