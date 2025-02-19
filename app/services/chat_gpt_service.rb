@@ -38,7 +38,7 @@ class ChatGptService
 
   def request_body(prompt)
     {
-      model: "gpt-3.5-turbo",
+      model: "gpt-4o-mini",
       messages: [
         { role: "system", content: "You are a professional nutritionist. Generate structured JSON-formatted healthy recipes." },
         { role: "user", content: generate_prompt(prompt) }
