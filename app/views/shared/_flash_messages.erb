@@ -1,0 +1,12 @@
+<% flash.each do |message_type, message| %>
+  <% flash_class = case message_type.to_sym
+      when :notice then "bg-green-100 text-green-800 border-green-400"
+      when :alert then "bg-red-100 text-red-800 border-red-400"
+      when :error then "bg-yellow-100 text-yellow-800 border-yellow-400"
+      else "bg-gray-100 text-gray-800 border-gray-400"
+    end
+  %>
+  <div class="border p-3 rounded-md mb-4 <%= flash_class %>">
+    <%= message %>
+  </div>
+<% end %>

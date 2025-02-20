@@ -65,7 +65,7 @@ end
     @user.destroy!
 
     respond_to do |format|
-      format.html { redirect_to users_path, status: :see_other, notice: "User was successfully destroyed." }
+      format.html { redirect_to user_session_path, status: :see_other, notice: "User was successfully destroyed." }
       format.json { head :no_content }
     end
   end

@@ -1,23 +1,13 @@
-document.addEventListener("DOMContentLoaded", setupMenu);
-document.addEventListener("turbo:load", setupMenu);
-
-function setupMenu() {
-  console.log("✅ メニューセットアップ");
-
-  const menuButton = document.getElementById("menu-button");
-  const menu = document.getElementById("menu");
-
-  if (!menuButton || !menu) {
-    console.warn("⚠️ menuButton または menu が見つかりません");
-    return;
-  }
-
-  // 既存のリスナーを削除（重複防止）
-  menuButton.removeEventListener("click", toggleMenu);
-  menuButton.addEventListener("click", toggleMenu);
-
-  function toggleMenu() {
-    console.log("📌 メニュー開閉");
-    menu.classList.toggle("hidden");
-  }
-}
+document.addEventListener("turbo:load", () => {
+    const toggleButton = document.querySelector("[data-collapse-toggle]");
+    const navbarMenu = document.getElementById("navbar-sticky");
+  
+    if (toggleButton && navbarMenu) {
+      toggleButton.addEventListener("click", () => {
+        const expanded = toggleButton.getAttribute("aria-expanded") === "true";
+        toggleButton.setAttribute("aria-expanded", !expanded);
+        navbarMenu.classList.toggle("hidden");
+      });
+    }
+  });
+  
