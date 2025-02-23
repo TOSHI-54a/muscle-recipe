@@ -8,18 +8,19 @@ document.addEventListener("turbo:load", () => {
         });
     }
 
-    // ✅ 画面サイズ変更時に `md:` 以上なら `hidden` を削除（常時表示）
-    const checkScreenSize = () => {
+    function updateNavbarState() {
         if (window.innerWidth >= 768) {
-            navbarMenu.classList.remove("hidden"); // PC時は常時表示
+            navbarMenu.classList.remove("hidden");
+            navbarMenu.style.width = "auto";
         } else {
-            navbarMenu.classList.add("hidden"); // スマホ時は非表示
+            navbarMenu.classList.add("hidden");
+            navbarMenu.style.width = "100%";
         }
-    };
+    }
 
-    // ✅ 初回読み込み時のチェック
-    checkScreenSize();
+    // ✅ 初回ロード時の適用
+    updateNavbarState();
 
-    // ✅ 画面リサイズ時にも適用
-    window.addEventListener("resize", checkScreenSize);
+    // ✅ 画面リサイズ時に適用
+    window.addEventListener("resize", updateNavbarState);
 });
