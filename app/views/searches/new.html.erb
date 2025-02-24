@@ -1,67 +1,78 @@
-<div>
-<h1>レシピ検索フォーム</h1>
+<div class="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-xl">
+  <h1 class="text-3xl font-bold text-gray-800 text-center mb-8">レシピ検索フォーム</h1>
 
-<%= form_with url: searches_path, model: current_user, method: :post, local: true, data: { turbo: false } do |f| %>
-  <fieldset>
-    <legend>身体情報</legend>
-    <%= f.fields_for :body_info, current_user do |bf| %>
-      <div>
-        <%= bf.label :age, "年齢" %>
-        <%= bf.number_field :age, min: 0, value: current_user.age %>
+  <%= form_with url: searches_path, model: current_user, method: :post, local: true, data: { turbo: false }, class: "space-y-8" do |f| %>
+    
+    <!-- 身体情報 -->
+    <fieldset class="border border-gray-300 p-6 rounded-lg">
+      <legend class="text-xl font-semibold text-gray-700">身体情報</legend>
+      <%= f.fields_for :body_info, current_user do |bf| %>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+          <div>
+            <%= bf.label :age, "年齢", class: "block text-lg text-gray-700 font-medium mb-2" %>
+            <%= bf.number_field :age, min: 0, value: current_user.age, class: "w-full p-3 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+          <div>
+            <%= bf.label :gender, "性別", class: "block text-lg text-gray-700 font-medium mb-2" %>
+            <%= bf.select :gender, [["男性", "male"], ["女性", "female"]], include_blank: true, selected: current_user.gender, class: "w-full p-3 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+          <div>
+            <%= bf.label :height, "身長 (cm)", class: "block text-lg text-gray-700 font-medium mb-2" %>
+            <%= bf.number_field :height, min: 0, value: current_user.height, class: "w-full p-3 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+          <div>
+            <%= bf.label :weight, "体重 (kg)", class: "block text-lg text-gray-700 font-medium mb-2" %>
+            <%= bf.number_field :weight, min: 0, value: current_user.weight, class: "w-full p-3 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+        </div>
+      <% end %>
+    </fieldset>
+
+    <!-- 料理の複雑度 -->
+    <fieldset class="border border-gray-300 p-6 rounded-lg">
+      <legend class="text-xl font-semibold text-gray-700">料理の複雑度</legend>
+      <div class="mt-4">
+        <%= f.label :recipe_complexity, "料理の複雑度", class: "block text-lg text-gray-700 font-medium mb-2" %>
+        <%= f.select :recipe_complexity, [["簡単な料理", "簡単な料理"], ["指定なし", "指定なし"], ["手の込んだ料理", "手の込んだ料理"]], include_blank: true, class: "w-full p-3 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500" %>
       </div>
-      <div>
-        <%= bf.label :gender, "性別" %>
-        <%= bf.select :gender, [["男性", "male"], ["女性", "female"]], include_blank: true, selected: current_user.gender %>
+    </fieldset>
+
+    <!-- 具材情報 -->
+    <fieldset class="border border-gray-300 p-6 rounded-lg">
+      <legend class="text-xl font-semibold text-gray-700">具材情報</legend>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+        <div>
+          <%= f.label :ingredients_use, "使用したい具材 (カンマ区切り)", class: "block text-lg text-gray-700 font-medium mb-2" %>
+          <%= f.text_field :ingredients_use, name: "user[ingredients][use]", class: "w-full p-3 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500", placeholder: '例：鶏むね肉、ジャガイモ'%>
+        </div>
+        <div>
+          <%= f.label :ingredients_avoid, "避けたい具材 (カンマ区切り)", class: "block text-lg text-gray-700 font-medium mb-2" %>
+          <%= f.text_field :ingredients_avoid, name: "user[ingredients][avoid]", class: "w-full p-3 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500" %>
+        </div>
       </div>
-      <div>
-        <%= bf.label :height, "身長 (cm)" %>
-        <%= bf.number_field :height, min: 0, value: current_user.height %>
+    </fieldset>
+
+    <!-- 調味料 -->
+    <fieldset class="border border-gray-300 p-6 rounded-lg">
+      <legend class="text-xl font-semibold text-gray-700">調味料</legend>
+      <div class="mt-4">
+        <%= f.label :seasonings, "調味料の指定", class: "block text-lg text-gray-700 font-medium mb-2" %>
+        <%= f.select :seasonings, [["基本的な調味料", "基本的な調味料"], ["凝った調味料", "凝った調味料"]], include_blank: true, class: "w-full p-3 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500" %>
       </div>
-      <div>
-        <%= bf.label :weight, "体重 (kg)" %>
-        <%= bf.number_field :weight, min: 0, value: current_user.weight %>
+    </fieldset>
+
+    <!-- 要望 -->
+    <fieldset class="border border-gray-300 p-6 rounded-lg">
+      <legend class="text-xl font-semibold text-gray-700">要望</legend>
+      <div class="mt-4">
+        <%= f.label :preferences_goal, "料理の目的", class: "block text-lg text-gray-700 font-medium mb-2" %>
+        <%= f.text_field :preferences_goal, name: "user[preferences][goal]", class: "w-full p-3 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500", placeholder: '例：筋肉をつけたい' %>
       </div>
-    <% end %>
-  </fieldset>
+    </fieldset>
 
-  <fieldset>
-    <legend>料理の複雑度</legend>
-    <div>
-      <%= f.label :recipe_complexity, "料理の複雑度" %>
-      <%= f.select :recipe_complexity, [["簡単な料理", "簡単な料理"], ["指定なし", "指定なし"], ["手の込んだ料理", "手の込んだ料理"]], include_blank: true %>
+    <!-- 検索ボタン -->
+    <div class="text-center mt-6">
+      <%= f.submit "レシピを検索する", class: "w-full md:w-auto px-8 py-3 bg-blue-600 text-white text-lg font-bold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-200" %>
     </div>
-  </fieldset>
-
-  <fieldset>
-    <legend>具材情報</legend>
-    <div>
-      <%= f.label :ingredients_use, "使用したい具材 (カンマ区切り)" %>
-      <%= f.text_field :ingredients_use, name: "user[ingredients][use]" %>
-    </div>
-    <div>
-      <%= f.label :ingredients_avoid, "避けたい具材 (カンマ区切り)" %>
-      <%= f.text_field :ingredients_avoid, name: "user[ingredients][avoid]" %>
-    </div>
-  </fieldset>
-
-  <fieldset>
-    <legend>調味料</legend>
-    <div>
-      <%= f.label :seasonings, "調味料の指定" %>
-      <%= f.select :seasonings, [["基本的な調味料", "基本的な調味料"], ["凝った調味料", "凝った調味料"]], include_blank: true %>
-    </div>
-  </fieldset>
-
-  <fieldset>
-    <legend>要望</legend>
-    <div>
-      <%= f.label :preferences_goal, "料理の目的" %>
-      <%= f.text_field :preferences_goal, name: "user[preferences][goal]" %>
-    </div>
-  </fieldset>
-
-  <div>
-    <%= f.submit "レシピを検索する" %>
-  </div>
-<% end %>
+  <% end %>
 </div>
