@@ -430,26 +430,26 @@ DEPENDENCIES
   bootsnap
   brakeman
   capybara
-  cssbundling-rails
+  cssbundling-rails (~> 1.4)
   debug
-  devise
+  devise (~> 4.9)
   dockerfile-rails (>= 1.7)
-  dotenv-rails
+  dotenv-rails (~> 3.1)
   factory_bot_rails
   faker
-  foreman
-  httparty
+  foreman (~> 0.88)
+  httparty (~> 0.22)
   importmap-rails
   jbuilder
-  omniauth
-  omniauth-google-oauth2
-  omniauth-rails_csrf_protection
+  omniauth (~> 2.1)
+  omniauth-google-oauth2 (~> 1.2)
+  omniauth-rails_csrf_protection (~> 1.0)
   pg (~> 1.1)
   pry-byebug
   puma (>= 5.0)
   rails (~> 7.2.2, >= 7.2.2.1)
-  ransack
-  redis
+  ransack (~> 4.2)
+  redis (~> 5.3)
   rspec-rails
   rubocop-rails-omakase
   selenium-webdriver

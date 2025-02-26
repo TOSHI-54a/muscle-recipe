@@ -30,12 +30,12 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
-gem "devise"
-gem "redis"
-gem "cssbundling-rails"
-gem "foreman"
-gem "httparty"
-gem "dotenv-rails"
+gem "devise", "~> 4.9"
+gem "redis", "~> 5.3"
+gem "cssbundling-rails", "~> 1.4"
+gem "foreman", "~> 0.88"
+gem "httparty", "~> 0.22"
+gem "dotenv-rails", "~> 3.1"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -67,9 +67,9 @@ group :test do
 end
 
 gem "tailwindcss-rails", "~> 3.3"
-gem "ransack"
+gem "ransack", "~> 4.2"
 
 gem "dockerfile-rails", ">= 1.7", group: :development
-gem "omniauth"
-gem "omniauth-google-oauth2"
-gem "omniauth-rails_csrf_protection"
+gem "omniauth", "~> 2.1"
+gem "omniauth-google-oauth2", "~> 1.2"
+gem "omniauth-rails_csrf_protection", "~> 1.0"
