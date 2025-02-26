@@ -2,7 +2,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     skip_before_action :verify_authenticity_token, raise: false
 
     def google_oauth2
-
         callback_for(:google)
     end
 
@@ -26,7 +25,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         Rails.logger.debug "🔍 OmniAuth Params: #{request.env['omniauth.params'].inspect}"
         Rails.logger.debug "🔍 CSRF Token : #{params[:g_csrf_token].inspect}"
         Rails.logger.debug "🔍 CSRF Token from cookies: #{cookies['g_csrf_token'].inspect}"
-        
+
         redirect_to root_path, alert: "Authentication failed, please try again."
     end
 

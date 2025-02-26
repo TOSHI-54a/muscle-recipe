@@ -274,7 +274,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"], {
-    scope: 'userinfo.email, userinfo.profile',
+    scope: "userinfo.email, userinfo.profile",
     prompt: "select_account",
     redirect_uri: "http://localhost:3000/users/auth/google_oauth2/callback",
     access_type: "offline",
@@ -282,7 +282,7 @@ Devise.setup do |config|
   }
   config.omniauth_path_prefix = "/users/auth"
 
-  OmniAuth.config.allowed_request_methods = [:get]
+  OmniAuth.config.allowed_request_methods = [ :get ]
   OmniAuth.config.silence_get_warning = true
 
 
