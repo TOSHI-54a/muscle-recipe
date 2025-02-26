@@ -12,13 +12,16 @@ class ChatRoomsController < ApplicationController
 
         if room_type == "private" && user_id.present?
             other_user = User.find_by(id: user_id)
-            if other_user
-                chat_room = ChatRoom.find_or_create_by(room_type: "private") do |room|
-                    room.users << [ current_user, other_user ]
-                end
-            else
-                flash[:alert] = "User not found"
+            if other_user.nil?
+                flash[:alert] = "ユーザーが見つかりません"
                 return redirect_to chat_rooms_path
+            end
+            # ユーザーのIDをソートして一意の識別キーを作成（3-5 なら "3-5"）
+            user_ids = [ current_user.id, other_user.id ].sort.join("-")
+            chat_room = ChatRoom.find_or_create_by(room_type: "private", unique_key: user_ids)
+            # もし部屋が新規作成された場合、2人のユーザーを登録
+            unless chat_room.users.include?(current_user) && chat_room.users.include?(other_user)
+                chat_room.users << [ current_user, other_user ]
             end
         elsif room_type == "group"
             chat_room = ChatRoom.create!(room_type: "group", name: chat_name.presence || "Unnamed Group")
@@ -27,7 +30,6 @@ class ChatRoomsController < ApplicationController
             flash[:alert] = "部屋の選択が無効です"
             return redirect_to chat_rooms_path
         end
-
         redirect_to chat_room_path(chat_room)
     end
 

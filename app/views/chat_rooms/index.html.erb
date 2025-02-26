@@ -19,7 +19,7 @@
   <!-- 参加ユーザーの選択 (1on1なら1人、グループなら0人以上) -->
   <div id="one-on-one-field" class="mt-2">
     <label for="user_id">Enter User ID:</label>
-    <input type="text" name="user_id" id="user_id" class="border p-2 rounded-md w-full" placeholder="Enter user ID">
+    <input type="number" name="user_id" id="user_id" class="border p-2 rounded-md w-full" placeholder="Enter user ID">
   </div>
 
   <%= f.submit "Create Chat", class: "bg-blue-500 text-white px-4 py-2 rounded-md mt-2" %>

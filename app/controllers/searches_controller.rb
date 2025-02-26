@@ -75,7 +75,7 @@ class SearchesController < ApplicationController
   def destroy
     if @show_recipe.destroy!
       flash[:success] = "削除成功!"
-      redirect_to saved_searches_path, success: "削除成功！!!!"
+      redirect_to saved_searches_path
     else
       render :saved, status: :unprocessable_entity
     end
