@@ -66,7 +66,7 @@ group :test do
   gem "faker"
 end
 
-gem "tailwindcss-rails", "~> 3.3"
+gem "tailwindcss-rails", "~> 4.1"
 gem "ransack", "~> 4.2"
 
 gem "dockerfile-rails", ">= 1.7", group: :development
