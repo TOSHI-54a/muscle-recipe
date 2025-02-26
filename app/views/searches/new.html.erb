@@ -8,6 +8,7 @@
       <legend class="text-xl font-semibold text-gray-700">身体情報</legend>
       <%= f.fields_for :body_info, current_user do |bf| %>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+        <% if user_signed_in? %>
           <div>
             <%= bf.label :age, "年齢", class: "block text-lg text-gray-700 font-medium mb-2" %>
             <%= bf.number_field :age, min: 0, value: current_user.age, class: "w-full p-3 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500" %>
@@ -24,6 +25,24 @@
             <%= bf.label :weight, "体重 (kg)", class: "block text-lg text-gray-700 font-medium mb-2" %>
             <%= bf.number_field :weight, min: 0, value: current_user.weight, class: "w-full p-3 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500" %>
           </div>
+        <% else %>
+          <div>
+            <%= bf.label :age, "年齢", class: "block text-lg text-gray-700 font-medium mb-2" %>
+            <%= bf.number_field :age, min: 0, class: "w-full p-3 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+          <div>
+            <%= bf.label :gender, "性別", class: "block text-lg text-gray-700 font-medium mb-2" %>
+            <%= bf.select :gender, [["男性", "male"], ["女性", "female"]], include_blank: true, class: "w-full p-3 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+          <div>
+            <%= bf.label :height, "身長 (cm)", class: "block text-lg text-gray-700 font-medium mb-2" %>
+            <%= bf.number_field :height, min: 0, class: "w-full p-3 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+          <div>
+            <%= bf.label :weight, "体重 (kg)", class: "block text-lg text-gray-700 font-medium mb-2" %>
+            <%= bf.number_field :weight, min: 0, class: "w-full p-3 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+        <% end %>
         </div>
       <% end %>
     </fieldset>
