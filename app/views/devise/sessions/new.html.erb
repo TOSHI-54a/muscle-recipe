@@ -23,23 +23,7 @@
   </div>
 <% end %>
 
-<div>
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <div id="g_id_onload"
-    data-client_id="<%= ENV['GOOGLE_CLIENT_ID'] %>"
-    data-ux_mode="popup"
-    data-login_uri="http://localhost:3000/users/auth/google_oauth2/callback"
-    data-auto_prompt="false">
-  </div>
-  <div class="g_id_signin"
-    data-type="standard"
-    data-size="large"
-    data-theme="outline"
-    data-text="sign_in_with"
-    data-shape="rectangular"
-    data-logo_alignment="left">
-  </div>
-  <p>ID: <%= ENV['GOOGLE_CLIENT_ID'] %></p> 
-</div>
+<%= link_to "Googleでログイン", user_google_oauth2_omniauth_authorize_path, class: "btn btn-primary" %>
+
 
 <%= render "devise/shared/links" %>
