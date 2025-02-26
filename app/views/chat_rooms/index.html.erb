@@ -4,7 +4,7 @@
   <!-- プルダウンで `private` or `group` を選択 -->
   <div>
     <label for="room_type" class="block mb-2 text-sm font-medium text-gray-900">Select Room Type:</label>
-    <select name="room_type" id="room_type" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500">
+    <select name="room_type" id="room_type" class="border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-blue dark:focus:ring-blue-500">
       <option value="private">1-on-1 Chat</option>
       <option value="group">Group Chat</option>
     </select>
@@ -29,7 +29,7 @@
 <h3 class="text-lg font-semibold mt-6">My Chat Rooms</h3>
 <ul class="mt-2">
   <% @chat_rooms.each do |chat_room| %>
-    <li class="p-2 border rounded-md my-1">
+    <li class="p-2 rounded-md my-1">
       <% other_user = chat_room.users.where.not(id: current_user.id).first %>
       <%= link_to (other_user.name), chat_room_path(chat_room), class: "text-blue-500" %>
     </li>
@@ -39,7 +39,7 @@
 <h3 class="text-lg font-semibold mt-6">Opne Chat Rooms</h3>
 <ul class="mt-2">
   <% @open_chat_rooms.each do |chat_room| %>
-    <li class="p-2 border rounded-md my-1">
+    <li class="p-2 rounded-md my-1">
       <%= link_to (chat_room.name.present? ? chat_room.name : chat_room.room_type.capitalize), chat_room_path(chat_room), class: "text-blue-500" %>
     </li>
   <% end %>

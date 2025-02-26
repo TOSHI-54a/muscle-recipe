@@ -1,15 +1,14 @@
 <header class="h-16">
 <nav class="bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-600">
-  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+  <div class="max-w-screen-xl h-16 flex flex-wrap items-center justify-between mx-auto p-4">
   <%= link_to root_path, class: "flex items-center space-x-3 rtl:space-x-reverse" do %>
       <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo">
-      <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">MUSLE RECIPE</span>
+      <span class="self-center text-2xl font-semibold whitespace-nowrap sm:h-6 dark:text-white">MUSLE RECIPE</span>
   <% end %>
   <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
       <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         <% if user_signed_in? %>
-          <%= link_to "#{current_user.name}様", user_path(current_user) %> /
-          <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %>
+          <%= link_to "#{current_user.name}様", user_path(current_user) %>
         <% else %>
           <%= link_to "ログイン", new_user_session_path %>
         <% end %>
@@ -27,15 +26,16 @@
         <%= link_to "AIレシピ検索", new_search_path, class: "block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" %>
       </li>
       <li>
-        <%= link_to "私のレシピ", saved_searches_path, class: "block py-2 px-3 text-white rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" %>
+        <%= link_to "myレシピ", saved_searches_path, class: "block py-2 px-3 text-white rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" %>
       </li>
       <li>
       <%= link_to "チャットルーム", chat_rooms_path, class: "block py-2 px-3 text-white rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" %>
       </li>
       <li>
-        <a href="#" class="block py-2 px-3 text-white rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
-      </li>
-    </ul>
+        <% if user_signed_in? %>
+          <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "block py-2 px-3 text-white rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" %>
+        <% end %>
+      </ul>
   </div>
   </div>
 </nav>
