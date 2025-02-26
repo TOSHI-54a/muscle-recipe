@@ -1,43 +1,4 @@
 <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
 
-  <div class="p-6 space-y-4">
-    <h1 class="text-2xl font-bold text-gray-900">レシピ詳細</h1>
-
-    <% if @show_recipe.response_data.present? && @show_recipe.response_data["recipe"].present? %>
-      <h2 class="text-xl font-semibold text-blue-600"><%= @show_recipe.response_data["recipe"]["title"] || "タイトルなし" %></h2>
-      <p class="text-gray-700"><%= @show_recipe.response_data["recipe"]["description"] || "説明なし" %></p>
-
-      <h3 class="text-lg font-semibold text-gray-800 mt-4">材料</h3>
-      <ul class="grid grid-cols-2 gap-2">
-        <% @show_recipe.response_data["recipe"]["ingredients"]&.each do |ingredient| %>
-          <li class="bg-gray-100 p-2 rounded-md shadow-sm">
-            <span class="font-medium"><%= ingredient['name'] %></span>: <%= ingredient['amount'] %>
-          </li>
-        <% end %>
-      </ul>
-
-      <h3 class="text-lg font-semibold text-gray-800 mt-4">作り方</h3>
-      <ol class="list-decimal list-inside space-y-2">
-        <% @show_recipe.response_data["recipe"]["steps"]&.each do |step| %>
-          <li class="bg-gray-50 p-2 rounded-md shadow-sm"><%= step %></li>
-        <% end %>
-      </ol>
-      <h3 class="text-lg font-semibold text-gray-800 mt-4">カロリーPFC</h3>
-        <% if @show_recipe.response_data["recipe"]["nutrition"].present? %>
-          <% nutrition = @show_recipe.response_data["recipe"]["nutrition"] %>
-            <h5>カロリー: <%= nutrition["calories"] %>、脂質: <%= nutrition['fat'] %>、タンパク質: <%= nutrition["protein"] %>、炭水化物: <%= nutrition["carbohydrates"] %></h5>
-        <% else %>
-          <h5>情報がありません</h5>
-        <% end %>
-    <% else %>
-      <p class="text-red-500 font-medium">レシピデータがありません</p>
-    <% end %>
-
-    <div class="flex justify-between items-center mt-6">
-      <%= link_to "一覧に戻る", saved_searches_path, class: "px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition" %>
-      <% if @show_recipe.user_id == current_user.id %>
-        <%= button_to "削除", search_path(@show_recipe), method: :delete, data: { turbo_confirm: '削除しますか？' }, class: "mt-2 rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium" %>
-      <% end %>
-    </div>
-  </div>
+  <%= render 'recipe' %>
 </div>
