@@ -6,6 +6,8 @@ class SearchesController < ApplicationController
   def new
     @search_recipes = SearchRecipe.new
     @user = current_user
+    @guest_recipe = session[:guest_recipe]
+    session.delete(:guest_recipe)
   end
 
   def show; end
@@ -22,18 +24,24 @@ class SearchesController < ApplicationController
     recipe_response = ChatGptService.new.fetch_recipe(prompt)
     # Rails.logger.debug "ChatGPT API Response: #{recipe_response.inspect}"
     if recipe_response.present?
-      @show_recipe = SearchRecipe.create!(
-        user: current_user,
-        query: prompt,
-        search_time: Time.current,
-        response_data: recipe_response
-      )
+      if current_user
+        @show_recipe = SearchRecipe.create!(
+          user: current_user,
+          query: prompt,
+          search_time: Time.current,
+          response_data: recipe_response
+        )
 
-      # Rails.logger.debug "保存後のSearchRecipe: #{@show_recipe.inspect}"
-      # Rails.logger.debug "保存後のresponse_data: #{@show_recipe.response_data.inspect}"
+        # Rails.logger.debug "保存後のSearchRecipe: #{@show_recipe.inspect}"
+        # Rails.logger.debug "保存後のresponse_data: #{@show_recipe.response_data.inspect}"
 
-      # @recommendation = recipe_response
-      redirect_to search_path(@show_recipe)
+        # @recommendation = recipe_response
+        redirect_to search_path(@show_recipe)
+      else
+        session[:guest_recipe] = recipe_response
+        flash.now[:notice] = "レシピは保存されません。"
+        redirect_to new_search
+      end
     else
       Rails.logger.debug("ChatGPT APIからのレスポンスが無効: #{recipe_response.inspect}")
       flash[:error] = "レシピの取得に失敗しました。もう一度お試しください。"
