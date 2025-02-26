@@ -2,18 +2,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     skip_before_action :verify_authenticity_token, raise: false
 
     def google_oauth2
-        Rails.logger.debug "OmniAuth Params: #{request.env['omniauth.params'].inspect}"
-        Rails.logger.debug "CSRF Token : #{params[:g_csrf_token]}"
-        Rails.logger.debug "CSRF Token from params: #{params[:g_csrf_token]}"
-        Rails.logger.debug "CSRF Token from cookies: #{cookies['g_csrf_token']}"
-        # 手動でstateを確認
-        if session[:omniauth_state] != params[:state]
-            Rails.logger.debug "セッション: #{session[:omniauth_state]}"
-            Rails.logger.debug "パラむず: #{params[:state]}"
-            Rails.logger.debug "ダメでした"
-            redirect_to root_path, alert: "CSRF検証に失敗しました。"
-            return
-        end
+
         callback_for(:google)
     end
 
@@ -30,12 +19,15 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     def failure
-        Rails.logger.debug "Session State: #{session[:omniauth_state]}"
-        Rails.logger.debug "Request State: #{params[:state]}"
-        Rails.logger.debug "OmniAuth Params: #{request.env['omniauth.params'].inspect}"
-        Rails.logger.debug "CSRF Token : #{params[:g_csrf_token]}"
-        Rails.logger.debug "CSRF Token from cookies: #{cookies['g_csrf_token']}"
-        redirect_to root_path, alert: "Authentication faild, please try again."
+        Rails.logger.debug "🚨 OmniAuth Failure Called"
+        Rails.logger.debug "🔍 トークン: #{request.env["omniauth.auth"].inspect}"
+        Rails.logger.debug "🔍 Session State: #{session[:omniauth_state].inspect}"
+        Rails.logger.debug "🔍 Request State: #{params[:state].inspect}"
+        Rails.logger.debug "🔍 OmniAuth Params: #{request.env['omniauth.params'].inspect}"
+        Rails.logger.debug "🔍 CSRF Token : #{params[:g_csrf_token].inspect}"
+        Rails.logger.debug "🔍 CSRF Token from cookies: #{cookies['g_csrf_token'].inspect}"
+        
+        redirect_to root_path, alert: "Authentication failed, please try again."
     end
 
     def passthru

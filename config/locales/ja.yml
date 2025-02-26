@@ -50,3 +50,7 @@ ja:
       timeout: "セッションがタイムアウトしました。再度ログインしてください。"
       inactive: "アカウントが無効です。"
       already_authenticated: "すでにログインしています。"
+
+    omniauth_callbacks:
+      success: "%{kind} アカウントでログインしました。"
+      failure: "%{kind} アカウントでのログインに失敗しました。"
