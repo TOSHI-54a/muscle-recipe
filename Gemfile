@@ -67,7 +67,7 @@ group :test do
 end
 
 gem "tailwindcss-rails", "~> 3.3"
-gem "ransack", "~> 4.2"
+gem "ransack", "~> 4.3"
 
 gem "dockerfile-rails", ">= 1.7", group: :development
 gem "omniauth", "~> 2.1"
