@@ -4,7 +4,4 @@
   <h1 class="font-bold text-4xl">ユーザー登録</h1>
 
   <%= render "form", user: @user %>
-  <%= button_to "Sign in with Facebook", user_google_oauth2_omniauth_authorize_path, data: { turbo: false } %>
-
-  <%= link_to "ユーザー一覧", users_path, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
 </div>
