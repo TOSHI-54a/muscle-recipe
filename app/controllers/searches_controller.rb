@@ -1,12 +1,21 @@
 class SearchesController < ApplicationController
+  before_action :search_count, only: %i[ new create ]
   before_action :check_search_limit, only: :create
   before_action :set_show, only: %i[show destroy]
   skip_before_action :authenticate_user!, only: %i[ new create show ]
 
   def new
     @search_recipes = SearchRecipe.new
-    @user = current_user
-    @guest_recipe = session[:guest_recipe]
+    @user = current_user || (flash[:alert] = "⚠️注意：ゲストの検索回数は1日一回です！")
+    if session[:guest_recipe]
+      @guest_recipe = OpenStruct.new(
+        id: nil,
+        user_id: nil,
+        query: session[:guest_recipe][:query],
+        search_time: Time.current,
+        response_data: session[:guest_recipe]
+      )
+    end
     session.delete(:guest_recipe)
   end
 
@@ -16,15 +25,15 @@ class SearchesController < ApplicationController
   end
 
   def create
-    # Rails.logger.debug "Received !params: #{params.inspect}"
-
+    if current_user.nil? && session[:guest_searched]
+      flash[:alert] = "ゲストの検索回数は1日一回です。"
+      redirect_to new_user_path and return
+    end
     prompt = recipe_params
-    # Rails.logger.debug "Filtered !params: #{prompt.inspect}"
-
     recipe_response = ChatGptService.new.fetch_recipe(prompt)
-    # Rails.logger.debug "ChatGPT API Response: #{recipe_response.inspect}"
     if recipe_response.present?
       if current_user
+        SearchLog.create!(user_id: current_user.id, search_time: Time.current)
         @show_recipe = SearchRecipe.create!(
           user: current_user,
           query: prompt,
@@ -38,9 +47,10 @@ class SearchesController < ApplicationController
         # @recommendation = recipe_response
         redirect_to search_path(@show_recipe)
       else
+        SearchLog.create!(ip_address: request.remote_ip, search_time: Time.current)
         session[:guest_recipe] = recipe_response
         flash.now[:notice] = "レシピは保存されません。"
-        redirect_to new_search
+        redirect_to new_search_path
       end
     else
       Rails.logger.debug("ChatGPT APIからのレスポンスが無効: #{recipe_response.inspect}")
@@ -74,18 +84,20 @@ class SearchesController < ApplicationController
 
   private
 
-  def check_search_limit
+  def search_count
     if current_user
       search_count = SearchLog.where(user_id: current_user.id, search_time: Date.current.all_day).count
-      max_limit = 100
+      @search_limit = 5 - search_count
     else
       search_count = SearchLog.where(ip_address: request.remote_ip, search_time: Date.current.all_day).count
-      max_limit = 100
+      @search_limit = 1 - search_count
     end
+  end
 
-    if search_count >= max_limit
+  def check_search_limit
+    if @search_count <= 0
       flash[:alert] = "1日に検索できる回数を超えました。"
-      render json: { status: "error", message: "Search limit reached for today" }, status: 403
+      redirect_to saved_searches_path
     end
   end
 
