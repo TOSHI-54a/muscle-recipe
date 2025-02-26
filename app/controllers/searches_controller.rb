@@ -1,7 +1,7 @@
 class SearchesController < ApplicationController
   before_action :check_search_limit, only: :create
   before_action :set_show, only: %i[show destroy]
-  skip_before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: %i[ new create show ]
 
   def new
     @search_recipes = SearchRecipe.new
