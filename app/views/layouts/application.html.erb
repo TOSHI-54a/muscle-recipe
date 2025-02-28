@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" class="h-full">
   <head>
+    <meta charset="UTF-8">
     <title><%= content_for(:title) || "Muscle Recipe" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="mobile-web-app-capable" content="yes">
@@ -16,16 +17,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.0/dist/tailwind.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.1/dist/flowbite.min.css" rel="stylesheet" />
     <%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload" %>
+    <%= favicon_link_tag asset_path('favicon32.png') %>
 
   </head>
 
-  <body class="bg-blue-100 text-sm sm:text-base">
-      <%= render 'shared/header' %>
-      <%= render 'shared/flash_messages' %>
+  <body class="flex flex-col min-h-screen bg-blue-100 text-sm sm:text-base"">
+    <%= render 'shared/header' %>
+    <%= render 'shared/flash_messages' %>
 
-    <main class="container mx-auto mt-28 px-5">
+    <main class="container mx-auto mt-28 px-5 flex-grow">
       <%= yield %>
     </main>
+    <%= render 'shared/footer' %>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.1/dist/flowbite.min.js"></script>
   </body>
 </html>
