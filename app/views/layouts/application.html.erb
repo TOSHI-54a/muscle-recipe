@@ -21,11 +21,11 @@
 
   </head>
 
-  <body class="flex flex-col min-h-screen bg-blue-100 text-sm sm:text-base"">
+  <body class="flex flex-col h-full bg-blue-100 text-sm sm:text-base">
     <%= render 'shared/header' %>
     <%= render 'shared/flash_messages' %>
 
-    <main class="container mx-auto mt-28 px-5 flex-grow">
+    <main class="container mx-auto mt-28 px-5 flex-1 pt-16">
       <%= yield %>
     </main>
     <%= render 'shared/footer' %>
