@@ -1,0 +1,36 @@
+<footer class="bg-gray-900 text-white py-6 mt-10">
+  <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col sm:flex-row justify-between items-center">
+      
+      <!-- 左側: ロゴとコピーライト -->
+      <div class="text-center sm:text-left mb-4 sm:mb-0">
+        <%= image_tag 'image96*96.png', class: "h-10 bg-white mx-auto sm:mx-0", alt: "サイトロゴ" %>
+        <p class="text-sm mt-2">&copy; <%= Time.current.year %> Muscle Recipe. All Rights Reserved.Icons by <a href='https://icons8.jp/'>Icons8</a></p>
+      </div>
+
+      <!-- 中央: ナビゲーションリンク -->
+      <nav class="mb-4 sm:mb-0">
+        <ul class="flex flex-wrap justify-center sm:justify-start space-x-4">
+          <li><%= link_to "ホーム", root_path, class: "hover:underline" %></li>
+          <li><%= link_to "AIレシピ検索", new_search_path, class: "hover:underline" %></li>
+          <li><%= link_to "マイレシピ", saved_searches_path, class: "hover:underline" %></li>
+          <li><%= link_to "チャットルーム", chat_rooms_path, class: "hover:underline" %></li>
+        </ul>
+      </nav>
+
+      <!-- 右側: ソーシャルメディア -->
+      <div class="flex space-x-4">
+        <a href="https://twitter.com" target="_blank" class="hover:text-blue-400">
+          <i class="fab fa-twitter text-xl"></i>
+        </a>
+        <a href="https://facebook.com" target="_blank" class="hover:text-blue-600">
+          <i class="fab fa-facebook text-xl"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" class="hover:text-pink-500">
+          <i class="fab fa-instagram text-xl"></i>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</footer>
