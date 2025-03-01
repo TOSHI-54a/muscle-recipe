@@ -44,7 +44,7 @@
     <fieldset class="border border-gray-300 p-4 sm:p-6 rounded-lg">
       <legend class="font-semibold text-gray-700">具材情報</legend>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-        <% { "使用したい具材" => "ingredients_use", "避けたい具材" => "ingredients_avoid" }.each do |label, name| %>
+        <% { "使いたい具材" => "ingredients_use", "避けたい具材" => "ingredients_avoid" }.each do |label, name| %>
           <div>
             <%= f.label name, label, class: "block text-gray-700 font-medium mb-1" %>
             <%= f.text_field name, name: "user[ingredients][#{name.split('_').last}]", class: "w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500", placeholder: '例：鶏むね肉、ジャガイモ' %>
@@ -65,7 +65,7 @@
     <fieldset class="border border-gray-300 p-4 sm:p-6 rounded-lg">
       <legend class="font-semibold text-gray-700">要望</legend>
       <div class="mt-4">
-        <%= f.label :preferences_goal, "料理の目的", class: "block text-gray-700 font-medium mb-1" %>
+        <%= f.label :preferences_goal, "料理の目的等", class: "block text-gray-700 font-medium mb-1" %>
         <%= f.text_field :preferences_goal, name: "user[preferences][goal]", class: "w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500", placeholder: '例：筋肉をつけたい' %>
       </div>
     </fieldset>
