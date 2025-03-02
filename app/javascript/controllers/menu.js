@@ -7,6 +7,7 @@ document.addEventListener("turbo:load", () => {
         const expanded = toggleButton.getAttribute("aria-expanded") === "true";
         toggleButton.setAttribute("aria-expanded", !expanded);
         navbarMenu.classList.toggle("hidden");
+        console.log('menu!')
       });
     }
   });
