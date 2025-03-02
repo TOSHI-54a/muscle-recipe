@@ -144,10 +144,6 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
-    importmap-rails (2.1.0)
-      actionpack (>= 6.0.0)
-      activesupport (>= 6.0.0)
-      railties (>= 6.0.0)
     io-console (0.8.0)
     irb (1.15.1)
       pp (>= 0.6.0)
@@ -439,7 +435,6 @@ DEPENDENCIES
   faker
   foreman (~> 0.88)
   httparty (~> 0.22)
-  importmap-rails
   jbuilder
   omniauth (~> 2.1)
   omniauth-google-oauth2 (~> 1.2)
