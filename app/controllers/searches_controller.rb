@@ -87,7 +87,7 @@ class SearchesController < ApplicationController
   def search_count
     if current_user
       search_count = SearchLog.where(user_id: current_user.id, search_time: Date.current.all_day).count
-      @search_limit = 5 - search_count
+      @search_limit = 50 - search_count
     else
       search_count = SearchLog.where(ip_address: request.remote_ip, search_time: Date.current.all_day).count
       @search_limit = 1 - search_count
@@ -95,7 +95,7 @@ class SearchesController < ApplicationController
   end
 
   def check_search_limit
-    if @search_count <= 0
+    if @search_limit <= 0
       flash[:alert] = "1日に検索できる回数を超えました。"
       redirect_to saved_searches_path
     end
