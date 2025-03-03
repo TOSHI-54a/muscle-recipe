@@ -276,7 +276,7 @@ Devise.setup do |config|
   config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"], {
     scope: "userinfo.email, userinfo.profile",
     prompt: "select_account",
-    redirect_uri: "http://localhost:3000/users/auth/google_oauth2/callback",
+    redirect_uri: Rails.env.production? ? ENV["GOOGLE_REDIRECT_URI_PROD"] : "http://localhost:3000/users/auth/google_oauth2/callback",
     access_type: "offline",
     provider_ignores_state: false
   }
