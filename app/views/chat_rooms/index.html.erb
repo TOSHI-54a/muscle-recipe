@@ -27,23 +27,31 @@
 
 <!-- チャットルーム一覧 -->
 <h3 class="text-lg font-semibold mt-6">My Chat Rooms</h3>
-<ul class="mt-2">
-  <% @chat_rooms.each do |chat_room| %>
-    <li class="p-2 rounded-md my-1">
-      <% other_user = chat_room.users.where.not(id: current_user.id).first %>
-      <%= link_to (other_user.name), chat_room_path(chat_room), class: "text-blue-500" %>
-    </li>
+  <ul class="mt-2">
+  <% if @chat_rooms.present? %>
+    <% @chat_rooms.each do |chat_room| %>
+      <li class="p-2 rounded-md my-1">
+        <% other_user = chat_room.users.where.not(id: current_user.id).first %>
+        <% if other_user.present? %>
+          <%= link_to (other_user.name), chat_room_path(chat_room), class: "text-blue-500" %>
+        <% else %>
+          <span class='text-gray-500'>チャット相手がいません</span>
+        <% end %>
+      </li>
+    <% end %>
+  <% else %>
+    <span class='text-gray-500'>チャット相手がいません</span>
   <% end %>
-</ul>
+  </ul>
 
-<h3 class="text-lg font-semibold mt-6">Opne Chat Rooms</h3>
-<ul class="mt-2">
-  <% @open_chat_rooms.each do |chat_room| %>
-    <li class="p-2 rounded-md my-1">
-      <%= link_to (chat_room.name.present? ? chat_room.name : chat_room.room_type.capitalize), chat_room_path(chat_room), class: "text-blue-500" %>
-    </li>
-  <% end %>
-</ul>
+  <h3 class="text-lg font-semibold mt-6">Opne Chat Rooms</h3>
+  <ul class="mt-2">
+    <% @open_chat_rooms.each do |chat_room| %>
+      <li class="p-2 rounded-md my-1">
+        <%= link_to (chat_room.name.present? ? chat_room.name : chat_room.room_type.capitalize), chat_room_path(chat_room), class: "text-blue-500" %>
+      </li>
+    <% end %>
+  </ul>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {

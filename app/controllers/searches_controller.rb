@@ -29,7 +29,7 @@ class SearchesController < ApplicationController
       flash[:alert] = "ゲストの検索回数は1日一回です。"
       redirect_to new_user_path and return
     end
-    prompt = recipe_params
+    prompt = recipe_params.to_json
     recipe_response = ChatGptService.new.fetch_recipe(prompt)
     if recipe_response.present?
       if current_user
