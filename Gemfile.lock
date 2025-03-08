@@ -288,7 +288,7 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.2.1)
-    ransack (4.2.1)
+    ransack (4.3.0)
       activerecord (>= 6.1.5)
       activesupport (>= 6.1.5)
       i18n
@@ -443,7 +443,7 @@ DEPENDENCIES
   pry-byebug
   puma (>= 5.0)
   rails (~> 7.2.2, >= 7.2.2.1)
-  ransack (~> 4.2)
+  ransack (~> 4.3)
   redis (~> 5.3)
   rspec-rails
   rubocop-rails-omakase
