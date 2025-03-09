@@ -35,7 +35,9 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: yarn install
+        run: |
+          bundle check || bundle install
+          yarn install
 
       - name: Build assets with ESBuild
         run: bin/rails assets:precompile
