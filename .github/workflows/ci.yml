@@ -46,7 +46,7 @@ jobs:
           yarn install
 
       - name: Build assets with ESBuild
-        run: bin/rails assets:precompile
+        run: yarn build
         # run: bin/importmap audit
 
   lint:

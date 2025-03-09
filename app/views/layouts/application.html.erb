@@ -11,17 +11,16 @@
     <%= yield :head %>
 
     <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="icon" href="/images/favicon32.png" type="image/png">
+    <link rel="icon" href="/images/favicon32.png" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/images/favicon32.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.0/dist/tailwind.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.1/dist/flowbite.min.css" rel="stylesheet" />
     <%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload" %>
-    <%= favicon_link_tag asset_path('favicon32.png') %>
 
   </head>
 
-  <body class="flex flex-col h-full text-sm sm:text-base bg-cover bg-center bg-fixed bg-no-repeat" style="background-image: url('/assets/chef.png');">
+  <body class="flex flex-col h-full text-sm sm:text-base bg-cover bg-center bg-fixed bg-no-repeat" style="background-image: url('/images/chef.png');">
     <%= render 'shared/header' %>
     <%= render 'shared/flash_messages' %>
 
