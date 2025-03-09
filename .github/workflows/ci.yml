@@ -32,10 +32,21 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: .ruby-version
-          bundler-cache: true
+            ruby-version: .ruby-version
+            bundler-cache: true
 
-      - name: Scan for security vulnerabilities in JavaScript dependencies
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: |
+          bundle check || bundle install
+          yarn install
+
+      - name: Build assets with ESBuild
+        run: yarn build
         # run: bin/importmap audit
 
   lint:

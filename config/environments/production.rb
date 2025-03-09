@@ -21,20 +21,21 @@ Rails.application.configure do
   # config.require_master_key = true
 
   # Disable serving static files from `public/`, relying on NGINX/Apache to do so instead.
-  # config.public_file_server.enabled = false
+  config.public_file_server.enabled = true
 
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
 
   # Do not fall back to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
+  config.assets.js_compressor = nil
   config.assets.digest = true
   config.public_file_server.enabled = true
   # ESBuild でビルドしたファイルをアセットとして認識させる
   config.assets.paths << Rails.root.join("app/assets/builds")
 
   # Sprockets でビルドしたファイルをプリコンパイル対象にする
-  config.assets.precompile += [ "application.js" ]
+  # config.assets.precompile += [ "application.js" ]
 
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
