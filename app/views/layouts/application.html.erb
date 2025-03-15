@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" class="h-full">
+<html lang="ja">
   <head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-81BCFY3M2D"></script>
     <script>
@@ -22,17 +22,17 @@
     <link rel="icon" href="/images/favicon32.png" type="image/png">
     <link rel="icon" href="/images/favicon32.png" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/images/favicon32.png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.0/dist/tailwind.min.css" />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.1/dist/flowbite.min.css" rel="stylesheet" />
     <%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload" %>
 
   </head>
 
-  <body class="flex flex-col h-full text-sm sm:text-base bg-cover bg-center bg-fixed bg-no-repeat" style="background-image: url('/images/chef.png');">
+  <body class="flex flex-col min-h-screen text-sm sm:text-base bg-cover bg-center bg-fixed bg-no-repeat" style="background-image: url('/images/chef.png');">
     <%= render 'shared/header' %>
     <%= render 'shared/flash_messages' %>
 
-    <main class="container mx-auto mt-28 px-5 flex-1 pt-16">
+    <main class="container mx-auto px-5 flex-1 pt-16">
       <%= yield %>
     </main>
     <%= render 'shared/footer' %>
