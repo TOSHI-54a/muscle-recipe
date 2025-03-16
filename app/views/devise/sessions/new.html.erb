@@ -25,8 +25,17 @@
       </div>
     <% end %>
 
+    <div class="relative flex items-center my-4">
+      <div class="flex-grow border-t border-gray-300"></div>
+      <span class="mx-2 text-gray-500">or</span>
+      <div class="flex-grow border-t border-gray-300"></div>
+    </div>
+
     <div class="mt-4">
-      <%= link_to "Googleでログイン", user_google_oauth2_omniauth_authorize_path, class: "w-full flex items-center justify-center bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition" %>
+      <%= link_to user_google_oauth2_omniauth_authorize_path, class: "w-full flex items-center justify-center bg-white text-black py-2 px-4 rounded-lg hover:bg-green-300 transition border-1 border-green-500" do %>
+        <img src='/images/google32.png' alt="google_login" >
+        <span class="ml-2">Googleでログイン</span>
+      <% end %>
     </div>
 
     <div class="mt-4 text-center">
