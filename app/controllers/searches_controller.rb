@@ -85,13 +85,16 @@ class SearchesController < ApplicationController
   private
 
   def search_count
+    real_ip = request.env["HTTP_X_FORWARDED_FOR"]&.split(",")&.first || request.remote_ip
+
     if current_user
       search_count = SearchLog.where(user_id: current_user.id, search_time: Date.current.all_day).count
       @search_limit = 50 - search_count
     else
-      search_count = SearchLog.where(ip_address: request.remote_ip, search_time: Date.current.all_day).count
+      search_count = SearchLog.where(ip_address: real_ip, search_time: Date.current.all_day).count
       @search_limit = 1 - search_count
     end
+
   end
 
   def check_search_limit
