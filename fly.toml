@@ -4,7 +4,7 @@
 #
 
 app = 'muscle-recipe-cold-cherry-7290'
-primary_region = 'ams'
+primary_region = 'nrt'
 console_command = '/rails/bin/rails console'
 
 [build]
