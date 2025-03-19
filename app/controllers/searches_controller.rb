@@ -6,7 +6,7 @@ class SearchesController < ApplicationController
 
   def new
     @search_recipes = SearchRecipe.new
-    @user = current_user || (flash[:alert] = "⚠️注意：ゲストの検索回数は1日一回です！")
+    @user = current_user || (flash[:alert] = "⚠️注意：ゲストの検索回数は1日1回です！")
     if session[:guest_recipe]
       @guest_recipe = OpenStruct.new(
         id: nil,
@@ -26,7 +26,7 @@ class SearchesController < ApplicationController
 
   def create
     if current_user.nil? && session[:guest_searched]
-      flash[:alert] = "ゲストの検索回数は1日一回です。"
+      flash[:alert] = "ゲストの検索回数は1日1回です。"
       redirect_to new_user_path and return
     end
     prompt = recipe_params.to_json
