@@ -24,5 +24,5 @@
 #   # config.content_security_policy_report_only = true
 # end
 Rails.application.config.action_dispatch.default_headers.merge!(
-  'X-Frame-Options' => 'ALLOWALL'
+  "X-Frame-Options" => "ALLOWALL"
 )
