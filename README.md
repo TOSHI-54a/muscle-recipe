@@ -1,75 +1,78 @@
 # 🏋️ Muscle Recipe - トレーニー向けレシピ検索アプリ
 
+![検索フォームの操作デモ](public/images/Muscle-Recipe.png)
 ### 📌 概要
 
-* トレーニーや健康志向の方に向けて、**体型・目的・食材**からAIがレシピを推薦するWebアプリです。\
-「レシピを考えるのが面倒…」という課題をきっかけに開発しました。\
-![検索フォームの操作デモ](public/images/Muscle-Recipe.png)
+* トレーニングをする方や健康志向の方に向けて、**体型・食材・目的**からAIがレシピを提案するWebアプリです。\
+<br/>
 
----
+# 📱サービスリンク
+トライアル機能を実装しましたので、ユーザー登録せずにレシピ検索機能をお試しいただくこともできます。\
+[リンクはこちら](https://www.muscle-recipe.com)\
+<br/>
 
-### 📱URL
-[Muscle Recipe](https://www.muscle-recipe.com)
+# 💪サービスへの想い
+このアプリは、私自身の実体験をきっかけに生まれました。\
+筋トレに励む中で「食事の大切さ」は痛感していたものの、毎回レシピを考えたり探したりするのがとても面倒でした。\
+加えて、レシピ本で紹介されている料理は凝った調味料や珍しい食材を使用していることも少なくなく、日常的に取り入れるのが難しいと感じていました。\
+そこで私は、ユーザーの体型や性別、目的に合わせたレシピを簡単に探せるサービスがあれば、もっと効率的で楽に健康管理ができるのではと考えました。
 
----
+このアプリでは、
+  - ユーザーの身体情報（年齢・性別・身長・体重）に合わせた提案
+  - 使用したい or 避けたい具材の選択
+  - 「基本的な調味料」など、調味料の種類を選択可能
+  - PFCバランス（タンパク質・脂質・炭水化物）やカロリーも自動で表示
+  
+といった機能を実装しています。
 
-### 🎥 デモ
+### **~あなたは筋トレ、献立はAIに~**
 
-[![Image from Gyazo](https://i.gyazo.com/bcefc44580282c7fbf931addbee51ef9.gif)](https://gyazo.com/bcefc44580282c7fbf931addbee51ef9)
+この言葉をコンセプトに、毎日の食事をもっとシンプルに、そしてもっと“あなたに合った”ものにできるようサポートします。\
+<br/>
 
----
+# 🎥 デモ
 
-### 🛠 使用技術・ツール
+[![Image from Gyazo](https://i.gyazo.com/bcefc44580282c7fbf931addbee51ef9.gif)](https://gyazo.com/bcefc44580282c7fbf931addbee51ef9)\
+<br/>
+
+# 🛠 使用技術・ツール
 
 | 分類      | 使用技術                                             |
 | ------- | ------------------------------------------------ |
-| バックエンド | Ruby / Ruby on Rails 7 |
+| バックエンド  | Ruby / Ruby on Rails 7 |
 | フロントエンド | JavaScript |
-| CSS | TailwindCSS / Flowbite |
-| DB | PostgresSQL |
-| Web API | OpenAI(GPT-4o mini) |
-| バックエンド  | Ruby on Rails / Devise / Redis / PostgreSQL    |
-| インフラ    | Docker / Fly.io  |
-| 認証 | Devise / Google OAuth |
-| その他     | RSpec / Rubocop / dotenv / GitHub Action |
+| CSS           | TailwindCSS / Flowbite |
+| DB            | PostgresSQL |
+| Web API       | OpenAI(GPT-4o mini) |
+| バックエンド    | Ruby on Rails / Devise / Redis / PostgreSQL    |
+| インフラ      | Docker / Fly.io  |
+| 認証          | Devise / Google OAuth |
+| その他        | RSpec / Rubocop / dotenv / GitHub Action |\
+<br/>
 
----
-
-### 🔍 主な機能
+# 🔍 主な機能
 
 - ✅ AIレシピ検索 (OpenAI API連携)
 - ✅ ゲストでも1日1回だけ検索可能
 - ✅ レシピ保存機能 (ID連動)
 - ✅ Myレシピ一覧 + 検索 + 削除
 - ✅ チャット機能 (1on1 / グループ)
-- ✅ UI: レスポンシブル / ローディングアニメ
+- ✅ UI: レスポンシブル / ローディングアニメ  
+<br/>
 
----
-
-### ER図
-
+# ER図
 -
+\
+<br/>
 
----
-
-### 👤 ユーザーについて
+# 👤 ユーザーについて
 
 | 区分       | 内容                  |
 | -------- | ------------------- |
 | ゲストユーザー  | 1日1回までAI検索可能 (保存不可) |
-| ログインユーザー | 1日5回まで検索 + 保存可能     |
+| ログインユーザー | 1日5回まで検索 + 保存可能     |  
+<br/>
 
----
-
-### 🌱 今後追加予定
+# 🌱 今後追加予定
 
 - 保存レシピのSNSシェア機能
-
----
-
-### ✍️ 作成者コメント
-
-「人の健康を助ける」プロダクトを作っていきたいです。
-
-
----
