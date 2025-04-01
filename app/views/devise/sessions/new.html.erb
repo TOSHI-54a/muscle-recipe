@@ -40,6 +40,10 @@
 
     <div class="mt-4 text-center">
       <%= render "devise/shared/links" %>
+      <p class="text-sm text-gray-600">
+        パスワードを忘れた方は
+        <%= link_to "こちら", new_user_password_path, class: "text-blue-500 hover:underline" %>
+      </p>
     </div>
   </div>
 </div>
