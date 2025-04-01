@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :chat_rooms, only: %i[index show create destroy] do
     resources :messages, only: [ :create ]
   end
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   # ActionCable WebSocketのエンドポイント
   mount ActionCable.server => "/cable"
