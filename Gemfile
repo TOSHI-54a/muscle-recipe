@@ -36,6 +36,8 @@ gem "cssbundling-rails", "~> 1.4"
 gem "foreman", "~> 0.88"
 gem "httparty", "~> 0.22"
 gem "dotenv-rails", "~> 3.1"
+gem "rails-i18n"
+gem "devise-i18n"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
