@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         sign_in(@user)
-        format.html { redirect_to @user, notice: t('.success') }
+        format.html { redirect_to @user, notice: t(".success") }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,7 +42,7 @@ def update
   respond_to do |format|
     if user_params[:password].present? # パスワードが送信されている場合
       if @user.update_with_password(user_params)
-        format.html { redirect_to @user, notice: t('.success') }
+        format.html { redirect_to @user, notice: t(".success") }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -50,7 +50,7 @@ def update
       end
     else # パスワードが送信されていない場合
       if @user.update(user_params.except(:password, :password_confirmation))
-        format.html { redirect_to @user, notice: t('.success') }
+        format.html { redirect_to @user, notice: t(".success") }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -65,7 +65,7 @@ end
     @user.destroy!
 
     respond_to do |format|
-      format.html { redirect_to user_session_path, status: :see_other, notice: t('.success') }
+      format.html { redirect_to user_session_path, status: :see_other, notice: t(".success") }
       format.json { head :no_content }
     end
   end
