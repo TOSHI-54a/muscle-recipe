@@ -57,13 +57,12 @@ class SearchesController < ApplicationController
       flash[:error] = "レシピの取得に失敗しました。もう一度お試しください。"
       render :new, status: :unprocessable_entity
     end
-  # render json: { recipe: recipe_response }, status: ok
+
   rescue => e
     # Rails.logger.debug "Recipe response is empty or invalid: #{@recommendations.inspect}"
     Rails.logger.debug "Error in create action: #{e.message}"
     flash[:error] = 'レシピの取得に失敗しました: #{e.message}'
     render :new, status: :unprocessable_entity
-    # render json: { error: e.message }, status: :internal_server_error
   end
 
   def saved
