@@ -48,7 +48,7 @@ def update
       if @user.update(user_params.except(:password, :password_confirmation))
         redirect_to @user, notice: t(".success")
       else
-        render :edit, status: :unprocessable_entity 
+        render :edit, status: :unprocessable_entity
       end
     end
   end
