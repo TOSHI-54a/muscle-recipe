@@ -19,11 +19,6 @@ ja:
       taken: "すでに存在します"
       invalid: "無効です"
 
-  devise:
-    sessions:
-      signed_in: "ログインしました。"
-      signed_out: "ログアウトしました。"
-      already_signed_out: "すでにログアウトしています。"
 
     passwords:
       send_instructions: "パスワード再設定の案内を送信しました。"
@@ -54,3 +49,11 @@ ja:
     omniauth_callbacks:
       success: "%{kind} アカウントでログインしました。"
       failure: "%{kind} アカウントでのログインに失敗しました。"
+
+  users:
+    create:
+      success: "ユーザー登録が成功しました。"
+    update:
+      success: "ユーザー情報の更新に成功しました。"
+    destroy: 
+      success: "退会しました。"
