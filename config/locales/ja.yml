@@ -57,3 +57,7 @@ ja:
       success: "ユーザー情報の更新に成功しました。"
     destroy: 
       success: "退会しました。"
+  devise:
+    passwords:
+      new:
+        forgot_pass: "パスワードをお忘れですか？"
