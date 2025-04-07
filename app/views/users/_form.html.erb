@@ -12,22 +12,22 @@
   <% end %>
 
   <div class="my-5">
-    <%= form.label :name %>
+    <%= form.label :name, "名前" %>
     <%= form.text_field :name, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": user.errors[:name].none?, "border-red-400 focus:outline-red-600": user.errors[:name].any?}] %>
   </div>
 
   <div class="my-5">
-    <%= form.label :email %>
+    <%= form.label :email, "メールアドレス" %>
     <%= form.text_field :email, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": user.errors[:email].none?, "border-red-400 focus:outline-red-600": user.errors[:email].any?}] %>
   </div>
 
   <div class="my-5">
-    <%= form.label :password, "Password" %>
+    <%= form.label :password, "パスワード" %>
     <%= form.text_field :password, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": user.errors[:crypted_password].none?, "border-red-400 focus:outline-red-600": user.errors[:password].any?}] %>
   </div>
 
   <div class="my-5">
-    <%= form.label :password_confirmation, "Password Confirmation" %>
+    <%= form.label :password_confirmation, "パスワードの確認" %>
     <%= form.text_field :password_confirmation, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": user.errors[:crypted_password].none?, "border-red-400 focus:outline-red-600": user.errors[:password].any?}] %>
   </div>
 
@@ -38,7 +38,7 @@
 
   <div class="my-5">
   <%= form.label :gender, "性別" %>
-  <%= form.select :gender, [["男性", "male"], ["女性", "female"]], include_blank: true, class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full" %>
+  <%= form.select :gender, [["未選択", nil ], ["男性", "male"], ["女性", "female"]], class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
 
