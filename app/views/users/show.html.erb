@@ -15,12 +15,12 @@
     </div>
     <% if @user.id == current_user.id %>
     <div class="flex justify-between items-center border-b pb-1">
-      <strong class="text-sm sm:text-base font-semibold text-gray-700">メール:</strong>
+      <strong class="text-sm sm:text-base font-semibold text-gray-700">メールアドレス:</strong>
       <span class="text-gray-900"><%= @user.email %></span>
     </div>
     <div class="flex justify-between items-center">
       <strong class="text-sm sm:text-base font-semibold text-gray-700">性別:</strong>
-      <span class="text-gray-900"><%= @user.gender %></span>
+      <span class="text-gray-900"><%= t("gender.#{@user.gender.presence || 'unknown'}") %></span>
     </div>
     <% end %>
   </div>
