@@ -1,23 +1,23 @@
 ja:
   activerecord:
-    errors:
-      models:
-        user:
-          attributes:
-            name:
-              blank: "名前を入力してください"
-            email:
-              blank: "メールアドレスを入力してください"
-              taken: "メールアドレスはすでに存在します"
-              invalid: "有効なメールアドレスを入力してください"
-      messages:
-        record_invalid: "バリデーションに失敗しました: %{errors}"
+    attributes:
+      user:
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+        gender: 性別
 
   errors:
     messages:
-      blank: "入力してください"
-      taken: "すでに存在します"
-      invalid: "無効です"
+      blank: "を入力してください"
+      taken: "はすでに存在します"
+      invalid: "は有効な形式で入力してください"
+      record_invalid: "バリデーションに失敗しました: %{errors}"
+  
+  gender:
+    male: "男性"
+    female: "女性"
+    unknown: "未選択"
 
 
     passwords:

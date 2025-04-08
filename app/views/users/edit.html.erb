@@ -1,9 +1,11 @@
 <% content_for :title, "ユーザー編集" %>
 
-<div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">ユーザー情報編集</h1>
+<div class="flex justify-center items-center">
+  <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+    <h1 class="font-bold text-4xl">ユーザー情報編集</h1>
 
-  <%= render "form", user: @user %>
+    <%= render "form", user: @user %>
 
-  <%= link_to "Show this user", @user, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+    <%= link_to "情報画面に戻る", @user, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  </div>
 </div>
