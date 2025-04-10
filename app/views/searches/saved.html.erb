@@ -16,7 +16,9 @@
               <p class="text-sm sm:text-base text-gray-700 dark:text-gray-400">
                 <%= recipe.response_data["recipe"]["description"] || "説明なし" %>
               </p>
+              
             <% end %>
+            <%= render 'shared/like', search_recipe: recipe %>
           </li>
         <% else %>
           <li class="text-sm sm:text-base text-gray-500">レシピデータがありません</li>
