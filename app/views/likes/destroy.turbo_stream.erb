@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "like_button_#{@search_recipe.id}" do %>
+    <%= render "shared/like", search_recipe: @search_recipe %>
+<% end %>

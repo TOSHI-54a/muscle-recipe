@@ -1,11 +1,15 @@
-<% if user_signed_in? %>
-  <% if current_user.likes.exists?(search_recipe: search_recipe) %>
-    <%= button_to search_recipe_like_path(search_recipe), method: :delete do %>
-        ❤️ お気に入り解除
+<turbo-frame id="<%= "like_button_#{search_recipe.id}" %>">
+  <% if user_signed_in? %>
+    <% if current_user.likes.exists?(search_recipe: search_recipe) %>
+        <%= button_to search_recipe_like_path(search_recipe), method: :delete do %>
+            <span class="material-symbols-outlined text-red-500 [font-variation-settings:'FILL'_1]">favorite</span>
+        <% end %>
+    <% else %>
+        <%= button_to search_recipe_like_path(search_recipe), method: :post do %>
+            ♡
+        <% end %>
     <% end %>
   <% else %>
-    <%= button_to search_recipe_like_path(search_recipe), method: :post do %>
-        😘 お気に入り
-    <% end %>
+    <%= "#{search_recipe.id}" %>
   <% end %>
-<% end %>
+</turbo-frame>
