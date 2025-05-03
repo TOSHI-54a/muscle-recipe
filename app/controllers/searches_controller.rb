@@ -61,7 +61,7 @@ class SearchesController < ApplicationController
   rescue => e
     # Rails.logger.debug "Recipe response is empty or invalid: #{@recommendations.inspect}"
     Rails.logger.debug "Error in create action: #{e.message}"
-    flash[:error] = 'レシピの取得に失敗しました: #{e.message}'
+    flash[:error] = "レシピの取得に失敗しました: #{e.message}"
     render :new, status: :unprocessable_entity
   end
 

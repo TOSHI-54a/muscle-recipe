@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :searches, only: %i[new create index show destroy] do
     collection do
       get :saved
+      get :favorites
     end
   end
   resources :chat_rooms, only: %i[index show create destroy] do

@@ -60,7 +60,6 @@ end
   def destroy
     @user.destroy!
 
-    redirect_to user_session_path, status: :see_other, notice: t(".success")
     respond_to do |format|
       format.html { redirect_to user_session_path, status: :see_other, notice: t(".success") }
       format.json { head :no_content }

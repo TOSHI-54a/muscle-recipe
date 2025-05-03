@@ -6,13 +6,12 @@ ja:
         email: メールアドレス
         password: パスワード
         gender: 性別
-
-  errors:
-    messages:
-      blank: "を入力してください"
-      taken: "はすでに存在します"
-      invalid: "は有効な形式で入力してください"
-      record_invalid: "バリデーションに失敗しました: %{errors}"
+    errors:
+      messages:
+        blank: "を入力してください"
+        taken: "はすでに存在します"
+        invalid: "は有効な形式で入力してください"
+        record_invalid: "バリデーションに失敗しました: %{errors}"
   
   gender:
     male: "男性"
