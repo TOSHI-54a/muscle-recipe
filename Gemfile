@@ -71,7 +71,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "tailwindcss-rails", "~> 3.3"
+gem "tailwindcss-rails", "~> 4.2"
 gem "ransack", "~> 4.3"
 
 gem "dockerfile-rails", ">= 1.7", group: :development
