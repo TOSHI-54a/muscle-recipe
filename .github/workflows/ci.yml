@@ -96,6 +96,17 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install JS dependencies
+        run: yarn install
+
+      - name: Build JS/CSS assets
+        run: yarn build
+
       - name: Run RSpec tests
         env:
           RAILS_ENV: test
