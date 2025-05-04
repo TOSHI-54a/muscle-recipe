@@ -1,3 +1,6 @@
+require "net/http"
+require "json"
+
 class SearchesController < ApplicationController
   before_action :search_count, only: %i[ new create ]
   before_action :check_search_limit, only: :create
@@ -78,6 +81,23 @@ class SearchesController < ApplicationController
     else
       render :saved, status: :unprocessable_entity
     end
+  end
+
+  def optimized
+    uri = URI("http://fastapi:8000/suggest_recipe")
+    req = Net::HTTP::Post.new(uri, "Content-Type" => "application/json")
+    req.body = {
+      target_p: params[:target_p],
+      target_f: params[:target_f],
+      target_c: params[:target_c]
+    }.to_json
+
+    res = Net::HTTP.start(uri.hostname, uri.port) { |http| http.request(req) }
+    @recipe = JSON.parse(res.body)
+
+  rescue => e
+    logger.error("FastAPI connection failed: #{e.message}")
+    render plain: "FastAPI通信エラー", status: 500
   end
 
 
