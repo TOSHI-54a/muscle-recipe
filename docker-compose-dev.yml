@@ -33,6 +33,13 @@ services:
     volumes:
       - redis_data:/data
 
+  fastapi:
+    build:
+      context: ./fastapi
+    ports:
+      - "8000:8000"
+    restart: always
+
 volumes:
   db_data:
   redis_data:
