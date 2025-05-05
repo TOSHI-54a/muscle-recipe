@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get "messages/create"
   get "search/create"
-  get "searches/optimized", to: "searches#optimized"
+  post "searches/optimized", to: "searches#optimized"
   devise_for :users, skip: [ :registrations ], controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
   resources :users, only: %i[show new edit create update destroy]
   resources :searches, only: %i[new create index show destroy] do

@@ -1,0 +1,54 @@
+<div class="max-w-4xl mx-auto p-6 sm:p-8 bg-white/90 shadow-lg rounded-xl">
+  <% if @guest_recipe.present? %>
+    <%= render 'recipe' %>
+  <% else %>
+    <h1 class="text-lg sm:text-2xl font-bold text-gray-800 text-center mb-4">レシピ検索</h1>
+    <h3 class="text-center text-gray-700 text-sm sm:text-base"><%= "今日検索できる回数：あと#{@search_limit}回" %></h3>
+
+    <%= form_with url: searches_optimized_path, model: current_user, method: :post, local: true, data: { turbo: false }, id: "search-form", class: "space-y-5 sm:space-y-6" do |f| %>
+
+      <!-- 身体情報 -->
+      <fieldset class="border border-gray-300 p-3 sm:p-4 rounded-lg">
+        <legend class="font-semibold text-gray-700 text-sm sm:text-base">身体情報 (ユーザー情報参照)</legend>
+        <%= f.fields_for :body_info, current_user do |bf| %>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mt-3">
+            <% [["年齢", :age], ["身長 (cm)", :height], ["体重 (kg)", :weight], ["性別", :gender]].each do |label, key| %>
+              <div>
+                <%= bf.label key, label, class: "block text-gray-700 font-medium mb-1 text-sm" %>
+                <% if key == :gender %>
+                  <%= bf.select key, [["男性", "male"], ["女性", "female"]], selected: current_user&.gender, class: "w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500" %>
+                <% else %>
+                  <%= bf.number_field key, min: 0, value: current_user&.send(key), class: "w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500" %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </fieldset>
+
+      <div>
+        <label>タンパク質-P- (g)</label>
+        <%= number_field_tag :target_p, nil, step: 1 %>
+      </div>
+      <div>
+        <label>脂質-F- (g)</label>
+        <%= number_field_tag :target_f, nil, step: 1 %>
+      </div>
+      <div>
+        <label>炭水化物-C- (g)</label>
+        <%= number_field_tag :target_c, nil, step: 1 %>
+      </div>
+
+      <!-- 検索ボタン -->
+      <div class="relative text-center mt-3">
+        <button id="search-button" type="submit"
+          class="max-w-xs w-full px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-200">
+          レシピを検索する
+        </button>
+
+
+      </div>
+
+    <% end %>
+  <% end %>
+</div>
