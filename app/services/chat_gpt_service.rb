@@ -74,6 +74,8 @@ class ChatGptService
   def generate_prompt(request_payload)
     Rails.logger.debug "リクエストペイロード: #{request_payload.inspect}"
 
+    # return request_payload if request_payload.is_a?(String)
+
     parsed_payload = JSON.parse(request_payload, symbolize_names: true)
 
     <<~PROMPT

@@ -1,0 +1,27 @@
+[
+    {
+      "name": "鶏むね肉",
+      "protein": 22.0,
+      "fat": 2.0,
+      "carbohydrate": 0.0,
+      "calories": 110,
+      "unit": "100g"
+    },
+    {
+      "name": "ご飯",
+      "protein": 2.5,
+      "fat": 0.3,
+      "carbohydrate": 37.0,
+      "calories": 168,
+      "unit": "100g"
+    },
+    {
+      "name": "ブロッコリー",
+      "protein": 3.0,
+      "fat": 0.4,
+      "carbohydrate": 7.0,
+      "calories": 33,
+      "unit": "100g"
+    }
+  ]
+  

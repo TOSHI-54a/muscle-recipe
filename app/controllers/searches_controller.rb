@@ -89,11 +89,33 @@ class SearchesController < ApplicationController
     req.body = {
       target_p: params[:target_p],
       target_f: params[:target_f],
-      target_c: params[:target_c]
+      target_c: params[:target_c],
+      body_info: params[:body_info]
     }.to_json
 
     res = Net::HTTP.start(uri.hostname, uri.port) { |http| http.request(req) }
     @recipe = JSON.parse(res.body)
+
+    # FastAPIの出力をプロンプトに変換
+    prompt = FastapiPromptBuilder.build(@recipe)
+    # binding.pry
+
+    # ChatGPTからレシピを取得
+    recipe_response = ChatGptService.new.fetch_recipe(prompt)
+
+    # 保存 or 表示用データにセット
+    if current_user
+      @show_recipe = SearchRecipe.create!(
+        user: current_user,
+        query: prompt,
+        search_time: Time.current,
+        response_data: recipe_response
+      )
+      redirect_to search_path(@show_recipe)
+    else
+      session[:guest_recipe] = recipe_response
+      redirect_to new_search_path
+    end
 
   rescue => e
     logger.error("FastAPI connection failed: #{e.message}")
