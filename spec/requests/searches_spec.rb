@@ -112,8 +112,8 @@ RSpec.describe 'Searches', type: :request do
 
             it 'FastAPIが成功し、レシピ詳細にリダイレクトされる' do
                 stub_response = {
-                    ingredients:[
-                        { name: "鶏むね肉", amount: 100, unit: "g", protein: 20, fat: 3, carbohydrate: 0 },
+                    ingredients: [
+                        { name: "鶏むね肉", amount: 100, unit: "g", protein: 20, fat: 3, carbohydrate: 0 }
                     ],
                     target_pfc: { protein: 30, fat: 10, carbohydrate: 50 },
                     total_pfc: { protein: 25, fat: 8, carbohydrate: 300 }
@@ -127,8 +127,8 @@ RSpec.describe 'Searches', type: :request do
                     recipe: {
                         title: "テストレシピ",
                         description: "テスト説明",
-                        ingredients: [{ name: "鶏むね肉", amount: "100g" }],
-                        steps: ["焼く", "食べる"],
+                        ingredients: [ { name: "鶏むね肉", amount: "100g" } ],
+                        steps: [ "焼く", "食べる" ],
                         nutrition: { calories: "300kcal", protein: "25g", fat: "8g", carbohydrates: "45g" }
                     }
                 })
