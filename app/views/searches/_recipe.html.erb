@@ -50,7 +50,7 @@
     <h3 class="text-lg font-semibold text-gray-800 mt-4">カロリーPFC</h3>
         <% if @show_recipe.response_data["recipe"]["nutrition"].present? %>
         <% nutrition = @show_recipe.response_data["recipe"]["nutrition"] %>
-            <h5>カロリー: <%= nutrition["calories"] %>、脂質: <%= nutrition['fat'] %>、タンパク質: <%= nutrition["protein"] %>、炭水化物: <%= nutrition["carbohydrates"] %></h5>
+            <h5>タンパク質: <%= nutrition["protein"] %>、脂質: <%= nutrition['fat'] %>、炭水化物: <%= nutrition["carbohydrates"] %>、カロリー: <%= nutrition["calories"] %></h5>
         <% else %>
         <h5>情報がありません</h5>
         <% end %>
