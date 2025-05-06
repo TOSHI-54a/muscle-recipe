@@ -27,6 +27,24 @@ class ChatGptService
     nil
   end
 
+  # PFCレシピ検索用のfetch
+  def fetch_pfc_prompt(prompt)
+    response = HTTParty.post(
+      API_URL,
+      headers: request_headers,
+      body: {
+        model: "gpt-4o-mini",
+        messages: [
+          { role: "system", content: "You are a professional nutritionist. Generate structured JSON-formatted healthy recipes." },
+          { role: "user", content: prompt }
+        ],
+        max_tokens: 1000,
+        temperature: 0.3
+      }.to_json
+    )
+    parse_response(response)
+  end
+
   private
 
   def request_headers

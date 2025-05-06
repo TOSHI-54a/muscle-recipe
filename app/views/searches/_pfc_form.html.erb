@@ -28,15 +28,15 @@
 
       <div>
         <label>タンパク質-P- (g)</label>
-        <%= number_field_tag :target_p, nil, step: 1 %>
+        <%= number_field_tag :target_p, nil, step: 1, min: 0, required: true %>
       </div>
       <div>
         <label>脂質-F- (g)</label>
-        <%= number_field_tag :target_f, nil, step: 1 %>
+        <%= number_field_tag :target_f, nil, step: 1, min: 0, required: true %>
       </div>
       <div>
         <label>炭水化物-C- (g)</label>
-        <%= number_field_tag :target_c, nil, step: 1 %>
+        <%= number_field_tag :target_c, nil, step: 1, min: 0, required: true %>
       </div>
 
       <!-- 検索ボタン -->
