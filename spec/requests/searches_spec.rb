@@ -105,4 +105,43 @@ RSpec.describe 'Searches', type: :request do
             end
         end
     end
+
+    describe 'POST /searches/optimized' do
+        context 'ログイン済み' do
+            before { sign_in user }
+
+            it 'FastAPIが成功し、レシピ詳細にリダイレクトされる' do
+                stub_response = {
+                    ingredients:[
+                        { name: "鶏むね肉", amount: 100, unit: "g", protein: 20, fat: 3, carbohydrate: 0 },
+                    ],
+                    target_pfc: { protein: 30, fat: 10, carbohydrate: 50 },
+                    total_pfc: { protein: 25, fat: 8, carbohydrate: 300 }
+                }
+
+                allow(Net::HTTP).to receive(:start).and_return(
+                    instance_double(Net::HTTPResponse, body: stub_response.to_json)
+                )
+
+                allow_any_instance_of(ChatGptService).to receive(:fetch_pfc_prompt).and_return({
+                    recipe: {
+                        title: "テストレシピ",
+                        description: "テスト説明",
+                        ingredients: [{ name: "鶏むね肉", amount: "100g" }],
+                        steps: ["焼く", "食べる"],
+                        nutrition: { calories: "300kcal", protein: "25g", fat: "8g", carbohydrates: "45g" }
+                    }
+                })
+
+                post searches_optimized_path, params: {
+                    target_p: 30,
+                    target_f: 10,
+                    target_c: 50
+                }
+
+                follow_redirect!
+                expect(response.body).to include("テストレシピ")
+            end
+        end
+    end
 end

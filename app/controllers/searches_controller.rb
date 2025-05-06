@@ -24,8 +24,7 @@ class SearchesController < ApplicationController
 
   def show; end
 
-  def index
-  end
+  def index; end
 
   def create
     if current_user.nil? && session[:guest_searched]
@@ -57,7 +56,7 @@ class SearchesController < ApplicationController
       end
     else
       Rails.logger.debug("ChatGPT APIからのレスポンスが無効: #{recipe_response.inspect}")
-      flash[:error] = "レシピの取得に失敗しました。もう一度お試しください。"
+      flash.now[:error] = "レシピの取得に失敗しました。もう一度お試しください。"
       render :new, status: :unprocessable_entity
     end
 
@@ -112,6 +111,7 @@ class SearchesController < ApplicationController
         search_time: Time.current,
         response_data: recipe_response
       )
+      flash[:success] = "レシピの取得に成功しました"
       redirect_to search_path(@show_recipe)
     else
       session[:guest_recipe] = recipe_response
