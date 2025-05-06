@@ -87,21 +87,22 @@ class SearchesController < ApplicationController
     uri = URI("http://fastapi:8000/suggest_recipe")
     req = Net::HTTP::Post.new(uri, "Content-Type" => "application/json")
     req.body = {
-      target_p: params[:target_p],
-      target_f: params[:target_f],
-      target_c: params[:target_c],
-      body_info: params[:body_info]
+      target_p: safe_float(params[:target_p]),
+      target_f: safe_float(params[:target_f]),
+      target_c: safe_float(params[:target_c]),
+      body_info: safe_float(params[:body_info])
     }.to_json
 
     res = Net::HTTP.start(uri.hostname, uri.port) { |http| http.request(req) }
     @recipe = JSON.parse(res.body)
+    # binding.pry
 
     # FastAPIの出力をプロンプトに変換
     prompt = FastapiPromptBuilder.build(@recipe)
     # binding.pry
 
     # ChatGPTからレシピを取得
-    recipe_response = ChatGptService.new.fetch_recipe(prompt)
+    recipe_response = ChatGptService.new.fetch_pfc_prompt(prompt)
 
     # 保存 or 表示用データにセット
     if current_user
@@ -157,5 +158,11 @@ class SearchesController < ApplicationController
 
   def set_show
     @show_recipe = SearchRecipe.find(params[:id])
+  end
+
+  def safe_float(value)
+    Float(value)
+  rescue ArgumentError, TypeError
+    nil
   end
 end

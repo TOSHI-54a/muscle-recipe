@@ -1,6 +1,7 @@
 class FastapiPromptBuilder
     def self.build(recipe_data)
     ingredients_raw = recipe_data["ingredients"]
+    # binding.pry
     return "食材データが取得できません" if ingredients_raw.nil?
     ingredients = ingredients_raw.map do |i|
         "- #{i["name"]}: #{i["amount"]}#{i["unit"]}"
@@ -35,7 +36,32 @@ class FastapiPromptBuilder
         - カロリー: #{recipe_data.dig("target_pfc", "calories")}kcal
 
         制約:
-        - JSON形式のみで出力（コードブロックや説明文なし）
+        - 出力は以下の JSON フォーマットの通りに、**コードブロック（```json）を含めて**生成してください。
+        - 説明文やその他の装飾は不要です。以下のような形で返答してください。
+
+        ```json
+        {
+            "recipe": {
+                "title": "チーズ入りジャガイモグラタン",
+                "description": "ジャガイモとチーズを組み合わせた、簡単で美味しいグラタンです。",
+                "ingredients": [
+                    { "name": "ジャガイモ", "amount": "2個" },
+                    { "name": "チーズ", "amount": "100g" },
+                    { "name": "牛乳", "amount": "200ml" }
+                ],
+                "steps": [
+                    "ジャガイモの皮をむいてスライスする。",
+                    "耐熱皿に並べ、チーズと牛乳をかける。",
+                    "オーブンで180℃で20分焼く。"
+                ],
+                "nutrition": {
+                    "calories": "350kcal",
+                    "protein": "15g",
+                    "fat": "20g",
+                    "carbohydrates": "30g"
+                }
+            }
+        }
     PROMPT
     end
 end
