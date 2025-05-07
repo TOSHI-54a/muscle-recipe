@@ -83,7 +83,7 @@ class SearchesController < ApplicationController
   end
 
   def optimized
-    uri = URI("http://fastapi:8000/suggest_recipe")
+    uri = URI(ENV.fetch("FASTAPI_URL", "http://fastapi:8000/suggest_recipe" ))
     req = Net::HTTP::Post.new(uri, "Content-Type" => "application/json")
     req.body = {
       target_p: safe_float(params[:target_p]),
