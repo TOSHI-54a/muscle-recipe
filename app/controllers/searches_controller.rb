@@ -92,7 +92,7 @@ class SearchesController < ApplicationController
       body_info: safe_float(params[:body_info])
     }.to_json
 
-    res = Net::HTTP.start(uri.hostname, uri.port) { |http| http.request(req) }
+    res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http| http.request(req) }
     @recipe = JSON.parse(res.body)
     # binding.pry
 
