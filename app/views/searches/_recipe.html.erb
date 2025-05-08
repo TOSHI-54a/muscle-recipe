@@ -1,5 +1,5 @@
 <div class="p-6 space-y-4">
-<h1 class="text-2xl font-bold text-gray-900">レシピ詳細</h1>
+<h1 class="text-2xl font-bold text-gray-900">レシピ詳細(1人前)</h1>
 
 <% if @guest_recipe.present? %>
         <h2 class="text-xl font-semibold text-blue-600"><%= @guest_recipe.response_data["recipe"]["title"] || "タイトルなし" %></h2>
