@@ -1,5 +1,5 @@
 <div data-controller="tabs" data-tabs-target="container">
-  <div class="flex justify-center space-x-4 border-b text-center">
+  <div class="flex justify-center space-x-4 text-center">
     <button
       data-action="click->tabs#change"
       data-tabs-target="tab"
@@ -19,38 +19,15 @@
 
   <div class="space-y-4 flex flex-col rounded-xl items-center pt-4 px-4 sm:px-0 bg-white/70 backdrop-blur-md">
     <div data-tabs-target="panel">
-        <h1 class="text-xl sm:text-2xl font-bold">保存済みレシピ一覧</h1>
-        <p class="text-sm sm:text-base">レシピ数：<%= @saved_recipes.count %></p>
-
-        <%= render 'shared/search', q: @q, url: saved_searches_path %>
-
-        <% if @saved_recipes.present? %>
-          <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
-            <% @saved_recipes.each do |recipe| %>
-              <% if recipe.response_data.present? && recipe.response_data["recipe"].present? %>
-                <li class="w-full sm:max-w-sm">
-                  <%= link_to search_path(recipe.id), class: "block p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700" do %>
-                    <h5 class="mb-2 text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                      <strong><%= recipe.response_data["recipe"]["title"] || "タイトルなし" %></strong>
-                    </h5>
-                    <p class="text-sm sm:text-base text-gray-700 dark:text-gray-400">
-                      <%= recipe.response_data["recipe"]["description"] || "説明なし" %>
-                    </p>
-                    
-                  <% end %>
-                  <%= render "shared/like", search_recipe: recipe %>
-                </li>
-              <% else %>
-                <li class="text-sm sm:text-base text-gray-500">レシピデータがありません</li>
-              <% end %>
-            <% end %>
-          </ul>
-        <% else %>
-          <p class="text-sm sm:text-base text-gray-500">保存されたレシピはありません。</p>
-        <% end %>
+      <% show_recipes = @saved_recipes %>
+      <% title = '保存済みレシピ' %>
+      <%= render partial: 'saved_recipes', locals: { show_recipes: show_recipes, title: title } %>
     </div>
     <div data-tabs-target="panel" class="hidden">
-      <p>aaaaaaa</p>
+      <% show_recipes = @liked_recipes %>
+      <% title = 'お気に入りレシピ' %>
+      <%= render partial: 'saved_recipes', locals: { show_recipes: show_recipes, title: title } %>
     </div>
+    
   </div>
 </div>

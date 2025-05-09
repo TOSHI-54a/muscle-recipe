@@ -70,6 +70,7 @@ class SearchesController < ApplicationController
   def saved
     @q = current_user.search_recipes.ransack(params[:q])
     @saved_recipes = @q.result(distinct: true).order(created_at: :desc)
+    @liked_recipes = current_user.liked_search_recipes.ransack(params[:q]).result(distinct: true).order(created_at: :desc)
     # @saved_recipes = current_user.search_recipes.order(created_at: :desc)
   end
 
