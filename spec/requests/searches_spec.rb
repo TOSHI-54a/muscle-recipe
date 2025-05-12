@@ -33,6 +33,7 @@ RSpec.describe 'Searches', type: :request do
             sign_in user
             get new_search_path
             expect(response).to have_http_status(:ok)
+            expect(response.status).to eq(200)
             expect(response.body).to include("検索")
         end
     end
