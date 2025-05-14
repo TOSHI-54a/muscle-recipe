@@ -13,6 +13,7 @@ export default class extends Controller {
       tab.classList.toggle("border-b-2", i === index)
       tab.classList.toggle("border-blue-500", i === index)
       tab.classList.toggle("text-blue-500", i === index)
+      tab.classList.toggle("bg-blue-200", i === index)
     })
 
     this.panelTargets.forEach((panel, i) => {

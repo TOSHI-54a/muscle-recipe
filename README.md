@@ -3,13 +3,15 @@
 **あなたの筋トレを支える”栄養×AI”レシピ検索アプリ**\
 食材やPFCバランス（タンパク質・脂質・炭水化物）を入力すると、AIがあなたに合ったレシピを提案します。\
 [▶︎ webサイトを開く](https://www.muscle-recipe.com)
-![検索フォームの操作デモ](public/images/Muscle-Recipe.png)
+![README_TopImage](public/images/Muscle-Recipe.png)
 
 <br/>
 
 # 🎥 デモ
 
-[![Image from Gyazo](https://i.gyazo.com/bcefc44580282c7fbf931addbee51ef9.gif)](https://gyazo.com/bcefc44580282c7fbf931addbee51ef9)\
+*操作デモ*
+[![操作デモ](https://i.gyazo.com/bcefc44580282c7fbf931addbee51ef9.gif)](https://gyazo.com/bcefc44580282c7fbf931addbee51ef9)\
+
 <br/>
 
 # ✨主な機能 / Features
@@ -24,27 +26,40 @@
 
 <br/>
 
+| トップ画面 | レスポンスデザイン |
+| --- | --- |
+| ![top](public/images/README_images/top.png) | ![design](public/images/recipe_design.png) |
+| 具材検索 | PFC検索 |
+| ![具材](public/images/search_ing.png) | ![PFC](public/images/search_pfc.png) |
+| 保存レシピ | お気に入りレシピ |
+| ![ing](public/images/README_images/save_all.png)| ![like](public/images/README_images/save_like.png) |
+| ログイン | ユーザー登録 |
+| ![login](public/images/README_images/login.png) | ![user_new](public/images/README_images/user_new.png) |
+| チャット選択 | チャット画面 |
+| ![](public/images/README_images/.png) | ![](public/images/README_images/.png) |
+
+<br/>
 
 # 🛠 使用技術
 
 | 分類      | 使用技術                                             |
 | ------- | ------------------------------------------------ |
-| バックエンド  | Ruby / Ruby on Rails 7 | Devise | Redis | 
-| フロントエンド | JavaScript | Turbo | TailwindCSS | Flowbite |
+| バックエンド  | Ruby / Ruby on Rails 7 / Python3 / Devise / Redis | 
+| フロントエンド | JavaScript / Turbo / TailwindCSS / Flowbite |
 | CSS           | TailwindCSS / Flowbite |
 | DB            | PostgresSQL |
-| 外部API       | OpenAI(GPT-4o mini) | FastAPI |
-| テスト        | RSpec | Rubocop |
+| 外部API       | OpenAI(GPT-4o mini) / FastAPI |
+| テスト        | RSpec / Rubocop |
 | インフラ      | Docker / Fly.io  |
 | 認証          | Devise / Google OAuth |
-| CI/CD        | GitHub Action |\
-<br/>
+| CI/CD        | GitHub Action |
 
+<br/>
 
 # 💡開発背景 / サービスへの想い
 このアプリは、私自身の実体験をきっかけに生まれました。\
 筋トレに励む中で「食事の大切さ」は痛感していたものの、毎回レシピを考えたり探したりするのがとても面倒でした。\
-加えて、レシピ本で紹介されている料理は凝った調味料や珍しい食材を使用していることも少なくなく、日常的に取り入れるのが難しいと感じていました。\
+加えて、レシピ本で紹介されている料理は、凝った調味料や珍しい食材を使用していることも少なくなく、日常的に取り入れるのが難しいと感じていました。\
 そこで私は、ユーザーの体型や性別、目的に合わせたレシピを簡単に探せるサービスがあれば、もっと効率的で楽に健康管理ができるのではと考えました。
 
 このアプリでは、
@@ -55,9 +70,9 @@
   
 といった機能を実装しています。
 
-### **~あなたは筋トレ、献立はAIに~**
+### **「あなたは筋トレ、献立はAIに」**
 
-この言葉をコンセプトに、毎日の食事をもっとシンプルに、そしてもっと“あなたに合った”ものにできるようサポートします。\
+この言葉をコンセプトに、毎日の食事をもっとシンプルに、そしてもっと“あなたに合ったもの”にできるようサポートします。\
 <br/>
 
 

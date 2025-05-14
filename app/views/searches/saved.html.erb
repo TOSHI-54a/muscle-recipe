@@ -1,33 +1,34 @@
 <div data-controller="tabs" data-tabs-target="container">
-  <div class="flex justify-center space-x-4 text-center">
+  <div class="flex justify-center space-x-4 border-b text-center">
     <button
       data-action="click->tabs#change"
       data-tabs-target="tab"
       data-index="0"
-      class="py-2 px-4 text-gray-700 hover:text-blue-500">
+      class="py-2 px-4 text-gray-700 bg-white/70 backdrop-blur-md hover:text-blue-500">
         全てのレシピ
     </button>
     <button
       data-action="click->tabs#change"
       data-tabs-target="tab"
       data-index="1"
-      class="py-2 px-4 text-gray-700 hover:text-blue-500">
+      class="py-2 px-4 text-gray-700 bg-white/70 backdrop-blur-md hover:text-blue-500">
         お気に入りレシピ
     </button>
   </div>
 
 
-  <div class="space-y-4 flex flex-col rounded-xl items-center pt-4 px-4 sm:px-0 bg-white/70 backdrop-blur-md">
-    <div data-tabs-target="panel">
-      <% show_recipes = @saved_recipes %>
-      <% title = '保存済みレシピ' %>
-      <%= render partial: 'saved_recipes', locals: { show_recipes: show_recipes, title: title } %>
+  <div class="mt-4">
+    <div class="space-y-4 flex flex-col rounded-xl items-center pt-4 px-4 sm:px-0 bg-white/70 backdrop-blur-md">
+      <div data-tabs-target="panel">
+        <% show_recipes = @saved_recipes %>
+        <% title = '保存済みレシピ' %>
+        <%= render partial: 'saved_recipes', locals: { show_recipes: show_recipes, title: title } %>
+      </div>
+      <div data-tabs-target="panel" class="hidden">
+        <% show_recipes = @liked_recipes %>
+        <% title = 'お気に入りレシピ' %>
+        <%= render partial: 'saved_recipes', locals: { show_recipes: show_recipes, title: title } %>
+      </div>
     </div>
-    <div data-tabs-target="panel" class="hidden">
-      <% show_recipes = @liked_recipes %>
-      <% title = 'お気に入りレシピ' %>
-      <%= render partial: 'saved_recipes', locals: { show_recipes: show_recipes, title: title } %>
-    </div>
-    
   </div>
 </div>
