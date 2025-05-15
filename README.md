@@ -28,9 +28,9 @@
 
 | トップ画面 | レスポンスデザイン |
 | --- | --- |
-| ![top](public/images/README_images/top.png) | ![design](public/images/recipe_design.png) |
+| ![top](public/images/README_images/top.png) | ![design](public/images/README_images/recipe_design.png) |
 | 具材検索 | PFC検索 |
-| ![具材](public/images/search_ing.png) | ![PFC](public/images/search_pfc.png) |
+| ![具材](public/images/README_images/search_ing.png) | ![PFC](public/images/README_images/search_pfc.png) |
 | 保存レシピ | お気に入りレシピ |
 | ![ing](public/images/README_images/save_all.png)| ![like](public/images/README_images/save_like.png) |
 | ログイン | ユーザー登録 |
@@ -77,7 +77,7 @@
 
 
 # ER図
--
+![ER図](public/images/README_images/MuscleRecipe_2.drawio.png)
 \
 <br/>
 

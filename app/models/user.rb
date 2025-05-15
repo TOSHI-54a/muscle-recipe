@@ -6,7 +6,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: %i[google_oauth2]
   has_many :search_recipes, dependent: :destroy
   has_many :chat_room_users, dependent: :destroy
-  has_many :chat_rooms, through: :chat_room_users, dependent: :destroy
+  has_many :chat_rooms, through: :chat_room_users
   has_many :likes, dependent: :destroy
   has_many :liked_search_recipes, through: :likes, source: :search_recipe
     validates :name, presence: true, length: { maximum: 20 }
@@ -15,7 +15,6 @@ class User < ApplicationRecord
     validates :height, numericality: { only_integer: true, greater_than: 50, less_than_or_equal_to: 250 }, allow_nil: true
     validates :weight, numericality: { only_integer: true, greater_than: 10, less_than_or_equal_to: 150 }, allow_nil: true
     validates :gender, inclusion: { in: %w[male female], message: "%{value} は選択できません" }, allow_blank: true
-    # validates :uid, presence: true, uniquness: { scope: :provider }, if: -> { uid.present? }
 
     def self.from_omniauth(auth)
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
