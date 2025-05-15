@@ -9,22 +9,24 @@ class User < ApplicationRecord
   has_many :chat_rooms, through: :chat_room_users
   has_many :likes, dependent: :destroy
   has_many :liked_search_recipes, through: :likes, source: :search_recipe
-    validates :name, presence: true, length: { maximum: 20 }
-    validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-    validates :age, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 120 }, allow_nil: true
-    validates :height, numericality: { only_integer: true, greater_than: 50, less_than_or_equal_to: 250 }, allow_nil: true
-    validates :weight, numericality: { only_integer: true, greater_than: 10, less_than_or_equal_to: 150 }, allow_nil: true
-    validates :gender, inclusion: { in: %w[male female], message: "%{value} は選択できません" }, allow_blank: true
+  has_many :search_logs, dependent: :destroy
 
-    def self.from_omniauth(auth)
-      where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-        user.name = auth.info.name
-        user.email = auth.info.email
-        user.password = Devise.friendly_token[0, 20]
-      end
-    end
+  validates :name, presence: true, length: { maximum: 20 }
+  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :age, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 120 }, allow_nil: true
+  validates :height, numericality: { only_integer: true, greater_than: 50, less_than_or_equal_to: 250 }, allow_nil: true
+  validates :weight, numericality: { only_integer: true, greater_than: 10, less_than_or_equal_to: 150 }, allow_nil: true
+  validates :gender, inclusion: { in: %w[male female], message: "%{value} は選択できません" }, allow_blank: true
 
-    def self.create_unique_string
-      SecureRandom.uuid
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.name = auth.info.name
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
     end
+  end
+
+  def self.create_unique_string
+    SecureRandom.uuid
+  end
 end
