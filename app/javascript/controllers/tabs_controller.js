@@ -27,6 +27,13 @@ export default class extends Controller {
 
   change(event) {
     const index = parseInt(event.currentTarget.dataset.index)
-    this.showTab(index)
+    this.showTab(index);
+
+    if (index === 1) {
+      const frame = document.getElementById("favorites-frame");
+      if (frame) {
+        frame.src = frame.src;
+      }
+    }
   }
 }

@@ -1,9 +1,4 @@
-<% if params[:from] == 'favorites' %>
-    <%= turbo_stream.remove dom_id(@like) do %>
-        <%= render "shared/like", search_recipe: @search_recipe %>
-    <% end %>
-<% else %>
+
     <%= turbo_stream.replace "like_button_#{@search_recipe.id}" do %>
         <%= render "shared/like", search_recipe: @search_recipe %>
     <% end %>
-<% end %>

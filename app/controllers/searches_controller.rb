@@ -77,7 +77,6 @@ class SearchesController < ApplicationController
   def favorites
     @q = current_user.liked_search_recipes.ransack(params[:q])
     @liked_recipes = @q.result(distinct: true).order(created_at: :desc)
-    render partial: 'saved_recipes', locals: { show_recipes: @liked_recipes, title: "お気に入りレシピ", q: @q }
   end
 
   def destroy
