@@ -6,10 +6,14 @@ export default class extends Controller {
 
   connect() {
     this.showTab(0)
+    document.addEventListener("turbo:render", () => {
+      this.showTab(0)
+    })
   }
 
   showTab(index) {
     this.tabTargets.forEach((tab, i) => {
+
       tab.classList.toggle("border-b-2", i === index)
       tab.classList.toggle("border-blue-500", i === index)
       tab.classList.toggle("text-blue-500", i === index)
