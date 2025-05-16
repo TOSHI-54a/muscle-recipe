@@ -74,6 +74,11 @@ class SearchesController < ApplicationController
     # @saved_recipes = current_user.search_recipes.order(created_at: :desc)
   end
 
+  def favorites
+    @q = current_user.liked_search_recipes.ransack(params[:q])
+    @liked_recipes = @q.result(distinct: true).order(created_at: :desc)
+  end
+
   def destroy
     if @show_recipe.destroy!
       flash[:success] = "削除成功!"
