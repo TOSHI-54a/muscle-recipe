@@ -15,8 +15,11 @@ const createChatRoomChannel = (roomId) => {
         messagesContainer.insertAdjacentHTML(
           "beforeend",
           `<div class="flex ${alignmentClass}">
-            <div class="p-2 w-[70%] ${bgColorClass} rounded-md my-1">
-              <strong>${data.user}:</strong> ${data.message}
+            <div class="flex-col max-w-[70%]">
+            <p class="text-xs">${data.user}</p>
+              <div class="p-1 w-full text-left rounded-md my-1 inline-block break-words text-sm rounded-md my-1 ${bgColorClass}">
+                ${data.message}
+              </div>
             </div>
           </div>`
         );
