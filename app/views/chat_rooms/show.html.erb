@@ -11,10 +11,10 @@
   <div id="messages" class="border p-3 h-96 overflow-y-auto space-y-2 break-words">
     <% @messages.each do |message| %>
       <% is_current_user = message.user_id == current_user.id %>
-      <div class="flex <%= is_current_user ? 'justify-end' : 'justify-start' %>">
-        <div class="flex-col  max-w-[70%]">
-        <p class="text-xs"><%="#{message.user.name} #{message.created_at.strftime("%-m/%-d %H:%M") }" %></p>
-          <div class="p-1 w-full text-left rounded-md my-1 inline-block break-words text-sm <%= is_current_user ? 'bg-green-200' : 'bg-gray-200' %> rounded-md my-1">
+      <div class="flex <%= is_current_user ? 'justify-end text-right' : 'justify-start text-left' %>">
+        <div class="flex-col max-w-[70%]">
+        <p class="text-xs text-left"><%="#{message.user.name} #{message.created_at.strftime("%-m/%-d %H:%M") }" %></p>
+          <div class="p-1 inline-block text-left break-words text-sm rounded-md my-1 <%= is_current_user ? 'bg-green-200' : 'bg-gray-200' %>">
             <%= message.content %>
           </div>
         </div>
