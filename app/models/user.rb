@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :liked_search_recipes, through: :likes, source: :search_recipe
   has_many :search_logs, dependent: :destroy
+  has_many :messages, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 20 }
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
