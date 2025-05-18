@@ -56,7 +56,7 @@ class SearchesController < ApplicationController
       end
     else
       Rails.logger.debug("ChatGPT APIからのレスポンスが無効: #{recipe_response.inspect}")
-      flash.now[:error] = "レシピの取得に失敗しました。もう一度お試しください。"
+      flash.now[:error] = "レシピの取得に失敗しました。もう一度お試しください"
       render :new, status: :unprocessable_entity
     end
 
@@ -137,7 +137,7 @@ class SearchesController < ApplicationController
 
     if current_user
       search_count = SearchLog.where(user_id: current_user.id, search_time: Date.current.all_day).count
-      @search_limit = 50 - search_count
+      @search_limit = 10 - search_count
     else
       search_count = SearchLog.where(ip_address: real_ip, search_time: Date.current.all_day).count
       @search_limit = 1 - search_count

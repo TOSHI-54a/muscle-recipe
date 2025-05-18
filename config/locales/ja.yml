@@ -20,42 +20,42 @@ ja:
 
 
     passwords:
-      send_instructions: "パスワード再設定の案内を送信しました。"
-      updated: "パスワードが更新されました。"
-      updated_not_active: "パスワードが更新されましたが、アカウントはまだ有効化されていません。"
+      send_instructions: "パスワード再設定の案内を送信しました"
+      updated: "パスワードが更新されました"
+      updated_not_active: "パスワードが更新されましたが、アカウントはまだ有効化されていません"
 
     confirmations:
-      send_instructions: "認証メールを送信しました。"
-      confirmed: "アカウントの認証が完了しました。"
+      send_instructions: "認証メールを送信しました"
+      confirmed: "アカウントの認証が完了しました"
 
     registrations:
-      signed_up: "アカウント登録が完了しました。"
-      signed_up_but_unconfirmed: "アカウント登録が完了しました。認証メールを確認してください。"
-      signed_up_but_inactive: "アカウント登録が完了しましたが、有効化されていません。"
-      updated: "アカウント情報が更新されました。"
-      destroyed: "アカウントを削除しました。"
+      signed_up: "アカウント登録が完了しました"
+      signed_up_but_unconfirmed: "アカウント登録が完了しました。認証メールを確認してください"
+      signed_up_but_inactive: "アカウント登録が完了しましたが、有効化されていません"
+      updated: "アカウント情報が更新されました"
+      destroyed: "アカウントを削除しました"
 
     failure:
-      unauthenticated: "ログインが必要です。"
-      unconfirmed: "アカウントの認証が必要です。"
-      locked: "アカウントがロックされています。"
-      invalid: "メールアドレスまたはパスワードが正しくありません。"
-      not_found_in_database: "メールアドレスまたはパスワードが正しくありません。"
-      timeout: "セッションがタイムアウトしました。再度ログインしてください。"
-      inactive: "アカウントが無効です。"
-      already_authenticated: "すでにログインしています。"
+      unauthenticated: "ログインが必要です"
+      unconfirmed: "アカウントの認証が必要です"
+      locked: "アカウントがロックされています"
+      invalid: "メールアドレスまたはパスワードが正しくありません"
+      not_found_in_database: "メールアドレスまたはパスワードが正しくありません"
+      timeout: "セッションがタイムアウトしました。再度ログインしてください"
+      inactive: "アカウントが無効です"
+      already_authenticated: "すでにログインしています"
 
     omniauth_callbacks:
-      success: "%{kind} アカウントでログインしました。"
-      failure: "%{kind} アカウントでのログインに失敗しました。"
+      success: "%{kind} アカウントでログインしました"
+      failure: "%{kind} アカウントでのログインに失敗しました"
 
   users:
     create:
-      success: "ユーザー登録が成功しました。"
+      success: "ユーザー登録が成功しました"
     update:
-      success: "ユーザー情報の更新に成功しました。"
+      success: "ユーザー情報の更新に成功しました"
     destroy: 
-      success: "退会しました。"
+      success: "退会しました"
   devise:
     passwords:
       new:

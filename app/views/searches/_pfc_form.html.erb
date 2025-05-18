@@ -3,7 +3,7 @@
     <%= render 'recipe' %>
   <% else %>
     <h1 class="text-lg sm:text-2xl font-bold text-gray-800 text-center mb-4">レシピ検索</h1>
-    <h3 class="text-center text-gray-700 text-sm sm:text-base"><%= "今日検索できる回数：あと#{@search_limit}回" %></h3>
+    <h3 class="text-center text-gray-700 text-sm sm:text-base"><%= "今日検索できる回数：残り#{@search_limit}回" %></h3>
 
     <%= form_with url: searches_optimized_path, model: current_user, method: :post, local: true, data: { turbo: false }, id: "pfc-search-form", class: "space-y-5 sm:space-y-6" do |f| %>
 
