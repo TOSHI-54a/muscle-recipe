@@ -23,29 +23,30 @@
     <input type="number" name="user_id" id="user_id" class="border p-2 rounded-md w-full" placeholder="チャット相手のユーザーIDを入力してください">
   </div>
 
-  <%= f.submit "Create Chat", class: "bg-blue-500 text-white px-4 py-2 rounded-md mt-2" %>
+  <%= f.submit "チャットを始める", class: "bg-blue-500 text-white px-4 py-2 rounded-md mt-2" %>
 <% end %>
 
 <!-- チャットルーム一覧 -->
-<h3 class="text-lg font-semibold mt-6">チャット一覧</h3>
+<h3 class="text-xl font-semibold mt-6">チャット一覧</h3>
   <ul class="mt-2">
   <% if @chat_rooms.present? %>
     <% @chat_rooms.each do |chat_room| %>
-      <li class="p-2 rounded-md my-1">
+      <% if chat_room.users.exists?(id: current_user.id) %>
         <% other_user = chat_room.users.where.not(id: current_user.id).first %>
-        <% if other_user.present? %>
-          <%= link_to (other_user.name), chat_room_path(chat_room), class: "text-blue-500" %>
-        <% else %>
-          <span class='text-gray-500'>チャット相手がいません</span>
-        <% end %>
-      </li>
+        <li class="p-2 rounded-md my-1">
+          <div class="flex items-center gap-4">
+            <%= link_to other_user.name, chat_room_path(chat_room), class: "text-blue-500" %>
+            <%= button_to "削除", chat_room_path(chat_room), method: :delete, data: { turbo_confirm: "削除しますか？" }, class: "text-white bg-red-600 hover:bg-red-500 font-medium rounded-md px-3 py-1.5" %>
+          </div>
+        </li>
+      <% end %>
     <% end %>
   <% else %>
     <span class='text-gray-500'>チャット相手がいません</span>
   <% end %>
   </ul>
 
-  <h3 class="text-lg font-semibold mt-6">Opne Chat Rooms</h3>
+  <h3 class="text-xl font-semibold mt-6">オープンチャット</h3>
   <ul class="mt-2">
     <% @open_chat_rooms.each do |chat_room| %>
       <li class="p-2 rounded-md my-1">
