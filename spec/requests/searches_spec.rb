@@ -83,7 +83,7 @@ RSpec.describe 'Searches', type: :request do
             invalid_params = valid_params.merge(query: "")
             post searches_path, params: invalid_params
             # expect(response).to have_http_status(:ok)
-            expect(response.body).to include("レシピの取得に失敗しました。もう一度お試しください。")
+            expect(response.body).to include("レシピの取得に失敗しました。もう一度お試しください")
             end
         end
     end
