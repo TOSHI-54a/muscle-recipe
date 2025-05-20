@@ -36,7 +36,7 @@
         <li class="p-2 rounded-md my-1">
           <div class="flex items-center gap-4">
             <%= link_to other_user.name, chat_room_path(chat_room), class: "text-blue-500" %>
-            <%= button_to "削除", chat_room_path(chat_room), method: :delete, data: { turbo_confirm: "削除しますか？" }, class: "text-white bg-red-600 hover:bg-red-500 font-medium rounded-md px-3 py-1.5" %>
+            <%= button_to "削除", chat_room_path(chat_room), method: :delete, data: { turbo_confirm: "'#{other_user.name}'さんとのチャットを削除しますか？" }, class: "text-white bg-red-600 hover:bg-red-500 font-medium rounded-md px-3 py-1.5" %>
           </div>
         </li>
       <% end %>

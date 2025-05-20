@@ -47,7 +47,7 @@ ja:
 
     omniauth_callbacks:
       success: "%{kind} アカウントでログインしました"
-      failure: "%{kind} アカウントでのログインに失敗しました"
+      failure: "%{kind} アカウントでのログインに失敗しました。もう一度お試しください"
 
   users:
     create:
