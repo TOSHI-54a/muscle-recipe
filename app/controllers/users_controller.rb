@@ -9,9 +9,7 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1 or /users/1.json
-  def show
-    @user = User.find(params[:id])
-  end
+  def show; end
 
   # GET /users/new
   def new
@@ -38,6 +36,7 @@ def update
   respond_to do |format|
     if user_params[:password].present? # パスワードが送信されている場合
       if @user.update_with_password(user_params)
+        bypass_sign_in(@user)
         format.html { redirect_to @user, notice: t(".success") }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -45,7 +44,7 @@ def update
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     else # パスワードが送信されていない場合
-      if @user.update(user_params.except(:password, :password_confirmation))
+      if @user.update(user_params.except(:current_password, :password, :password_confirmation))
         format.html { redirect_to @user, notice: t(".success") }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -69,12 +68,12 @@ end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      @user = current_user
     end
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :age, :height, :weight, :gender)
+      params.require(:user).permit(:name, :email, :current_password, :password, :password_confirmation, :age, :height, :weight, :gender)
     end
 
     def ensure_current_user
