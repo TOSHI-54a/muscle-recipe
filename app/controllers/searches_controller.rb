@@ -9,7 +9,13 @@ class SearchesController < ApplicationController
 
   def new
     @search_recipes = SearchRecipe.new
-    @user = current_user || (flash[:alert] = "⚠️注意：ゲストの検索回数は1日1回です！")
+    if current_user
+      @user = current_user
+    else
+      flash[:alert] = "⚠️注意：ゲストの検索回数は1日1回です！"
+      @user = User.new
+    end
+    # ゲストレシピ表示用
     if session[:guest_recipe]
       @guest_recipe = OpenStruct.new(
         id: nil,
@@ -42,11 +48,6 @@ class SearchesController < ApplicationController
           search_time: Time.current,
           response_data: recipe_response
         )
-
-        # Rails.logger.debug "保存後のSearchRecipe: #{@show_recipe.inspect}"
-        # Rails.logger.debug "保存後のresponse_data: #{@show_recipe.response_data.inspect}"
-
-        # @recommendation = recipe_response
         redirect_to search_path(@show_recipe)
       else
         SearchLog.create!(ip_address: request.remote_ip, search_time: Time.current)
@@ -56,14 +57,21 @@ class SearchesController < ApplicationController
       end
     else
       Rails.logger.debug("ChatGPT APIからのレスポンスが無効: #{recipe_response.inspect}")
+      @user = current_user || User.new
       flash.now[:error] = "レシピの取得に失敗しました。もう一度お試しください"
       render :new, status: :unprocessable_entity
     end
 
-  rescue => e
-    # Rails.logger.debug "Recipe response is empty or invalid: #{@recommendations.inspect}"
-    Rails.logger.debug "Error in create action: #{e.message}"
-    flash[:error] = "レシピの取得に失敗しました: #{e.message}"
+  rescue Net::OpenTimeout, SocketError => e
+    Rails.logger.error("外部接続エラー: #{e.message}")
+    @user = current_user || User.new
+    flash[:error] = "外部APIに接続できませんでした。時間をおいて再試行してください。"
+    render :new, status: :service_unavailable
+
+  rescue StandardError => e
+    Rails.logger.error("不明なエラー: #{e.message}")
+    @user = current_user || User.new
+    flash[:error] = "予期しないエラーが発生しました。もう一度お試しください。"
     render :new, status: :unprocessable_entity
   end
 
@@ -80,10 +88,18 @@ class SearchesController < ApplicationController
   end
 
   def destroy
-    if @show_recipe.destroy!
+    # Rails.logger.debug("SearchRecipe.count: #{SearchRecipe.count}")
+    begin
+      @show_recipe.destroy!
       flash[:success] = "削除成功!"
       redirect_to saved_searches_path
-    else
+      # Rails.logger.debug("SearchRecipe.count: #{SearchRecipe.count}")
+    rescue ActiveRecord::RecordNotDestroyed => e
+      Rails.logger.error("レシピ削除失敗: #{e.message}")
+      @q = current_user.search_recipes.ransack(params[:q])
+      @saved_recipes = @q.result(distinct: true).order(created_at: :desc)
+      @liked_recipes = current_user.liked_search_recipes.ransack(params[:q]).result(distinct: true).order(created_at: :desc)
+      flash.now[:error] = "削除に失敗しました"
       render :saved, status: :unprocessable_entity
     end
   end
@@ -163,7 +179,10 @@ class SearchesController < ApplicationController
   end
 
   def set_show
-    @show_recipe = SearchRecipe.find(params[:id])
+    @show_recipe = current_user.search_recipes.find_by(id: params[:id])
+    unless @show_recipe
+      redirect_to saved_searches_path, alert: "不正な操作です" and return
+    end
   end
 
   def safe_float(value)
