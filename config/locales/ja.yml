@@ -59,7 +59,7 @@ ja:
   devise:
     passwords:
       new:
-        forgot_pass: "パスワードをお忘れですか？"
+        forgot_pass: "パスワードの再設定"
         reset_submit: "パスワードを再設定"
 
   views:

@@ -104,6 +104,25 @@
           null
         ]
       },
+      "/muscle_recipe/app/controllers/homes_controller.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/muscle_recipe/app/controllers/application_controller.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          1,
+          null
+        ]
+      },
       "/muscle_recipe/app/controllers/likes_controller.rb": {
         "lines": [
           1,
@@ -131,16 +150,6 @@
           1,
           3,
           null,
-          null
-        ]
-      },
-      "/muscle_recipe/app/controllers/application_controller.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          1,
-          1,
           null
         ]
       },
@@ -564,8 +573,6 @@
           null,
           null,
           1,
-          1,
-          null,
           null,
           null,
           1,
@@ -589,22 +596,23 @@
           null,
           null,
           1,
-          0,
-          0,
-          0,
-          0,
-          0,
+          3,
+          3,
+          1,
+          1,
+          2,
+          1,
           null,
           0,
           0,
           null,
           null,
-          0,
-          0,
-          0,
+          2,
+          2,
+          1,
           null,
-          0,
-          0,
+          2,
+          1,
           null,
           null,
           null,
@@ -623,17 +631,17 @@
           1,
           null,
           1,
-          5,
+          10,
           null,
           null,
           null,
           1,
-          1,
+          7,
           null,
           null,
           1,
-          4,
-          4,
+          7,
+          7,
           2,
           null,
           null,
@@ -806,16 +814,6 @@
         ],
         "branches": {}
       },
-      "/muscle_recipe/app/controllers/homes_controller.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {}
-      },
       "/muscle_recipe/app/controllers/messages_controller.rb": {
         "lines": [
           0,
@@ -916,6 +914,6 @@
         "branches": {}
       }
     },
-    "timestamp": 1747759022
+    "timestamp": 1747827007
   }
 }
