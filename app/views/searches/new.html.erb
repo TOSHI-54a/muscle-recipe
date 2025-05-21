@@ -31,10 +31,10 @@
 
   <div class="mt-4">
     <div data-tabs-target="panel">
-      <%= render "ingredients_form" %>
+      <%= render "ingredients_form", user: @user %>
     </div>
     <div data-tabs-target="panel" class="hidden">
-      <%= render "pfc_form" %>
+      <%= render "pfc_form", user: @user %>
     </div>
   </div>
 </div>

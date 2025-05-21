@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'ostruct'
 
 RSpec.describe 'Searches', type: :request do
     let(:user) { create(:user) }
@@ -36,6 +37,12 @@ RSpec.describe 'Searches', type: :request do
             expect(response.status).to eq(200)
             expect(response.body).to include("検索")
         end
+
+        it 'ゲストがレシピ検索した場合、表示される（保存なし）' do
+            guest_user = User.new
+            get new_search_path(guest_user)
+            expect(response).to have_http_status(:ok)
+        end
     end
 
     describe 'POST /searche' do
@@ -67,6 +74,19 @@ RSpec.describe 'Searches', type: :request do
             end
         end
 
+        context '未ログイン・正常なリクエスト' do
+            it 'レシピは保存されず、検索回数が加算され、レシピ詳細にリダイレクトされる' do
+                guest_user = User.new
+                expect {
+                    post searches_path, params: valid_params
+                }.not_to change(SearchRecipe, :count)
+
+                expect(response).to have_http_status(:found)
+                follow_redirect!
+                expect(response.body).to include("モックレシピ")
+            end
+        end
+
         context 'ChatGPTがnilを返す場合' do
             before do
                 allow_any_instance_of(ChatGptService).to receive(:fetch_recipe).and_return(nil)
@@ -84,6 +104,38 @@ RSpec.describe 'Searches', type: :request do
             post searches_path, params: invalid_params
             # expect(response).to have_http_status(:ok)
             expect(response.body).to include("レシピの取得に失敗しました。もう一度お試しください")
+            end
+        end
+
+        context '例外処理' do
+            before { sign_in user }
+            it '503:API接続失敗時は接続エラーメッセージが表示される' do
+                allow_any_instance_of(ChatGptService).to receive(:fetch_recipe).and_raise(Net::OpenTimeout)
+
+                post searches_path, params: valid_params
+                expect(response).to have_http_status(:service_unavailable)
+                expect(response.body).to include("外部APIに接続できませんでした。")
+            end
+            it '422:予期しないエラー時はエラーエッセー時が表示される' do
+                allow_any_instance_of(ChatGptService).to receive(:fetch_recipe).and_raise(RuntimeError.new("テスト例外"))
+
+                post searches_path, params: valid_params
+                expect(response).to have_http_status(:unprocessable_entity)
+                expect(response.body).to include("予期しないエラーが発生しました。")
+            end
+        end
+
+        context '回数制限' do
+            before do
+                sign_in user
+                allow_any_instance_of(SearchesController).to receive(:search_count) do |controller|
+                    controller.instance_variable_set(:@search_limit, 0)
+                end
+            end
+
+            it '検索回数をオーバーするとリダイレクトされる' do
+                post searches_path, params: valid_params
+                expect(response).to redirect_to saved_searches_path
             end
         end
     end
@@ -142,6 +194,33 @@ RSpec.describe 'Searches', type: :request do
 
                 follow_redirect!
                 expect(response.body).to include("テストレシピ")
+            end
+        end
+    end
+
+    describe 'DELETE /searches/:id' do
+        let!(:search_recipe) { create(:search_recipe, user: user) }
+        before { sign_in user }
+
+        context '削除成功' do
+            let!(:search_recipe) { create(:search_recipe, user: user) }
+            it 'レシピを削除し、レシピ一覧にリダイレクト' do
+                expect { delete search_path(search_recipe) }.to change(SearchRecipe, :count).by(-1)
+                expect(response).to have_http_status(:found)
+                expect(response).to redirect_to(saved_searches_path)
+            end
+        end
+
+        context '削除失敗(例外)' do
+            before do
+                allow_any_instance_of(SearchRecipe).to receive(:destroy!).and_raise(ActiveRecord::RecordNotDestroyed)
+            end
+
+            it 'レシピが削除されず、レシピ一覧にリダイレクト' do
+                delete search_path(search_recipe)
+
+                expect(response).to have_http_status(:unprocessable_entity)
+                expect(response.body).to include("削除に失敗しました")
             end
         end
     end
