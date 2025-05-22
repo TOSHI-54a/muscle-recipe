@@ -1,0 +1,23 @@
+coverage:
+  groups:
+    all:
+      paths:
+        - coverage/.resultset.json
+    controllers:
+      paths:
+        - coverage/.resultset.json
+      include:
+        - app/controllers/**/*.rb
+    models:
+      paths:
+        - coverage/.resultset.json
+      include:
+        - app/models/**/*.rb
+
+comment:
+  if: is_pull_request
+  hideFooterLink: false
+
+report:
+  datastores:
+    - artifact://${GITHUB_REPOSITORY}

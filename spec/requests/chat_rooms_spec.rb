@@ -52,12 +52,12 @@ RSpec.describe "ChatRooms", type: :request do
     end
 
     describe 'GET /chat_rooms/:id' do
-        context 'チェック' do
+        context 'ユーザーチェック' do
             let!(:chat_room) { create(:chat_room, :private_with_users, user_a: user, user_b: other_user) }
             let!(:different_user) { create(:user) }
             before { sign_in different_user }
 
-            it '違うユーザー' do
+            it 'privateチャットに別のユーザーがアクセスするとエラーとなり、ルートへリダイレクト' do
                 get chat_room_path(chat_room)
                 expect(response).to redirect_to(root_path)
                 follow_redirect!
