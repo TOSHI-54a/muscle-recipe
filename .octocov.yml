@@ -1,8 +1,6 @@
 coverage:
-  groups:
-    all:
-      paths:
-        - coverage/.resultset.json
+  paths:
+    - coverage/.resultset.json
 
 
 comment:
