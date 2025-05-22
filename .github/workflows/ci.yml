@@ -5,6 +5,10 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   scan_ruby:
     runs-on: ubuntu-latest
@@ -115,6 +119,9 @@ jobs:
         run: |
           bin/rails db:test:prepare
           bundle exec rspec
+      
+      # - name: Coverage Report by octocov (in this pull request)
+        # uses: k1LoW/octocov-action@v0
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4

@@ -1,0 +1,11 @@
+coverage:
+  paths:
+    - coverage/.resultset.json
+
+
+comment:
+  hideFooterLink: false
+
+report:
+  datastores:
+    - artifact://${GITHUB_REPOSITORY}
