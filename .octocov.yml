@@ -15,7 +15,6 @@ coverage:
         - app/models/**/*.rb
 
 comment:
-  if: is_pull_request
   hideFooterLink: false
 
 report:
