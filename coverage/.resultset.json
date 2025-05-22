@@ -104,6 +104,148 @@
           null
         ]
       },
+      "/muscle_recipe/app/models/chat_room.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          9,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null
+        ]
+      },
+      "/muscle_recipe/app/controllers/chat_rooms_controller.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          null,
+          4,
+          2,
+          2,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          3,
+          3,
+          null,
+          null,
+          1,
+          null,
+          0,
+          null,
+          null,
+          1,
+          null,
+          2,
+          2,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          4,
+          null,
+          null
+        ]
+      },
+      "/muscle_recipe/app/controllers/application_controller.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          1,
+          null
+        ]
+      },
+      "/muscle_recipe/app/services/chat_room_service.rb": {
+        "lines": [
+          1,
+          1,
+          4,
+          4,
+          4,
+          4,
+          null,
+          null,
+          1,
+          4,
+          2,
+          2,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          2,
+          2,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/muscle_recipe/app/models/chat_room_user.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null
+        ]
+      },
       "/muscle_recipe/app/controllers/homes_controller.rb": {
         "lines": [
           1,
@@ -113,10 +255,9 @@
           null
         ]
       },
-      "/muscle_recipe/app/controllers/application_controller.rb": {
+      "/muscle_recipe/app/models/message.rb": {
         "lines": [
           1,
-          null,
           1,
           1,
           1,
@@ -667,23 +808,6 @@
           null
         ]
       },
-      "/muscle_recipe/app/models/chat_room_user.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          null
-        ]
-      },
-      "/muscle_recipe/app/models/message.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          1,
-          null
-        ]
-      },
       "/muscle_recipe/app/channels/application_cable/channel.rb": {
         "lines": [
           0,
@@ -742,92 +866,6 @@
           null,
           0,
           null,
-          0,
-          0
-        ],
-        "branches": {}
-      },
-      "/muscle_recipe/app/controllers/chat_rooms_controller.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          null,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
           0,
           0
         ],
@@ -910,29 +948,8 @@
           0
         ],
         "branches": {}
-      },
-      "/muscle_recipe/app/models/chat_room.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {}
       }
     },
-    "timestamp": 1747854756
+    "timestamp": 1747913117
   }
 }
