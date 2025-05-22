@@ -3,16 +3,7 @@ coverage:
     all:
       paths:
         - coverage/.resultset.json
-    controllers:
-      paths:
-        - coverage/.resultset.json
-      include:
-        - app/controllers/**/*.rb
-    models:
-      paths:
-        - coverage/.resultset.json
-      include:
-        - app/models/**/*.rb
+
 
 comment:
   hideFooterLink: false
