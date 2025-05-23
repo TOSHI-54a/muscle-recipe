@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get "messages/create"
   get "search/create"
   post "searches/optimized", to: "searches#optimized"
   devise_for :users, skip: [ :registrations ], controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
