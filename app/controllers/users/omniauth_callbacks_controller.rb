@@ -21,21 +21,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         redirect_to root_path, alert: "Authentication failed, please try again."
     end
 
-    def passthru
-        Rails.logger.debug "Passthru method was called!"
-        super
-    end
-
     private
 
     def auth
         auth = request.env["omniauth.auth"]
-    end
-
-    def verify_g_csrf_token
-        if cookies["g_csrf_token"].blank? || params[:g_csrf_token].blank? || cookies["g_csrf_token"] != params[:g_csrf_token]
-            redirect_to root_path, notice: "不正なアクセスです"
-        end
     end
 
     def debug

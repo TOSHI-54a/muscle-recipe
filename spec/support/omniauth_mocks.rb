@@ -1,5 +1,5 @@
 module OmniauthMocks
-    def mock_auth_hash(provider = :google)
+    def mock_auth_hash(provider = :google_oauth2)
         OmniAuth.config.mock_auth[provider] = OmniAuth::AuthHash.new({
             provider: provider.to_s,
             uid: '12345',
@@ -14,7 +14,7 @@ module OmniauthMocks
         })
     end
 
-    def mock_invalid_auth(provider = :google)
+    def mock_invalid_auth(provider = :google_oauth2)
         OmniAuth.config.mock_auth[provider] = :invalid_credentials
     end
 end
