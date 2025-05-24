@@ -120,7 +120,7 @@ jobs:
           bin/rails db:test:prepare
           bundle exec rspec
       
-     - name: Coverage Report by octocov (in this pull request)
+      - name: Coverage Report by octocov (in this pull request)
         uses: k1LoW/octocov-action@v0
 
       - name: Keep screenshots from failed system tests
