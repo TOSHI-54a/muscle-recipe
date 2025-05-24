@@ -20,11 +20,19 @@ class User < ApplicationRecord
   validates :gender, inclusion: { in: %w[male female], message: "%{value} は選択できません" }, allow_blank: true
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.name = auth.info.name
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0, 20]
+    user = find_by(email: auth.info.email)
+
+    if user
+      user.update(provider: auth.provider, uid: auth.uid) if user.provider.blank? || user.uid.blank?
+      return user
     end
+    create(
+      name: auth.info.name,
+      email: auth.info.email,
+      provider: auth.info.provider,
+      uid: auth.uid,
+      password: Devise.friendly_token[0, 20]
+    )
   end
 
   def self.create_unique_string
