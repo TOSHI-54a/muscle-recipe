@@ -1,7 +1,7 @@
 # 🏋️ Muscle Recipe - トレーニー向けレシピ検索アプリ
 
-**あなたの筋トレを支える”栄養×AI”レシピ検索アプリ**\
-食材やPFCバランス（タンパク質・脂質・炭水化物）を入力すると、AIがあなたに合ったレシピを提案します。\
+**ユーザーの筋トレを支える”栄養×AI”レシピ検索アプリ**\
+食材やPFCバランス（タンパク質・脂質・炭水化物）を入力すると、AIがユーザーに合ったレシピを提案します。\
 [▶︎ webサイトを開く](https://www.muscle-recipe.com)
 ![README_TopImage](public/images/Muscle-Recipe.png)
 
@@ -16,7 +16,7 @@
 
 # ✨主な機能 / Features
 - 🤖AIによるレシピ提案（具材検索・PFC検索）
-- 👦ユーザーの身体情報（年齢・性別・身長・体重）に基づいた提案
+- 👦ユーザーの身体情報（年齢・性別・身長・体重）に基づいたレシピを提案
 - 🍗指定されたPFCに基づき具材を選定し、レシピを提案
 - 🥕使用・除外したい食材の指定や調味料の指定が可能
 - 📊レシピにはカロリー・PFC表示付き
@@ -26,7 +26,7 @@
 
 <br/>
 
-| トップ画面 | レスポンスデザイン |
+| トップ画面 | レスポンシブデザイン |
 | --- | --- |
 | ![top](public/images/README_images/top.png) | ![design](public/images/README_images/recipe_design.png) |
 | 具材検索 | PFC検索 |
@@ -36,7 +36,7 @@
 | ログイン | ユーザー登録 |
 | ![login](public/images/README_images/login.png) | ![user_new](public/images/README_images/user_new.png) |
 | チャット選択 | チャット画面 |
-| ![](public/images/README_images/.png) | ![](public/images/README_images/.png) |
+| ![chat_index](public/images/README_images/chat_index.png) | ![chat_show](public/images/README_images/chat_show.png) |
 
 <br/>
 
@@ -49,7 +49,7 @@
 | CSS           | TailwindCSS / Flowbite |
 | DB            | PostgresSQL |
 | 外部API       | OpenAI(GPT-4o mini) / FastAPI |
-| テスト        | RSpec / Rubocop |
+| テスト        | RSpec / Rubocop / SimpleCov |
 | インフラ      | Docker / Fly.io  |
 | 認証          | Devise / Google OAuth |
 | CI/CD        | GitHub Action |
@@ -79,6 +79,17 @@
 # ER図
 ![ER図](public/images/README_images/MuscleRecipe_2.drawio.png)
 \
+<br/>
+
+# 🧪テストカバレッジ（[SimpleCov](https://github.com/simplecov-ruby/simplecov)）
+| 項目 | カバレッジ率 |
+|---|---|
+| 全体 | 75.24% |
+| Models | 90.63% |
+| Controllers | 90.95% |
+
+*Rspec + FactoryBot によるテスト実施。
+
 <br/>
 
 # 👤 ユーザーについて
