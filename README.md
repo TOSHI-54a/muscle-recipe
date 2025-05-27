@@ -10,7 +10,7 @@
 # 🎥 デモ
 
 *操作デモ*
-[![操作デモ](https://i.gyazo.com/bcefc44580282c7fbf931addbee51ef9.gif)](https://gyazo.com/bcefc44580282c7fbf931addbee51ef9)\
+[![操作デモ](https://i.gyazo.com/bcefc44580282c7fbf931addbee51ef9.gif)](https://gyazo.com/bcefc44580282c7fbf931addbee51ef9)
 
 <br/>
 
