@@ -593,10 +593,20 @@
           null,
           2,
           2,
-          null,
-          null,
-          3,
           1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           null,
           null,
           null,
@@ -782,6 +792,23 @@
           null
         ]
       },
+      "/muscle_recipe/app/models/guest_user.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          null,
+          null
+        ]
+      },
       "/muscle_recipe/app/services/fastapi_prompt_builder.rb": {
         "lines": [
           1,
@@ -946,6 +973,6 @@
         "branches": {}
       }
     },
-    "timestamp": 1749567138
+    "timestamp": 1749571701
   }
 }

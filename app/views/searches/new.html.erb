@@ -11,6 +11,11 @@
     <p class="text-black text-lg font-semibold">検索中...</p>
   </div>
 </div>
+<% if @guest_recipe.present? %>
+  <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+    <%= render "recipe" %>
+  </div>
+<% else %>
 <div data-controller="tabs" data-tabs-target="container">
   <div class="flex justify-center space-x-4 border-b text-center">
     <button
@@ -38,3 +43,4 @@
     </div>
   </div>
 </div>
+<% end %>
