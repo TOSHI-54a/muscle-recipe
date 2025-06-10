@@ -17,7 +17,7 @@ class SearchesController < ApplicationController
     end
     # ゲストレシピ表示用
     if session[:guest_recipe]
-      @guest_recipe = OpenStruct.new(
+      @guest_recipe = Struct.new(
         id: nil,
         user_id: nil,
         query: session[:guest_recipe][:query],
