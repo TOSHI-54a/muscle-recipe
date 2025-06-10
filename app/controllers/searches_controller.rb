@@ -166,7 +166,7 @@ class SearchesController < ApplicationController
       @search_limit = 10 - search_count
     else
       search_count = SearchLog.where(ip_address: real_ip, search_time: Date.current.all_day).count
-      @search_limit = 10 - search_count
+      @search_limit = 1 - search_count
     end
   end
 
