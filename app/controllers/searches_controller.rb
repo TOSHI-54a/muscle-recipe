@@ -12,19 +12,29 @@ class SearchesController < ApplicationController
     if current_user
       @user = current_user
     else
-      flash[:alert] = "⚠️注意：ゲストの検索回数は1日1回です！"
-      @user = User.new
+      flash[:error] = "⚠️注意：ゲストの検索回数は1日1回です！"
+      if session[:guest_recipe]
+        @user = GuestUser.new(
+          query: session[:guest_recipe][:query],
+          response_data: session[:guest_recipe]
+        )
+        @guest_recipe = @user
+      else
+        @user = GuestUser.new
+      end
     end
-    # ゲストレシピ表示用
-    if session[:guest_recipe]
-      @guest_recipe = OpenStruct.new(
-        id: nil,
-        user_id: nil,
-        query: session[:guest_recipe][:query],
-        search_time: Time.current,
-        response_data: session[:guest_recipe]
-      )
-    end
+    #   @user = User.new
+    # end
+    # # ゲストレシピ表示用
+    # if session[:guest_recipe]
+    #   @guest_recipe = OpenStruct.new(
+    #     id: nil,
+    #     user_id: nil,
+    #     query: session[:guest_recipe][:query],
+    #     search_time: Time.current,
+    #     response_data: session[:guest_recipe]
+    #   )
+    # end
     session.delete(:guest_recipe)
   end
 
@@ -34,7 +44,7 @@ class SearchesController < ApplicationController
 
   def create
     if current_user.nil? && session[:guest_searched]
-      flash[:alert] = "ゲストの検索回数は1日1回です。"
+      flash[:error] = "ゲストの検索回数は1日1回です。"
       redirect_to new_user_path and return
     end
     prompt = recipe_params.to_json
@@ -52,7 +62,7 @@ class SearchesController < ApplicationController
       else
         SearchLog.create!(ip_address: request.remote_ip, search_time: Time.current)
         session[:guest_recipe] = recipe_response
-        flash.now[:notice] = "レシピは保存されません。"
+        flash[:error] = "レシピは保存されません。"
         redirect_to new_search_path
       end
     else
