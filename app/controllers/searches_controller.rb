@@ -23,18 +23,6 @@ class SearchesController < ApplicationController
         @user = GuestUser.new
       end
     end
-    #   @user = User.new
-    # end
-    # # ゲストレシピ表示用
-    # if session[:guest_recipe]
-    #   @guest_recipe = OpenStruct.new(
-    #     id: nil,
-    #     user_id: nil,
-    #     query: session[:guest_recipe][:query],
-    #     search_time: Time.current,
-    #     response_data: session[:guest_recipe]
-    #   )
-    # end
     session.delete(:guest_recipe)
   end
 
@@ -43,46 +31,22 @@ class SearchesController < ApplicationController
   def index; end
 
   def create
-    if current_user.nil? && session[:guest_searched]
-      flash[:error] = "ゲストの検索回数は1日1回です。"
-      redirect_to new_user_path and return
-    end
     prompt = recipe_params.to_json
-    recipe_response = ChatGptService.new.fetch_recipe(prompt)
-    if recipe_response.present?
-      if current_user
-        SearchLog.create!(user_id: current_user.id, search_time: Time.current)
-        @show_recipe = SearchRecipe.create!(
-          user: current_user,
-          query: prompt,
-          search_time: Time.current,
-          response_data: recipe_response
-        )
-        redirect_to search_path(@show_recipe)
-      else
-        SearchLog.create!(ip_address: request.remote_ip, search_time: Time.current)
-        session[:guest_recipe] = recipe_response
-        flash[:error] = "レシピは保存されません。"
-        redirect_to new_search_path
-      end
+    result = SearchRecipeCreationService.new(
+      user: current_user,
+      prompt: prompt,
+      ip_address: request.remote_ip,
+      current_session: session
+    ).call
+
+    if result.success?
+      @show_recipe = result.recipe if result.recipe
+      redirect_to result.recipe ? search_path(result.recipe) : new_search_path
     else
-      Rails.logger.debug("ChatGPT APIからのレスポンスが無効: #{recipe_response.inspect}")
       @user = current_user || User.new
-      flash.now[:error] = "レシピの取得に失敗しました。もう一度お試しください"
-      render :new, status: :unprocessable_entity
+      flash.now[:error] = result.error_message
+      render :new, status: result.status
     end
-
-  rescue Net::OpenTimeout, SocketError => e
-    Rails.logger.error("外部接続エラー: #{e.message}")
-    @user = current_user || User.new
-    flash[:error] = "外部APIに接続できませんでした。時間をおいて再試行してください。"
-    render :new, status: :service_unavailable
-
-  rescue StandardError => e
-    Rails.logger.error("不明なエラー: #{e.message}")
-    @user = current_user || User.new
-    flash[:error] = "予期しないエラーが発生しました。もう一度お試しください。"
-    render :new, status: :unprocessable_entity
   end
 
   def saved
@@ -165,15 +129,20 @@ class SearchesController < ApplicationController
       search_count = SearchLog.where(user_id: current_user.id, search_time: Date.current.all_day).count
       @search_limit = 10 - search_count
     else
-      search_count = SearchLog.where(ip_address: real_ip, search_time: Date.current.all_day).count
-      @search_limit = 1 - search_count
+      guest_last_search = cookies[:guest_searched_at]
+      if guest_last_search.present? && Time.parse(guest_last_search).to_date == Date.today
+        @search_limit = 0
+      else
+        search_count = SearchLog.where(ip_address: real_ip, search_time: Date.current.all_day).count
+        @search_limit = 1 - search_count
+      end
     end
   end
 
   def check_search_limit
     if @search_limit <= 0
       flash[:alert] = "1日に検索できる回数を超えました。"
-      redirect_to saved_searches_path
+      redirect_to user_signed_in? ? saved_searches_path : root_path
     end
   end
 
