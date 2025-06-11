@@ -2,10 +2,10 @@ require "net/http"
 require "json"
 
 class SearchesController < ApplicationController
-  before_action :search_count, only: %i[ new create ]
-  before_action :check_search_limit, only: :create
+  before_action :search_count, only: %i[ new create optimized ]
+  before_action :check_search_limit, only: %i[ create optimized ]
   before_action :set_show, only: %i[show destroy]
-  skip_before_action :authenticate_user!, only: %i[ new create show ]
+  skip_before_action :authenticate_user!, only: %i[ new create show optimized ]
 
   def new
     @search_recipes = SearchRecipe.new
@@ -79,46 +79,23 @@ class SearchesController < ApplicationController
   end
 
   def optimized
-    uri = URI(ENV.fetch("FASTAPI_URL", "http://fastapi:8000/suggest_recipe"))
-    req = Net::HTTP::Post.new(uri, "Content-Type" => "application/json")
-    req.body = {
-      target_p: safe_float(params[:target_p]),
-      target_f: safe_float(params[:target_f]),
-      target_c: safe_float(params[:target_c]),
-      body_info: safe_float(params[:body_info])
-    }.to_json
+    permitted = optimized_params
+    result = OptimizedRecipeCreationService.new(
+      user: current_user,
+      params: optimized_params,
+      ip_address: request.remote_ip,
+      current_session: session
+    ).call
 
-    res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http| http.request(req) }
-    @recipe = JSON.parse(res.body)
-    # binding.pry
-
-    # FastAPIの出力をプロンプトに変換
-    prompt = FastapiPromptBuilder.build(@recipe)
-    # binding.pry
-
-    # ChatGPTからレシピを取得
-    recipe_response = ChatGptService.new.fetch_pfc_prompt(prompt)
-
-    # 保存 or 表示用データにセット
-    if current_user
-      @show_recipe = SearchRecipe.create!(
-        user: current_user,
-        query: prompt,
-        search_time: Time.current,
-        response_data: recipe_response
-      )
-      flash[:success] = "レシピの取得に成功しました"
-      redirect_to search_path(@show_recipe)
+    if result.success?
+      @show_recipe = result.recipe if result.recipe
+      redirect_to result.recipe ? search_path(result.recipe) : new_search_path
     else
-      session[:guest_recipe] = recipe_response
-      redirect_to new_search_path
+      @user = current_user || User.new
+      flash.now[:error] = result.error_message
+      render :new, status: result.status
     end
-
-  rescue => e
-    logger.error("FastAPI connection failed: #{e.message}")
-    render plain: "FastAPI通信エラー", status: 500
   end
-
 
   private
 
@@ -157,16 +134,16 @@ class SearchesController < ApplicationController
     ).to_h
   end
 
+  def optimized_params
+    params.permit(
+      :target_p, :target_f, :target_c
+    )
+  end
+
   def set_show
     @show_recipe = current_user.search_recipes.find_by(id: params[:id])
     unless @show_recipe
       redirect_to saved_searches_path, alert: "不正な操作です" and return
     end
-  end
-
-  def safe_float(value)
-    Float(value)
-  rescue ArgumentError, TypeError
-    nil
   end
 end
