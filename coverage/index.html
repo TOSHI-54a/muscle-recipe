@@ -13,7 +13,7 @@
       <img src="./assets/0.13.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2025-06-11T18:10:14+00:00">2025-06-11T18:10:14+00:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2025-06-12T09:24:44+00:00">2025-06-12T09:24:44+00:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -160,7 +160,7 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#b0e9c9d0bbd805e0e312bb9085d91dcd428d3c79" class="src_link" title="app/controllers/searches_controller.rb">app/controllers/searches_controller.rb</a></td>
             <td class="green strong cell--number t-file__coverage">91.03 %</td>
-            <td class="cell--number">197</td>
+            <td class="cell--number">149</td>
             <td class="cell--number">78</td>
             <td class="cell--number">71</td>
             <td class="cell--number">7</td>
@@ -505,7 +505,7 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#b0e9c9d0bbd805e0e312bb9085d91dcd428d3c79" class="src_link" title="app/controllers/searches_controller.rb">app/controllers/searches_controller.rb</a></td>
             <td class="green strong cell--number t-file__coverage">91.03 %</td>
-            <td class="cell--number">197</td>
+            <td class="cell--number">149</td>
             <td class="cell--number">78</td>
             <td class="cell--number">71</td>
             <td class="cell--number">7</td>
@@ -4121,427 +4121,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="100">
-            
-
-            
-
-            <code class="ruby">  # def optimized</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="101">
-            
-
-            
-
-            <code class="ruby">  #   uri = URI(ENV.fetch(&quot;FASTAPI_URL&quot;, &quot;http://fastapi:8000/suggest_recipe&quot;))</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="102">
-            
-
-            
-
-            <code class="ruby">  #   req = Net::HTTP::Post.new(uri, &quot;Content-Type&quot; =&gt; &quot;application/json&quot;)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="103">
-            
-
-            
-
-            <code class="ruby">  #   req.body = {</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="104">
-            
-
-            
-
-            <code class="ruby">  #     target_p: safe_float(params[:target_p]),</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="105">
-            
-
-            
-
-            <code class="ruby">  #     target_f: safe_float(params[:target_f]),</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="106">
-            
-
-            
-
-            <code class="ruby">  #     target_c: safe_float(params[:target_c]),</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="107">
-            
-
-            
-
-            <code class="ruby">  #     body_info: safe_float(params[:body_info])</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="108">
-            
-
-            
-
-            <code class="ruby">  #   }.to_json</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="109">
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="110">
-            
-
-            
-
-            <code class="ruby">  #   res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == &quot;https&quot;) { |http| http.request(req) }</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="111">
-            
-
-            
-
-            <code class="ruby">  #   @recipe = JSON.parse(res.body)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="112">
-            
-
-            
-
-            <code class="ruby">  #   # binding.pry</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="113">
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="114">
-            
-
-            
-
-            <code class="ruby">  #   # FastAPIの出力をプロンプトに変換</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="115">
-            
-
-            
-
-            <code class="ruby">  #   prompt = FastapiPromptBuilder.build(@recipe)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="116">
-            
-
-            
-
-            <code class="ruby">  #   # binding.pry</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="117">
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="118">
-            
-
-            
-
-            <code class="ruby">  #   # ChatGPTからレシピを取得</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="119">
-            
-
-            
-
-            <code class="ruby">  #   recipe_response = ChatGptService.new.fetch_pfc_prompt(prompt)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="120">
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="121">
-            
-
-            
-
-            <code class="ruby">  #   # 保存 or 表示用データにセット</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="122">
-            
-
-            
-
-            <code class="ruby">  #   if current_user</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="123">
-            
-
-            
-
-            <code class="ruby">  #     @show_recipe = SearchRecipe.create!(</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="124">
-            
-
-            
-
-            <code class="ruby">  #       user: current_user,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="125">
-            
-
-            
-
-            <code class="ruby">  #       query: prompt,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="126">
-            
-
-            
-
-            <code class="ruby">  #       search_time: Time.current,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="127">
-            
-
-            
-
-            <code class="ruby">  #       response_data: recipe_response</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="128">
-            
-
-            
-
-            <code class="ruby">  #     )</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="129">
-            
-
-            
-
-            <code class="ruby">  #     flash[:success] = &quot;レシピの取得に成功しました&quot;</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="130">
-            
-
-            
-
-            <code class="ruby">  #     redirect_to search_path(@show_recipe)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="131">
-            
-
-            
-
-            <code class="ruby">  #   else</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="132">
-            
-
-            
-
-            <code class="ruby">  #     session[:guest_recipe] = recipe_response</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="133">
-            
-
-            
-
-            <code class="ruby">  #     redirect_to new_search_path</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="134">
-            
-
-            
-
-            <code class="ruby">  #   end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="135">
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="136">
-            
-
-            
-
-            <code class="ruby">  # rescue =&gt; e</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="137">
-            
-
-            
-
-            <code class="ruby">  #   logger.error(&quot;FastAPI connection failed: #{e.message}&quot;)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="138">
-            
-
-            
-
-            <code class="ruby">  #   render plain: &quot;FastAPI通信エラー&quot;, status: 500</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="139">
-            
-
-            
-
-            <code class="ruby">  # end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="140">
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="141">
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="142">
+          <li class="covered" data-hits="1" data-linenumber="100">
             
               <span class="hits">1</span>
             
@@ -4553,7 +4133,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="143">
+          <li class="never" data-hits="" data-linenumber="101">
             
 
             
@@ -4563,7 +4143,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="144">
+          <li class="covered" data-hits="1" data-linenumber="102">
             
               <span class="hits">1</span>
             
@@ -4575,7 +4155,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="10" data-linenumber="145">
+          <li class="covered" data-hits="10" data-linenumber="103">
             
               <span class="hits">10</span>
             
@@ -4587,7 +4167,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="146">
+          <li class="never" data-hits="" data-linenumber="104">
             
 
             
@@ -4597,7 +4177,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="10" data-linenumber="147">
+          <li class="covered" data-hits="10" data-linenumber="105">
             
               <span class="hits">10</span>
             
@@ -4609,7 +4189,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="7" data-linenumber="148">
+          <li class="covered" data-hits="7" data-linenumber="106">
             
               <span class="hits">7</span>
             
@@ -4621,7 +4201,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="7" data-linenumber="149">
+          <li class="covered" data-hits="7" data-linenumber="107">
             
               <span class="hits">7</span>
             
@@ -4633,7 +4213,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="150">
+          <li class="never" data-hits="" data-linenumber="108">
             
 
             
@@ -4643,7 +4223,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="3" data-linenumber="151">
+          <li class="covered" data-hits="3" data-linenumber="109">
             
               <span class="hits">3</span>
             
@@ -4655,7 +4235,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="3" data-linenumber="152">
+          <li class="covered" data-hits="3" data-linenumber="110">
             
               <span class="hits">3</span>
             
@@ -4667,7 +4247,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="153">
+          <li class="missed" data-hits="0" data-linenumber="111">
             
 
             
@@ -4677,7 +4257,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="154">
+          <li class="never" data-hits="" data-linenumber="112">
             
 
             
@@ -4687,7 +4267,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="3" data-linenumber="155">
+          <li class="covered" data-hits="3" data-linenumber="113">
             
               <span class="hits">3</span>
             
@@ -4699,7 +4279,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="3" data-linenumber="156">
+          <li class="covered" data-hits="3" data-linenumber="114">
             
               <span class="hits">3</span>
             
@@ -4711,7 +4291,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="157">
+          <li class="never" data-hits="" data-linenumber="115">
             
 
             
@@ -4721,7 +4301,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="158">
+          <li class="never" data-hits="" data-linenumber="116">
             
 
             
@@ -4731,7 +4311,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="159">
+          <li class="never" data-hits="" data-linenumber="117">
             
 
             
@@ -4741,7 +4321,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="160">
+          <li class="never" data-hits="" data-linenumber="118">
             
 
             
@@ -4751,7 +4331,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="161">
+          <li class="covered" data-hits="1" data-linenumber="119">
             
               <span class="hits">1</span>
             
@@ -4763,7 +4343,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="8" data-linenumber="162">
+          <li class="covered" data-hits="8" data-linenumber="120">
             
               <span class="hits">8</span>
             
@@ -4775,7 +4355,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="163">
+          <li class="covered" data-hits="1" data-linenumber="121">
             
               <span class="hits">1</span>
             
@@ -4787,7 +4367,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="164">
+          <li class="covered" data-hits="1" data-linenumber="122">
             
               <span class="hits">1</span>
             
@@ -4799,7 +4379,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="165">
+          <li class="never" data-hits="" data-linenumber="123">
             
 
             
@@ -4809,7 +4389,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="166">
+          <li class="never" data-hits="" data-linenumber="124">
             
 
             
@@ -4819,7 +4399,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="167">
+          <li class="never" data-hits="" data-linenumber="125">
             
 
             
@@ -4829,7 +4409,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="168">
+          <li class="covered" data-hits="1" data-linenumber="126">
             
               <span class="hits">1</span>
             
@@ -4841,7 +4421,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="6" data-linenumber="169">
+          <li class="covered" data-hits="6" data-linenumber="127">
             
               <span class="hits">6</span>
             
@@ -4853,7 +4433,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="170">
+          <li class="never" data-hits="" data-linenumber="128">
             
 
             
@@ -4863,7 +4443,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="171">
+          <li class="never" data-hits="" data-linenumber="129">
             
 
             
@@ -4873,7 +4453,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="172">
+          <li class="never" data-hits="" data-linenumber="130">
             
 
             
@@ -4883,7 +4463,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="173">
+          <li class="never" data-hits="" data-linenumber="131">
             
 
             
@@ -4893,7 +4473,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="174">
+          <li class="never" data-hits="" data-linenumber="132">
             
 
             
@@ -4903,7 +4483,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="175">
+          <li class="never" data-hits="" data-linenumber="133">
             
 
             
@@ -4913,7 +4493,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="176">
+          <li class="never" data-hits="" data-linenumber="134">
             
 
             
@@ -4923,7 +4503,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="177">
+          <li class="never" data-hits="" data-linenumber="135">
             
 
             
@@ -4933,7 +4513,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="178">
+          <li class="never" data-hits="" data-linenumber="136">
             
 
             
@@ -4943,7 +4523,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="179">
+          <li class="covered" data-hits="1" data-linenumber="137">
             
               <span class="hits">1</span>
             
@@ -4955,7 +4535,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="180">
+          <li class="covered" data-hits="2" data-linenumber="138">
             
               <span class="hits">2</span>
             
@@ -4967,7 +4547,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="181">
+          <li class="never" data-hits="" data-linenumber="139">
             
 
             
@@ -4977,7 +4557,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="182">
+          <li class="never" data-hits="" data-linenumber="140">
             
 
             
@@ -4987,7 +4567,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="183">
+          <li class="never" data-hits="" data-linenumber="141">
             
 
             
@@ -4997,7 +4577,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="184">
+          <li class="never" data-hits="" data-linenumber="142">
             
 
             
@@ -5007,7 +4587,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="185">
+          <li class="covered" data-hits="1" data-linenumber="143">
             
               <span class="hits">1</span>
             
@@ -5019,7 +4599,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="186">
+          <li class="covered" data-hits="4" data-linenumber="144">
             
               <span class="hits">4</span>
             
@@ -5031,7 +4611,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="187">
+          <li class="covered" data-hits="4" data-linenumber="145">
             
               <span class="hits">4</span>
             
@@ -5043,7 +4623,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="188">
+          <li class="missed" data-hits="0" data-linenumber="146">
             
 
             
@@ -5053,7 +4633,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="189">
+          <li class="never" data-hits="" data-linenumber="147">
             
 
             
@@ -5063,7 +4643,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="190">
+          <li class="never" data-hits="" data-linenumber="148">
             
 
             
@@ -5073,67 +4653,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="191">
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="192">
-            
-
-            
-
-            <code class="ruby">  # def safe_float(value)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="193">
-            
-
-            
-
-            <code class="ruby">  #   Float(value)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="194">
-            
-
-            
-
-            <code class="ruby">  # rescue ArgumentError, TypeError</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="195">
-            
-
-            
-
-            <code class="ruby">  #   nil</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="196">
-            
-
-            
-
-            <code class="ruby">  # end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="197">
+          <li class="never" data-hits="" data-linenumber="149">
             
 
             
