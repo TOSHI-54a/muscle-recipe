@@ -20,7 +20,7 @@
                                 </p>
                                 
                             <% end %>
-                            <%= render "shared/like", search_recipe: recipe %>
+                            <%= render "shared/like", search_recipe: recipe, user_liked_ids: @user_liked_ids %>
                         </li>
                     <% else %>
                         <li class="text-sm sm:text-base text-gray-500">レシピデータがありません</li>

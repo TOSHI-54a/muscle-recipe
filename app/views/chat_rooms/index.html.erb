@@ -31,15 +31,13 @@
   <ul class="mt-2">
   <% if @chat_rooms.present? %>
     <% @chat_rooms.each do |chat_room| %>
-      <% if chat_room.users.exists?(id: current_user.id) %>
-        <% other_user = chat_room.users.where.not(id: current_user.id).first %>
-        <li class="p-2 rounded-md my-1">
-          <div class="flex items-center gap-4">
-            <%= link_to other_user.name, chat_room_path(chat_room), class: "text-blue-500" %>
-            <%= button_to "削除", chat_room_path(chat_room), method: :delete, data: { turbo_confirm: "'#{other_user.name}'さんとのチャットを削除しますか？" }, class: "text-white bg-red-600 hover:bg-red-500 font-medium rounded-md px-3 py-1.5" %>
-          </div>
-        </li>
-      <% end %>
+      <% other_user = chat_room.users.find { |c| c.id != current_user.id } %>
+      <li class="p-2 rounded-md my-1">
+        <div class="flex items-center gap-4">
+          <%= link_to other_user.name, chat_room_path(chat_room), class: "text-blue-500" %>
+          <%= button_to "削除", chat_room_path(chat_room), method: :delete, data: { turbo_confirm: "'#{other_user.name}'さんとのチャットを削除しますか？" }, class: "text-white bg-red-600 hover:bg-red-500 font-medium rounded-md px-3 py-1.5" %>
+        </div>
+      </li>
     <% end %>
   <% else %>
     <span class='text-gray-500'>チャット相手がいません</span>
