@@ -1,6 +1,6 @@
 <turbo-frame id="<%= "like_button_#{search_recipe.id}" %>">
-  <% if user_signed_in? %>
-    <% if current_user.likes.exists?(search_recipe: search_recipe) %>
+<% if user_signed_in? %>
+    <% if user_liked_ids.include?(search_recipe.id) %>
         <%= button_to search_recipe_like_path(search_recipe), method: :delete do %>
             <span class="material-symbols-outlined text-red-500 [font-variation-settings:'FILL'_1]">favorite</span>
         <% end %>
