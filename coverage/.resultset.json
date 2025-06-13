@@ -591,6 +591,16 @@
           3,
           1,
           null,
+          1,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           2,
           2,
           1,
@@ -1015,6 +1025,31 @@
         ],
         "branches": {}
       },
+      "/muscle_recipe/app/controllers/pfc_calculator_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
       "/muscle_recipe/app/jobs/application_job.rb": {
         "lines": [
           0,
@@ -1035,8 +1070,29 @@
           0
         ],
         "branches": {}
+      },
+      "/muscle_recipe/app/services/pfc_calculator.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
       }
     },
-    "timestamp": 1749760269
+    "timestamp": 1749831509
   }
 }

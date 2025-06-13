@@ -5,38 +5,73 @@
     <h1 class="text-lg sm:text-2xl font-bold text-gray-800 text-center mb-4">レシピ検索</h1>
     <h3 class="text-center text-gray-700 text-sm sm:text-base"><%= "今日検索できる回数：残り#{@search_limit}回" %></h3>
 
-    <%= form_with url: searches_optimized_path, model: user, method: :post, local: true, data: { turbo: false }, id: "pfc-search-form", class: "space-y-5 sm:space-y-6" do |f| %>
+    <!-- pfc計算用 -->
+      <%= form_with url: pfc_calculator_path, method: :post, data: { turbo_frame: "pfc_result" }, local: true do |f| %>
+        <fieldset class="border border-gray-300 p-3 sm:p-4 rounded-lg">
+          <legend class="font-semibold text-gray-700 text-sm sm:text-base">身体情報 (PFC計算用)</legend>
+      
+          <%= f.fields_for :body_info, current_user do |bf| %>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mt-3">
+              <% [["年齢", :age], ["身長 (cm)", :height], ["体重 (kg)", :weight]].each do |label, key| %>
+                <div>
+                  <%= bf.label key, label, class: "block text-gray-700 font-medium mb-1 text-sm" %>
+                    <%= bf.number_field key, min: 0, value: current_user&.send(key), name: key, class: "w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500" %>
 
-      <!-- 身体情報 -->
-      <fieldset class="border border-gray-300 p-3 sm:p-4 rounded-lg">
-        <legend class="font-semibold text-gray-700 text-sm sm:text-base">身体情報 (ユーザー情報参照)</legend>
-        <%= f.fields_for :body_info, current_user do |bf| %>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mt-3">
-            <% [["年齢", :age], ["身長 (cm)", :height], ["体重 (kg)", :weight], ["性別", :gender]].each do |label, key| %>
+                </div>
+              <% end %>
               <div>
-                <%= bf.label key, label, class: "block text-gray-700 font-medium mb-1 text-sm" %>
-                <% if key == :gender %>
-                  <%= bf.select key, [["男性", "male"], ["女性", "female"]], selected: current_user&.gender, class: "w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500" %>
-                <% else %>
-                  <%= bf.number_field key, min: 0, value: current_user&.send(key), class: "w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500" %>
-                <% end %>
+                <%= label_tag :gender, "性別", class: "block text-gray-700 font-medium mb-1 text-sm" %>
+                <%= select_tag :gender, options_for_select([
+                  ["男性", "male"], ["女性", "female"]
+                ], params[:gender]),
+                class: "w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500"
+                %>
               </div>
-            <% end %>
+      
+              <!-- 活動レベルセレクト -->
+              <div>
+                <%= label_tag :activity_level, "活動レベル", class: "block text-gray-700 font-medium mb-1 text-sm" %>
+                <%= select_tag :activity_level, options_for_select([
+                    ["低い（デスクワーク中心）", 1.5],
+                    ["普通（軽い運動）", 1.75],
+                    ["高い（筋トレあり）", 2.0]
+                  ], 1.75),
+                  class: "w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500"
+                %>
+              </div>
+            </div>
+          <% end %>
+      
+          <div class="text-center mt-4">
+            <%= submit_tag "PFCを計算して表示", class: "inline-block px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700" %>
           </div>
-        <% end %>
-      </fieldset>
+
+          <% if @pfc_data.present? %>
+            <%= render partial: "pfc_calculator/pfc_result", locals: { pfc_data: @pfc_data } %>
+          <% end %>
+        </fieldset>
+      <% end %>
+
+
+
+    <%= form_with url: searches_optimized_path, model: user, method: :post, local: true, data: { turbo: false }, id: "pfc-search-form", class: "space-y-5 sm:space-y-6 mt-4" do |f| %>
 
       <div>
-        <label>タンパク質-P- (g)</label>
-        <%= number_field_tag :target_p, nil, step: 1, min: 0, required: true %>
+        <%= label_tag :target_p, "タンパク質 -P- (g)", class: "block text-gray-700 font-medium mb-1 text-sm" %>
+        <%= number_field_tag :target_p, nil, step: 1, min: 0, required: true,
+            class: "w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500" %>
       </div>
+    
       <div>
-        <label>脂質-F- (g)</label>
-        <%= number_field_tag :target_f, nil, step: 1, min: 0, required: true %>
+        <%= label_tag :target_f, "脂質 -F- (g)", class: "block text-gray-700 font-medium mb-1 text-sm" %>
+        <%= number_field_tag :target_f, nil, step: 1, min: 0, required: true,
+            class: "w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500" %>
       </div>
+    
       <div>
-        <label>炭水化物-C- (g)</label>
-        <%= number_field_tag :target_c, nil, step: 1, min: 0, required: true %>
+        <%= label_tag :target_c, "炭水化物 -C- (g)", class: "block text-gray-700 font-medium mb-1 text-sm" %>
+        <%= number_field_tag :target_c, nil, step: 1, min: 0, required: true,
+            class: "w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500" %>
       </div>
 
       <!-- 検索ボタン -->

@@ -11,6 +11,16 @@ class SearchesController < ApplicationController
     @search_recipes = SearchRecipe.new
     if current_user
       @user = current_user
+      # PFCレシピ検索のTDEE表示用
+      if current_user&.age && current_user&.height && current_user&.weight && current_user&.gender
+        @pfc_data = PfcCalculator.calculate(
+          age: current_user.age,
+          height: current_user.height,
+          weight: current_user.weight,
+          gender: current_user.gender,
+          activity_level: 1.75
+        )
+      end
     else
       flash[:error] = "⚠️注意：ゲストの検索回数は1日1回です！"
       if session[:guest_recipe]
