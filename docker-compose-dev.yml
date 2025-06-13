@@ -35,7 +35,8 @@ services:
 
   fastapi:
     build:
-      context: ./fastapi
+      context: ../fastapi
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
     restart: always
