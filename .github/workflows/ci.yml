@@ -112,7 +112,7 @@ jobs:
         run: yarn build
 
       - name: Build FastAPI image
-        run: docker build -t muscle_recipe-fastapi ../fastapi
+        run: docker build -t muscle_recipe-fastapi ./fastapi
 
       - name: Start FastAPI container
         run: docker run -d -p 8000:8000 --name fastapi_test muscle_recipe-fastapi
