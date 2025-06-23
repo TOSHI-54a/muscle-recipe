@@ -117,8 +117,12 @@ jobs:
       - name: Start FastAPI container
         run: docker run -d -p 8000:8000 --name fastapi_test muscle_recipe-fastapi
 
-      - name: Confirm FastAPI is healthy
-        run: curl -f http://localhost:8000/health
+      - name: Wait for FastAPI to become ready
+        run: |
+          for i in {1..10}; do
+            curl -f http://localhost:8000/health && exit 0 || sleep 2
+          done
+          exit 1
 
       - name: Run RSpec tests
         env:
