@@ -430,6 +430,8 @@ GEM
     uniform_notifier (1.17.0)
     uri (1.0.2)
     useragent (0.16.11)
+    vcr (6.3.1)
+      base64
     version_gem (1.1.4)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -501,6 +503,7 @@ DEPENDENCIES
   tailwindcss-rails (~> 3.3)
   turbo-rails
   tzinfo-data
+  vcr
   web-console
   webmock
 
