@@ -37,6 +37,8 @@ services:
     build:
       context: ../fastapi
       dockerfile: Dockerfile
+    volumes:
+      - ../fastapi:/ap
     ports:
       - "8000:8000"
     restart: always
