@@ -1,33 +1,7 @@
 require 'rails_helper'
-require 'ostruct'
 
 RSpec.describe 'Searches', type: :request do
     let(:user) { create(:user) }
-
-    before do
-        # GPT API通信をモック化
-        allow_any_instance_of(ChatGptService).to receive(:fetch_recipe).and_return(
-            {
-                "recipe" => {
-                    "title" => "モックレシピ",
-                    "description" => "テスト用の説明",
-                    "ingredients" => [
-                        { "name " => "卵", "amount" => "2個" }
-                    ],
-                    "step" => [
-                        "混ぜる",
-                        "焼く"
-                    ],
-                    "nutrition" => {
-                        "calories" => "300kcal",
-                        "protein" => "20g",
-                        "fat" => "10g",
-                        "carbohydrates" => "30g"
-                    }
-                }
-            }
-        )
-    end
 
     describe 'GET /searches/new' do
         it '検索フォームが表示される' do
@@ -38,14 +12,15 @@ RSpec.describe 'Searches', type: :request do
             expect(response.body).to include("検索")
         end
 
-        it 'ゲストがレシピ検索した場合、表示される（保存なし）' do
+        it 'ゲストがレシピ検索した場合、注意喚起が表示される（保存なし）' do
             guest_user = User.new
             get new_search_path(guest_user)
             expect(response).to have_http_status(:ok)
+            expect(response.body).to include("ゲストの検索回数は1日1回")
         end
     end
 
-    describe 'POST /searche' do
+    describe 'POST /searches', :vcr do
         let(:valid_params) do
             {
                 user: {
@@ -64,26 +39,22 @@ RSpec.describe 'Searches', type: :request do
             before { sign_in user }
 
             it 'レシピが保存され、リダイレクトされる' do
-                expect {
-                    post searches_path, params: valid_params
-                }.to change(SearchRecipe, :count).by(1)
+                expect { post searches_path, params: valid_params }.to change(SearchRecipe, :count).by(1)
 
                 expect(response).to have_http_status(:found)
                 follow_redirect!
-                expect(response.body).to include("モックレシピ")
+                expect(response.body).to include("レシピ詳細")
             end
         end
 
         context '未ログイン・正常なリクエスト' do
             it 'レシピは保存されず、検索回数が加算され、レシピ詳細にリダイレクトされる' do
                 guest_user = User.new
-                expect {
-                    post searches_path, params: valid_params
-                }.not_to change(SearchRecipe, :count)
+                expect { post searches_path, params: valid_params }.not_to change(SearchRecipe, :count)
 
                 expect(response).to have_http_status(:found)
                 follow_redirect!
-                expect(response.body).to include("モックレシピ")
+                expect(response.body).to include("レシピ詳細")
             end
         end
 
@@ -159,33 +130,11 @@ RSpec.describe 'Searches', type: :request do
         end
     end
 
-    describe 'POST /searches/optimized' do
+    describe 'POST /searches/optimized', :vcr do
         context 'ログイン済み' do
             before { sign_in user }
 
             it 'FastAPIが成功し、レシピ詳細にリダイレクトされる' do
-                stub_response = {
-                    ingredients: [
-                        { name: "鶏むね肉", amount: 100, unit: "g", protein: 20, fat: 3, carbohydrate: 0 }
-                    ],
-                    target_pfc: { protein: 30, fat: 10, carbohydrate: 50 },
-                    total_pfc: { protein: 25, fat: 8, carbohydrate: 300 }
-                }
-
-                allow(Net::HTTP).to receive(:start).and_return(
-                    instance_double(Net::HTTPResponse, body: stub_response.to_json)
-                )
-
-                allow_any_instance_of(ChatGptService).to receive(:fetch_pfc_prompt).and_return({
-                    recipe: {
-                        title: "テストレシピ",
-                        description: "テスト説明",
-                        ingredients: [ { name: "鶏むね肉", amount: "100g" } ],
-                        steps: [ "焼く", "食べる" ],
-                        nutrition: { calories: "300kcal", protein: "25g", fat: "8g", carbohydrates: "45g" }
-                    }
-                })
-
                 post searches_optimized_path, params: {
                     target_p: 30,
                     target_f: 10,
@@ -193,7 +142,7 @@ RSpec.describe 'Searches', type: :request do
                 }
 
                 follow_redirect!
-                expect(response.body).to include("テストレシピ")
+                expect(response.body).to include("レシピ詳細")
             end
         end
     end

@@ -57,6 +57,7 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "webmock"
   gem "database_cleaner-active_record"
+  gem "vcr"
 end
 
 group :development do

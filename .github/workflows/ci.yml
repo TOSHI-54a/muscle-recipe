@@ -111,14 +111,36 @@ jobs:
       - name: Build JS/CSS assets
         run: yarn build
 
+      - name: Build FastAPI image
+        run: docker build -t muscle_recipe-fastapi ./fastapi
+
+      - name: Start FastAPI container
+        run: docker run -d -p 8000:8000 --name fastapi_test muscle_recipe-fastapi
+
+      - name: Wait for FastAPI to become ready
+        run: |
+          for i in {1..10}; do
+            curl -f http://localhost:8000/health && exit 0 || sleep 2
+          done
+          exit 1
+
       - name: Run RSpec tests
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
+          FASTAPI_URL: http://localhost:8000/suggest_recipe
           # REDIS_URL: redis://localhost:6379/0
         run: |
           bin/rails db:test:prepare
           bundle exec rspec
+
+      - name: List Docker containers
+        if: always()
+        run: docker ps -a
+      
+      - name: Show FastAPI logs
+        if: always()
+        run: docker logs fastapi_test
       
       # - name: Coverage Report by octocov (in this pull request)
         # uses: k1LoW/octocov-action@v0
