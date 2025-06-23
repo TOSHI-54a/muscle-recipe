@@ -132,6 +132,14 @@ jobs:
         run: |
           bin/rails db:test:prepare
           bundle exec rspec
+
+      - name: List Docker containers
+        if: always()
+        run: docker ps -a
+      
+      - name: Show FastAPI logs
+        if: always()
+        run: docker logs fastapi_test
       
       # - name: Coverage Report by octocov (in this pull request)
         # uses: k1LoW/octocov-action@v0
@@ -143,6 +151,3 @@ jobs:
           name: screenshots
           path: ${{ github.workspace }}/tmp/screenshots
           if-no-files-found: ignore
-      
-      - name: Show FastAPI logs
-        run: docker logs fastapi_test
