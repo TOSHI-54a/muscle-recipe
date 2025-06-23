@@ -48,11 +48,14 @@
 
           <% if @pfc_data.present? %>
             <%= render partial: "pfc_calculator/pfc_result", locals: { pfc_data: @pfc_data } %>
+            
           <% end %>
         </fieldset>
       <% end %>
 
-
+      <div>
+        <%= render partial: "pfc_calculator/modal_info" %>
+      </div>
 
     <%= form_with url: searches_optimized_path, model: user, method: :post, local: true, data: { turbo: false }, id: "pfc-search-form", class: "space-y-5 sm:space-y-6 mt-4" do |f| %>
 

@@ -1,0 +1,26 @@
+<div data-controller="modal"
+     data-modal-target="background"
+     data-action="click->modal#close"
+     class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 hidden">
+
+  <button data-action="click->modal#open" data-turbo="false" class="text-sm text-blue-600 border border-blue-600 rounded-full w-5 h-5 flex items-center justify-center hover:bg-blue-100">
+    i
+  </button>
+  
+  <div data-modal-target="content"
+       class="bg-white p-6 rounded-lg shadow-xl max-w-md w-full relative">
+
+    <!-- バツボタン -->
+    <button type="button"
+            data-action="click->modal#close"
+            class="absolute top-2 right-2 text-gray-500 hover:text-black text-lg font-bold">
+      &times;
+    </button>
+
+    <h2 class="text-lg font-bold mb-2">PFCとは？</h2>
+    <p class="text-sm text-gray-700">
+      タンパク質（P）、脂質（F）、炭水化物（C）の三大栄養素です。<br>
+      この値は、あなたの目標摂取量に基づいて計算されたバランスを示しています。
+    </p>
+  </div>
+</div>
