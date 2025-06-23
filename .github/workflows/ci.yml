@@ -80,6 +80,10 @@ jobs:
         ports:
           - 5432:5432
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
+      fastapi:
+        image: muscle_recipe-fastapi
+        ports:
+          - 8000:8000
 
       # redis:
       #   image: redis
