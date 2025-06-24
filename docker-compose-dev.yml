@@ -13,7 +13,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    command: bash -c "rm -f tmp/pids/server.pid && rails server -b 0.0.0.0 -p 3000"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle check || bundle install && rails server -b 0.0.0.0 -p 3000"
     volumes:
       - .:/muscle_recipe
     tty: true
@@ -32,6 +32,16 @@ services:
     command: redis-server --appendonly yes
     volumes:
       - redis_data:/data
+
+  fastapi:
+    build:
+      context: ./fastapi
+      dockerfile: Dockerfile
+    volumes:
+      - ./fastapi:/ap
+    ports:
+      - "8000:8000"
+    restart: always
 
 volumes:
   db_data:

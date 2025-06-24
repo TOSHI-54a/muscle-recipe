@@ -27,6 +27,24 @@ class ChatGptService
     nil
   end
 
+  # PFCレシピ検索用のfetch
+  def fetch_pfc_prompt(prompt)
+    response = HTTParty.post(
+      API_URL,
+      headers: request_headers,
+      body: {
+        model: "gpt-4o-mini",
+        messages: [
+          { role: "system", content: "You are a professional nutritionist. Generate structured JSON-formatted healthy recipes." },
+          { role: "user", content: prompt }
+        ],
+        max_tokens: 1000,
+        temperature: 0.3
+      }.to_json
+    )
+    parse_response(response)
+  end
+
   private
 
   def request_headers
@@ -74,6 +92,8 @@ class ChatGptService
   def generate_prompt(request_payload)
     Rails.logger.debug "リクエストペイロード: #{request_payload.inspect}"
 
+    # return request_payload if request_payload.is_a?(String)
+
     parsed_payload = JSON.parse(request_payload, symbolize_names: true)
 
     <<~PROMPT
@@ -84,7 +104,7 @@ class ChatGptService
       - 身長: #{parsed_payload.dig(:body_info, :height) || "指定なし"}cm
       - 体重: #{parsed_payload.dig(:body_info, :weight) || "指定なし"}kg
       - 料理の複雑度: #{parsed_payload[:recipe_complexity] || "指定なし"}
-      - 使用したい具材: #{Array(parsed_payload.dig(:ingredients, :use)).reject(&:blank?).join(", ") || "指定なし"}
+      - 使用したい具材(1人前): #{Array(parsed_payload.dig(:ingredients, :use)).reject(&:blank?).join(", ") || "指定なし"}
       - 避けたい具材: #{Array(parsed_payload.dig(:ingredients, :avoid)).reject(&:blank?).join(", ") || "指定なし"}
       - 要望: #{parsed_payload.dig(:preferences, :goal) || "指定なし"}
       - 調味料の指定: #{parsed_payload[:seasonings] || "指定なし"}

@@ -11,82 +11,36 @@
     <p class="text-black text-lg font-semibold">検索中...</p>
   </div>
 </div>
-<div class="max-w-4xl mx-auto p-6 sm:p-8 bg-white/90 shadow-lg rounded-xl">
-  <% if @guest_recipe.present? %>
-    <%= render 'recipe' %>
-  <% else %>
-    <h1 class="text-lg sm:text-2xl font-bold text-gray-800 text-center mb-4">レシピ検索</h1>
-    <h3 class="text-center text-gray-700 text-sm sm:text-base"><%= "今日検索できる回数：あと#{@search_limit}回" %></h3>
+<% if @guest_recipe.present? %>
+  <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+    <%= render "recipe" %>
+  </div>
+<% else %>
+<div data-controller="tabs" data-tabs-target="container">
+  <div class="flex justify-center space-x-4 border-b text-center">
+    <button
+      data-action="click->tabs#change"
+      data-tabs-target="tab"
+      data-index="0"
+      class="py-2 px-4 text-gray-700 hover:text-blue-500">
+        <p>具材検索</p>
+    </button>
+    <button
+      data-action="click->tabs#change"
+      data-tabs-target="tab"
+      data-index="1"
+      class="py-2 px-4 text-gray-700 hover:text-blue-500">
+        <p>PFC検索</p>
+    </button>
+  </div>
 
-    <%= form_with url: searches_path, model: current_user, method: :post, local: true, data: { turbo: false }, id: "search-form", class: "space-y-5 sm:space-y-6" do |f| %>
-
-      <!-- 身体情報 -->
-      <fieldset class="border border-gray-300 p-3 sm:p-4 rounded-lg">
-        <legend class="font-semibold text-gray-700 text-sm sm:text-base">身体情報 (ユーザー情報参照)</legend>
-        <%= f.fields_for :body_info, current_user do |bf| %>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mt-3">
-            <% [["年齢", :age], ["身長 (cm)", :height], ["体重 (kg)", :weight], ["性別", :gender]].each do |label, key| %>
-              <div>
-                <%= bf.label key, label, class: "block text-gray-700 font-medium mb-1 text-sm" %>
-                <% if key == :gender %>
-                  <%= bf.select key, [["男性", "male"], ["女性", "female"]], selected: current_user&.gender, class: "w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500" %>
-                <% else %>
-                  <%= bf.number_field key, min: 0, value: current_user&.send(key), class: "w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500" %>
-                <% end %>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
-      </fieldset>
-
-      <!-- 料理の複雑度 -->
-      <fieldset class="border border-gray-300 p-3 sm:p-4 rounded-lg">
-        <legend class="font-semibold text-gray-700 text-sm sm:text-base">料理の複雑度</legend>
-        <div class="mt-3">
-          <%= f.select :recipe_complexity, [["簡単な料理", "簡単な料理"], ["手の込んだ料理", "手の込んだ料理"]], include_blank: "指定しない", class: "w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500" %>
-        </div>
-      </fieldset>
-
-      <!-- 具材情報 -->
-      <fieldset class="border border-gray-300 p-3 sm:p-4 rounded-lg">
-        <legend class="font-semibold text-gray-700 text-sm sm:text-base">具材情報</legend>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
-          <% { "使いたい具材" => "ingredients_use", "避けたい具材" => "ingredients_avoid" }.each do |label, name| %>
-            <div>
-              <%= f.label name, label, class: "block text-gray-700 font-medium mb-1 text-sm" %>
-              <%= f.text_field name, name: "user[ingredients][#{name.split('_').last}]", class: "w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500", placeholder: '例：鶏むね肉、ジャガイモ' %>
-            </div>
-          <% end %>
-        </div>
-      </fieldset>
-
-      <!-- 調味料 -->
-      <fieldset class="border border-gray-300 p-3 sm:p-4 rounded-lg">
-        <legend class="font-semibold text-gray-700 text-sm sm:text-base">調味料</legend>
-        <div class="mt-3">
-          <%= f.select :seasonings, [["基本的な調味料", "基本的な調味料"], ["凝った調味料", "凝った調味料"]], include_blank: "指定しない", class: "w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500" %>
-        </div>
-      </fieldset>
-
-      <!-- 要望 -->
-      <fieldset class="border border-gray-300 p-3 sm:p-4 rounded-lg">
-        <legend class="font-semibold text-gray-700 text-sm sm:text-base">要望</legend>
-        <div class="mt-3">
-          <%= f.label :preferences_goal, "料理の目的等", class: "block text-gray-700 font-medium mb-1 text-sm" %>
-          <%= f.text_field :preferences_goal, name: "user[preferences][goal]", class: "w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500", placeholder: '例：筋肉をつけたい' %>
-        </div>
-      </fieldset>
-
-      <!-- 検索ボタン -->
-      <div class="relative text-center mt-3">
-        <button id="search-button" type="submit"
-          class="max-w-xs w-full px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-200">
-          レシピを検索する
-        </button>
-
-
-      </div>
-
-    <% end %>
-  <% end %>
+  <div class="mt-4">
+    <div data-tabs-target="panel">
+      <%= render "ingredients_form", user: @user %>
+    </div>
+    <div data-tabs-target="panel" class="hidden">
+      <%= render "pfc_form", user: @user %>
+    </div>
+  </div>
 </div>
+<% end %>

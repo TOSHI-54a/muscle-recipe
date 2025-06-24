@@ -1,0 +1,13 @@
+coverage:
+  paths:
+    - coverage/.resultset.json
+  badge:
+    path: docs/coverage.svg
+
+
+comment:
+  hideFooterLink: false
+
+report:
+  datastores:
+    - artifact://${GITHUB_REPOSITORY}

@@ -1,16 +1,22 @@
 Rails.application.routes.draw do
-  get "messages/create"
   get "search/create"
+  post "searches/optimized", to: "searches#optimized"
+  post "pfc_calculator", to: "pfc_calculator#create"
   devise_for :users, skip: [ :registrations ], controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
   resources :users, only: %i[show new edit create update destroy]
   resources :searches, only: %i[new create index show destroy] do
     collection do
       get :saved
+      get :favorites
     end
   end
   resources :chat_rooms, only: %i[index show create destroy] do
     resources :messages, only: [ :create ]
   end
+  resources :search_recipes do
+    resource :like, only: %i[create destroy]
+  end
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   # ActionCable WebSocketのエンドポイント
   mount ActionCable.server => "/cable"

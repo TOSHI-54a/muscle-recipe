@@ -8,20 +8,23 @@
       <%= @chat_room.name || "Chat Room" %>
     <% end %>
   </h2>
-  <div id="messages" class="border p-3 h-96 overflow-y-auto space-y-2">
+  <div id="messages" class="border p-3 h-96 overflow-y-auto space-y-2 break-words">
     <% @messages.each do |message| %>
       <% is_current_user = message.user_id == current_user.id %>
-      <div class="flex <%= is_current_user ? 'justify-end' : 'justify-start' %>">
-        <div class="p-2 min-h-[40px] w-[70%] <%= is_current_user ? 'bg-green-200 text-right' : 'bg-gray-200 text-left' %> rounded-md my-1">
-          <strong><%= message.user.name %>:</strong> <%= message.content %>
+      <div class="flex <%= is_current_user ? 'justify-end text-right' : 'justify-start text-left' %>">
+        <div class="flex-col max-w-[70%]">
+        <p class="text-xs text-left"><%="#{message.user.name} #{message.created_at.strftime("%-m/%-d %H:%M") }" %></p>
+          <div class="p-1 inline-block text-left break-words text-sm rounded-md my-1 <%= is_current_user ? 'bg-green-200' : 'bg-gray-200' %>">
+            <%= message.content %>
+          </div>
         </div>
       </div>
     <% end %>
   </div>
   
   <div class="mt-2 flex">
-    <input type="text" id="message-input" class="border p-2 w-full rounded-l-md" placeholder="Type a message...">
-    <button id="send-button" class="bg-blue-500 text-blue-50 px-4 py-2 rounded-r-md">Send</button>
+    <input type="text" id="message-input" class="border p-2 w-full rounded-l-md" placeholder="メッセージを入力">
+    <button id="send-button" class="bg-blue-500 text-blue-50 px-4 py-2 rounded-r-md whitespace-nowrap">送信</button>
   </div>
 </div>
 <%= link_to 'チャット一覧に戻る', chat_rooms_path %>

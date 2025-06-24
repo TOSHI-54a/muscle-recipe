@@ -1,42 +1,42 @@
-<h2 class="text-xl font-semibold mb-4">Create a Chat Room</h2>
+<div class="bg-white/70 backdrop-blur-md rounded-xl p-6 sm:p-8">
+<h2 class="text-xl font-semibold mb-4">チャットを始める</h2>
 
 <%= form_with url: chat_rooms_path, method: :post, local: true do |f| %>
   <!-- プルダウンで `private` or `group` を選択 -->
   <div>
-    <label for="room_type" class="block mb-2 text-sm font-medium text-gray-900">Select Room Type:</label>
+    <label for="room_type" class="block mb-2 text-sm font-medium text-gray-900">チャットタイプの選択</label>
     <select name="room_type" id="room_type" class="border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-blue dark:focus:ring-blue-500">
-      <option value="private">1-on-1 Chat</option>
-      <option value="group">Group Chat</option>
+      <option value="private">個人チャット</option>
+      <option value="group">グループチャット</option>
     </select>
   </div>
 
   <!-- グループチャット名の入力欄 (グループの場合のみ有効) -->
   <div id="group-name-field" class="mt-2 hidden">
-    <label for="chat_name">Group Chat Name:</label>
-    <input type="text" name="chat_name" id="chat_name" class="border p-2 rounded-md w-full" placeholder="Enter group name">
+    <label for="chat_name" class="block mb-2 text-sm font-medium text-gray-900">グループチャット名</label>
+    <input type="text" name="chat_name" id="chat_name" class="border p-2 rounded-md w-full" placeholder="グループチャット名を入力してください">
   </div>
 
   <!-- 参加ユーザーの選択 (1on1なら1人、グループなら0人以上) -->
   <div id="one-on-one-field" class="mt-2">
-    <label for="user_id">Enter User ID:</label>
-    <input type="number" name="user_id" id="user_id" class="border p-2 rounded-md w-full" placeholder="Enter user ID">
+    <label for="user_id" class="block mb-2 text-sm font-medium text-gray-900">チャット相手の選択</label>
+    <input type="number" name="user_id" id="user_id" class="border p-2 rounded-md w-full" placeholder="チャット相手のユーザーIDを入力してください">
   </div>
 
-  <%= f.submit "Create Chat", class: "bg-blue-500 text-white px-4 py-2 rounded-md mt-2" %>
+  <%= f.submit "チャットを始める", class: "bg-blue-500 text-white px-4 py-2 rounded-md mt-2" %>
 <% end %>
 
 <!-- チャットルーム一覧 -->
-<h3 class="text-lg font-semibold mt-6">My Chat Rooms</h3>
+<h3 class="text-xl font-semibold mt-6">チャット一覧</h3>
   <ul class="mt-2">
   <% if @chat_rooms.present? %>
     <% @chat_rooms.each do |chat_room| %>
+      <% other_user = chat_room.users.find { |c| c.id != current_user.id } %>
       <li class="p-2 rounded-md my-1">
-        <% other_user = chat_room.users.where.not(id: current_user.id).first %>
-        <% if other_user.present? %>
-          <%= link_to (other_user.name), chat_room_path(chat_room), class: "text-blue-500" %>
-        <% else %>
-          <span class='text-gray-500'>チャット相手がいません</span>
-        <% end %>
+        <div class="flex items-center gap-4">
+          <%= link_to other_user.name, chat_room_path(chat_room), class: "text-blue-500" %>
+          <%= button_to "削除", chat_room_path(chat_room), method: :delete, data: { turbo_confirm: "'#{other_user.name}'さんとのチャットを削除しますか？" }, class: "text-white bg-red-600 hover:bg-red-500 font-medium rounded-md px-3 py-1.5" %>
+        </div>
       </li>
     <% end %>
   <% else %>
@@ -44,7 +44,7 @@
   <% end %>
   </ul>
 
-  <h3 class="text-lg font-semibold mt-6">Opne Chat Rooms</h3>
+  <h3 class="text-xl font-semibold mt-6">オープンチャット</h3>
   <ul class="mt-2">
     <% @open_chat_rooms.each do |chat_room| %>
       <li class="p-2 rounded-md my-1">
@@ -70,3 +70,4 @@
     });
   });
 </script>
+</div>

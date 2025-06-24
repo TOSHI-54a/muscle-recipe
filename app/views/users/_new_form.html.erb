@@ -1,0 +1,59 @@
+<%= form_with(model: user, class: "contents") do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+      <h2>このユーザーは保存されませんでした:</h2>
+
+      <ul class="list-disc ml-6">
+        <% user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": user.errors[:name].none?, "border-red-400 focus:outline-red-600": user.errors[:name].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :email, "メールアドレス" %>
+    <%= form.text_field :email, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": user.errors[:email].none?, "border-red-400 focus:outline-red-600": user.errors[:email].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :password, "パスワード" %>
+    <%= form.password_field :password, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": user.errors[:crypted_password].none?, "border-red-400 focus:outline-red-600": user.errors[:password].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :password_confirmation, "パスワードの確認" %>
+    <%= form.password_field :password_confirmation, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": user.errors[:crypted_password].none?, "border-red-400 focus:outline-red-600": user.errors[:password].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :age, "年齢" %>
+    <%= form.number_field :age, class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+  <%= form.label :gender, "性別" %>
+  <%= form.select :gender, [["未選択", nil ], ["男性", "male"], ["女性", "female"]], class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+
+  <div class="my-5">
+    <%= form.label :height, "身長 (cm)" %>
+    <%= form.number_field :height, class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :weight, "体重 (kg)" %>
+    <%= form.number_field :weight, class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit "ユーザー登録", class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+
+<% end %>

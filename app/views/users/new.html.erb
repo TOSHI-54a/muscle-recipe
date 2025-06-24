@@ -1,7 +1,9 @@
 <% content_for :title, "ユーザー登録" %>
 
-<div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">ユーザー登録</h1>
+<div class="flex justify-center items-center">
+  <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+    <h1 class="font-bold text-4xl">ユーザー登録</h1>
 
-  <%= render "form", user: @user %>
+    <%= render "new_form", user: @user %>
+  </div>
 </div>

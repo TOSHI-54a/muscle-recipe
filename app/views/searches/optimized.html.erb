@@ -1,0 +1,9 @@
+<h1><%= @recipe["recipe_name"] %></h1>
+<ul>
+    <% @recipe["ingredients"].each do |ingredient| %>
+        <li><%= ingredient %></li>
+    <% end %>
+</ul>
+<p>Protein: <%= @recipe["protein"] %>g</p>
+<p>Fat: <%= @recipe["fat"] %>g</p>
+<p>Carbs: <%= @recipe["carbohydrate"] %>g</p>

@@ -1,0 +1,4 @@
+<% user_liked_ids = current_user.likes.pluck(:search_recipe_id).to_set %>
+<%= turbo_stream.replace "like_button_#{@search_recipe.id}" do %>
+    <%= render "shared/like", search_recipe: @search_recipe, user_liked_ids: user_liked_ids %>
+<% end %>

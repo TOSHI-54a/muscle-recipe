@@ -2,81 +2,174 @@ require 'rails_helper'
 
 RSpec.describe 'Searches', type: :request do
     let(:user) { create(:user) }
-    let(:search_recipe) { create(:search_recipe, user: user) }
-    before do
-        SearchLog.delete_all
-        allow_any_instance_of(ChatGptService).to receive(:fetch_recipe).and_return(
-            { "recipe" => { "title" => "テストレシピ", "description" => "簡単な説明" } }.to_json # JSON 形式に修正
-        )
-    end
 
     describe 'GET /searches/new' do
-        it '検索条件入力画面' do
+        it '検索フォームが表示される' do
+            sign_in user
             get new_search_path
-            expect(response).to have_http_status(200)
+            expect(response).to have_http_status(:ok)
+            expect(response.status).to eq(200)
+            expect(response.body).to include("検索")
+        end
+
+        it 'ゲストがレシピ検索した場合、注意喚起が表示される（保存なし）' do
+            guest_user = User.new
+            get new_search_path(guest_user)
+            expect(response).to have_http_status(:ok)
+            expect(response.body).to include("ゲストの検索回数は1日1回")
         end
     end
 
-    describe 'POST /searches' do
+    describe 'POST /searches', :vcr do
         let(:valid_params) do
             {
-              user: {
-                recipe_complexity: "簡単",
-                seasonings: "塩, こしょう",
-                body_info: { age: 30, gender: "male", height: 175, weight: 70 },
-                ingredients: { use: [ "鶏肉", "にんじん" ], avoid: [ "玉ねぎ" ] },
-                available: [ { name: "米", amount: "1合" } ],
-                preferences: { goal: "筋肉増強", calorie_and_pfc: "500kcal, P:30g, F:10g, C:50g" }
-              },
-              query: "鶏肉炒め"
+                user: {
+                    recipe_complexity: "簡単",
+                    seasonings: "塩",
+                    body_info: { age: 30, gender: "male", height: 170, weight: 65 },
+                    ingredients: { use: [ "卵" ], aboid: [] },
+                    available: [ { name: "米", amount: "1合" } ],
+                    preferences: { goal: "筋肉増強" }
+                },
+                query: "筋肉飯"
             }
         end
-        context '検索実行' do
+
+        context 'ログイン済み・正常なリクエスト' do
             before { sign_in user }
-            it '検索実行' do
-                expect {
-                    post searches_path, params: valid_params
-                }.to change(SearchRecipe, :count).by(1)
-                expect(response).to have_http_status(302)
-                expect(response).to redirect_to(search_path(SearchRecipe.last))
+
+            it 'レシピが保存され、リダイレクトされる' do
+                expect { post searches_path, params: valid_params }.to change(SearchRecipe, :count).by(1)
+
+                expect(response).to have_http_status(:found)
+                follow_redirect!
+                expect(response.body).to include("レシピ詳細")
             end
         end
-        context 'ChatGPTから無効なレスポンスを受け取った場合' do
+
+        context '未ログイン・正常なリクエスト' do
+            it 'レシピは保存されず、検索回数が加算され、レシピ詳細にリダイレクトされる' do
+                guest_user = User.new
+                expect { post searches_path, params: valid_params }.not_to change(SearchRecipe, :count)
+
+                expect(response).to have_http_status(:found)
+                follow_redirect!
+                expect(response.body).to include("レシピ詳細")
+            end
+        end
+
+        context 'ChatGPTがnilを返す場合' do
             before do
-                allow_any_instance_of(ChatGptService).to receive(:fetch_recipe).and_return(
-                    { "recipe" => { "title" => "テストレシピ", "description" => "簡単な説明" } }
-                )
+                allow_any_instance_of(ChatGptService).to receive(:fetch_recipe).and_return(nil)
+                sign_in user
             end
 
-            it '新規検索ページをレンダリング' do
+            it '検索結果が表示されず、newが再表示される' do
                 post searches_path, params: valid_params
-                expect(response).to have_http_status(302)
+                expect(response).to have_http_status(:unprocessable_entity)
+                expect(SearchRecipe.count).to eq(0)
+            end
+
+            it '保存されず、フォームに戻る' do
+            invalid_params = valid_params.merge(query: "")
+            post searches_path, params: invalid_params
+            # expect(response).to have_http_status(:ok)
+            expect(response.body).to include("レシピの取得に失敗しました。もう一度お試しください")
+            end
+        end
+
+        context '例外処理' do
+            before { sign_in user }
+            it '503:API接続失敗時は接続エラーメッセージが表示される' do
+                allow_any_instance_of(ChatGptService).to receive(:fetch_recipe).and_raise(Net::OpenTimeout)
+
+                post searches_path, params: valid_params
+                expect(response).to have_http_status(:service_unavailable)
+                expect(response.body).to include("外部APIに接続できませんでした。")
+            end
+            it '422:予期しないエラー時はエラーエッセー時が表示される' do
+                allow_any_instance_of(ChatGptService).to receive(:fetch_recipe).and_raise(RuntimeError.new("テスト例外"))
+
+                post searches_path, params: valid_params
+                expect(response).to have_http_status(:unprocessable_entity)
+                expect(response.body).to include("予期しないエラーが発生しました。")
+            end
+        end
+
+        context '回数制限' do
+            before do
+                sign_in user
+                allow_any_instance_of(SearchesController).to receive(:search_count) do |controller|
+                    controller.instance_variable_set(:@search_limit, 0)
+                end
+            end
+
+            it '検索回数をオーバーするとリダイレクトされる' do
+                post searches_path, params: valid_params
+                expect(response).to redirect_to saved_searches_path
             end
         end
     end
-    describe 'GET /searches/:id' do
-        context '検索結果の詳細ページ' do
+
+    describe 'GET /searches/saved' do
+        context 'ログイン済み' do
             before { sign_in user }
 
-            it '検索結果の表示' do
-                get search_path(search_recipe)
-                expect(response).to have_http_status(200)
+            it '保存されたレシピ一覧が見られる' do
+                get saved_searches_path
+                expect(response).to have_http_status(:ok)
+                expect(response.body).to include("保存済みレシピ一覧")
+            end
+        end
+
+        context '未ログイン' do
+            it 'ログインページにリダイレクトされる' do
+                get saved_searches_path
+                expect(response).to redirect_to(new_user_session_path)
             end
         end
     end
-    describe 'GET /searched/saved' do
-        context 'ログイン済みの場合' do
+
+    describe 'POST /searches/optimized', :vcr do
+        context 'ログイン済み' do
             before { sign_in user }
-            it '検索履歴の表示' do
-                get saved_searches_path
-                expect(response).to have_http_status(200)
+
+            it 'FastAPIが成功し、レシピ詳細にリダイレクトされる' do
+                post searches_optimized_path, params: {
+                    target_p: 30,
+                    target_f: 10,
+                    target_c: 50
+                }
+
+                follow_redirect!
+                expect(response.body).to include("レシピ詳細")
             end
         end
-        context '未ログインの場合' do
-            it 'ログインページへリダイレクト' do
-                get saved_searches_path
-                expect(response).to have_http_status(302)
-                expect(response).to redirect_to(new_user_session_path)
+    end
+
+    describe 'DELETE /searches/:id' do
+        let!(:search_recipe) { create(:search_recipe, user: user) }
+        before { sign_in user }
+
+        context '削除成功' do
+            let!(:search_recipe) { create(:search_recipe, user: user) }
+            it 'レシピを削除し、レシピ一覧にリダイレクト' do
+                expect { delete search_path(search_recipe) }.to change(SearchRecipe, :count).by(-1)
+                expect(response).to have_http_status(:found)
+                expect(response).to redirect_to(saved_searches_path)
+            end
+        end
+
+        context '削除失敗(例外)' do
+            before do
+                allow_any_instance_of(SearchRecipe).to receive(:destroy!).and_raise(ActiveRecord::RecordNotDestroyed)
+            end
+
+            it 'レシピが削除されず、レシピ一覧にリダイレクト' do
+                delete search_path(search_recipe)
+
+                expect(response).to have_http_status(:unprocessable_entity)
+                expect(response.body).to include("削除に失敗しました")
             end
         end
     end

@@ -1,7 +1,7 @@
 <%= form_with(model: user, class: "contents") do |form| %>
   <% if user.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <h2>このユーザーは保存されませんでした:</h2>
 
       <ul class="list-disc ml-6">
         <% user.errors.each do |error| %>
@@ -17,18 +17,23 @@
   </div>
 
   <div class="my-5">
-    <%= form.label :email %>
+    <%= form.label :email, "メールアドレス" %>
     <%= form.text_field :email, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": user.errors[:email].none?, "border-red-400 focus:outline-red-600": user.errors[:email].any?}] %>
   </div>
 
   <div class="my-5">
-    <%= form.label :password, "Password" %>
-    <%= form.text_field :password, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": user.errors[:crypted_password].none?, "border-red-400 focus:outline-red-600": user.errors[:password].any?}] %>
+    <%= form.label :password, "現在のパスワード" %>
+    <%= form.password_field :current_password, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": user.errors[:crypted_password].none?, "border-red-400 focus:outline-red-600": user.errors[:password].any?}] %>
   </div>
 
   <div class="my-5">
-    <%= form.label :password_confirmation, "Password Confirmation" %>
-    <%= form.text_field :password_confirmation, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": user.errors[:crypted_password].none?, "border-red-400 focus:outline-red-600": user.errors[:password].any?}] %>
+    <%= form.label :password, "新しいパスワード" %>
+    <%= form.password_field :password, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": user.errors[:crypted_password].none?, "border-red-400 focus:outline-red-600": user.errors[:password].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :password_confirmation, "パスワードの確認" %>
+    <%= form.password_field :password_confirmation, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": user.errors[:crypted_password].none?, "border-red-400 focus:outline-red-600": user.errors[:password].any?}] %>
   </div>
 
   <div class="my-5">
@@ -38,7 +43,7 @@
 
   <div class="my-5">
   <%= form.label :gender, "性別" %>
-  <%= form.select :gender, [["男性", "male"], ["女性", "female"]], include_blank: true, class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full" %>
+  <%= form.select :gender, [["未選択", nil ], ["男性", "male"], ["女性", "female"]], class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
 

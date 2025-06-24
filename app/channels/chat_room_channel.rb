@@ -13,7 +13,8 @@ class ChatRoomChannel < ApplicationCable::Channel
     ActionCable.server.broadcast("chat_room_#{@chat_room.id}", {
       message: message.content,
       user: message.user.name,
-      user_id: message.user.id
+      user_id: message.user.id,
+      created_at: message.created_at.strftime("%-m/%-d %H:%M")
     })
   end
 

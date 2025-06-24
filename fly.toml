@@ -4,7 +4,7 @@
 #
 
 app = 'muscle-recipe-cold-cherry-7290'
-primary_region = 'ams'
+primary_region = 'nrt'
 console_command = '/rails/bin/rails console'
 
 [build]
@@ -16,9 +16,9 @@ console_command = '/rails/bin/rails console'
 [http_service]
   internal_port = 3000
   force_https = true
-  auto_stop_machines = 'stop'
+  auto_stop_machines = false
   auto_start_machines = true
-  min_machines_running = 0
+  min_machines_running = 1
   processes = ['app']
 
   [[http_service.checks]]

@@ -9,9 +9,7 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1 or /users/1.json
-  def show
-    @user = User.find(params[:id])
-  end
+  def show; end
 
   # GET /users/new
   def new
@@ -25,15 +23,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    respond_to do |format|
-      if @user.save
-        sign_in(@user)
-        format.html { redirect_to @user, notice: "User was successfully created." }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.save
+      sign_in(@user)
+      redirect_to @user, notice: t(".success")
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -42,15 +36,16 @@ def update
   respond_to do |format|
     if user_params[:password].present? # パスワードが送信されている場合
       if @user.update_with_password(user_params)
-        format.html { redirect_to @user, notice: "User was successfully updated." }
+        bypass_sign_in(@user)
+        format.html { redirect_to @user, notice: t(".success") }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     else # パスワードが送信されていない場合
-      if @user.update(user_params.except(:password, :password_confirmation))
-        format.html { redirect_to @user, notice: "User was successfully updated." }
+      if @user.update(user_params.except(:current_password, :password, :password_confirmation))
+        format.html { redirect_to @user, notice: t(".success") }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -65,7 +60,7 @@ end
     @user.destroy!
 
     respond_to do |format|
-      format.html { redirect_to user_session_path, status: :see_other, notice: "User was successfully destroyed." }
+      format.html { redirect_to user_session_path, status: :see_other, notice: t(".success") }
       format.json { head :no_content }
     end
   end
@@ -73,12 +68,12 @@ end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      @user = current_user
     end
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :age, :height, :weight, :gender)
+      params.require(:user).permit(:name, :email, :current_password, :password, :password_confirmation, :age, :height, :weight, :gender)
     end
 
     def ensure_current_user

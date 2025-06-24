@@ -1,0 +1,91 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-4o-mini","messages":[{"role":"system","content":"You
+        are a professional nutritionist. Generate structured JSON-formatted healthy
+        recipes."},{"role":"user","content":"以下の条件に合うレシピを JSON 形式で提案してください:\n\n- 年齢:
+        30歳\n- 性別: male\n- 身長: 170cm\n- 体重: 65kg\n- 料理の複雑度: 簡単\n- 使用したい具材(1人前): \n-
+        避けたい具材: \n- 要望: 筋肉増強\n- 調味料の指定: 塩\n\n**JSON 形式で出力してください。**\n**注意: コードブロック
+        (```json ... ```) を使用せず、純粋な JSON のみを出力し、それ以外のテキストを含めないでください。**\n**「料理名:」「説明:」などの余分な装飾は不要です。**\n**以下のフォーマットを厳密に守ってください:**\n\n```json\n{\n  \"recipe\":
+        {\n    \"title\": \"チーズ入りジャガイモグラタン\",\n    \"description\": \"ジャガイモとチーズを組み合わせた、簡単で美味しいグラタンです。\",\n    \"ingredients\":
+        [\n      { \"name\": \"ジャガイモ\", \"amount\": \"2個\" },\n      { \"name\": \"チーズ\",
+        \"amount\": \"100g\" },\n      { \"name\": \"牛乳\", \"amount\": \"200ml\" }\n    ],\n    \"steps\":
+        [\n      \"ジャガイモの皮をむいてスライスする。\",\n      \"耐熱皿に並べ、チーズと牛乳をかける。\",\n      \"オーブンで180℃で20分焼く。\"\n    ],\n    \"nutrition\":
+        {\n      \"calories\": \"350kcal\",\n      \"protein\": \"15g\",\n      \"fat\":
+        \"20g\",\n      \"carbohydrates\": \"30g\"\n    }\n  }\n}\n```\n"}],"max_tokens":1000,"temperature":0.3}'
+    headers:
+      Authorization:
+      - Bearer <CHATGPT_API_KEY>
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 23 Jun 2025 06:47:43 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Access-Control-Expose-Headers:
+      - X-Request-ID
+      Openai-Organization:
+      - tottoto-tct4po
+      Openai-Processing-Ms:
+      - '7450'
+      Openai-Version:
+      - '2020-10-01'
+      X-Envoy-Upstream-Service-Time:
+      - '7453'
+      X-Ratelimit-Limit-Requests:
+      - '10000'
+      X-Ratelimit-Limit-Tokens:
+      - '200000'
+      X-Ratelimit-Remaining-Requests:
+      - '9999'
+      X-Ratelimit-Remaining-Tokens:
+      - '199638'
+      X-Ratelimit-Reset-Requests:
+      - 8.64s
+      X-Ratelimit-Reset-Tokens:
+      - 108ms
+      X-Request-Id:
+      - req_8b88a43ff2fb90e6d0a702020f91be8a
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=dmDc_xc3hCXzoxIPzStq5vrakmukGtparyZf52yH12w-1750661263-1.0.1.1-X7c1bl1J7H7ETvb7DhKoCrx2Lmd1jiGCf58Q5Rn_1NugMwmIYWo9kvytJF5GoJZza.j62ECHi12ibMxbskRmxwuhYXi8fCpjQpdehRjtTfA;
+        path=/; expires=Mon, 23-Jun-25 07:17:43 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=Ehax5mwLeJ38KggPLHVG6KqoYiLXidpB2akf4wQX3CU-1750661263537-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 954208ecf8c396c2-KIX
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        ewogICJpZCI6ICJjaGF0Y21wbC1CbFZGb0JqTVMwQjhCb2JoYUU1aTh0dk1YVU4waCIsCiAgIm9iamVjdCI6ICJjaGF0LmNvbXBsZXRpb24iLAogICJjcmVhdGVkIjogMTc1MDY2MTI1NiwKICAibW9kZWwiOiAiZ3B0LTRvLW1pbmktMjAyNC0wNy0xOCIsCiAgImNob2ljZXMiOiBbCiAgICB7CiAgICAgICJpbmRleCI6IDAsCiAgICAgICJtZXNzYWdlIjogewogICAgICAgICJyb2xlIjogImFzc2lzdGFudCIsCiAgICAgICAgImNvbnRlbnQiOiAie1xuICBcInJlY2lwZVwiOiB7XG4gICAgXCJ0aXRsZVwiOiBcIum2j+OCgOOBreiCieOBruOCsOODquODq1wiLFxuICAgIFwiZGVzY3JpcHRpb25cIjogXCLpq5jjgr/jg7Pjg5Hjgq/jgafkvY7ohILogqrjga7pto/jgoDjga3ogonjgpLkvb/jgaPjgZ/jgIHnsKHljZjjgafjg5jjg6vjgrfjg7zjgarjgrDjg6rjg6vmlpnnkIbjgafjgZnjgIJcIixcbiAgICBcImluZ3JlZGllbnRzXCI6IFtcbiAgICAgIHsgXCJuYW1lXCI6IFwi6baP44KA44Gt6IKJXCIsIFwiYW1vdW50XCI6IFwiMTUwZ1wiIH0sXG4gICAgICB7IFwibmFtZVwiOiBcIuODluODreODg+OCs+ODquODvFwiLCBcImFtb3VudFwiOiBcIjEwMGdcIiB9LFxuICAgICAgeyBcIm5hbWVcIjogXCLjgqrjg6rjg7zjg5bjgqrjgqTjg6tcIiwgXCJhbW91bnRcIjogXCIxIHRic3BcIiB9LFxuICAgICAgeyBcIm5hbWVcIjogXCLloalcIiwgXCJhbW91bnRcIjogXCLpganph49cIiB9LFxuICAgICAgeyBcIm5hbWVcIjogXCLpu5Log6HmpJJcIiwgXCJhbW91bnRcIjogXCLpganph49cIiB9XG4gICAgXSxcbiAgICBcInN0ZXBzXCI6IFtcbiAgICAgIFwi6baP44KA44Gt6IKJ44Gr5aGp44Go6buS6IOh5qSS44KS44G144KK44GL44GR44CBMTDliIbnva7jgY/jgIJcIixcbiAgICAgIFwi44OV44Op44Kk44OR44Oz44Gr44Kq44Oq44O844OW44Kq44Kk44Or44KS54ax44GX44CB6baP44KA44Gt6IKJ44KS5Lih6Z2i44GM44GT44KT44GM44KK44GZ44KL44G+44Gn54S844GP44CCXCIsXG4gICAgICBcIuODluODreODg+OCs+ODquODvOOCkuiSuOOBl+OAgem2j+OCgOOBreiCieOBqOS4gOe3kuOBq+ebm+OCiuS7mOOBkeOCi+OAglwiXG4gICAgXSxcbiAgICBcIm51dHJpdGlvblwiOiB7XG4gICAgICBcImNhbG9yaWVzXCI6IFwiMzAwa2NhbFwiLFxuICAgICAgXCJwcm90ZWluXCI6IFwiNDBnXCIsXG4gICAgICBcImZhdFwiOiBcIjEwZ1wiLFxuICAgICAgXCJjYXJib2h5ZHJhdGVzXCI6IFwiNWdcIlxuICAgIH1cbiAgfVxufSIsCiAgICAgICAgInJlZnVzYWwiOiBudWxsLAogICAgICAgICJhbm5vdGF0aW9ucyI6IFtdCiAgICAgIH0sCiAgICAgICJsb2dwcm9icyI6IG51bGwsCiAgICAgICJmaW5pc2hfcmVhc29uIjogInN0b3AiCiAgICB9CiAgXSwKICAidXNhZ2UiOiB7CiAgICAicHJvbXB0X3Rva2VucyI6IDQ0NCwKICAgICJjb21wbGV0aW9uX3Rva2VucyI6IDMwNiwKICAgICJ0b3RhbF90b2tlbnMiOiA3NTAsCiAgICAicHJvbXB0X3Rva2Vuc19kZXRhaWxzIjogewogICAgICAiY2FjaGVkX3Rva2VucyI6IDAsCiAgICAgICJhdWRpb190b2tlbnMiOiAwCiAgICB9LAogICAgImNvbXBsZXRpb25fdG9rZW5zX2RldGFpbHMiOiB7CiAgICAgICJyZWFzb25pbmdfdG9rZW5zIjogMCwKICAgICAgImF1ZGlvX3Rva2VucyI6IDAsCiAgICAgICJhY2NlcHRlZF9wcmVkaWN0aW9uX3Rva2VucyI6IDAsCiAgICAgICJyZWplY3RlZF9wcmVkaWN0aW9uX3Rva2VucyI6IDAKICAgIH0KICB9LAogICJzZXJ2aWNlX3RpZXIiOiAiZGVmYXVsdCIsCiAgInN5c3RlbV9maW5nZXJwcmludCI6ICJmcF8zNGE1NGFlOTNjIgp9Cg==
+  recorded_at: Mon, 23 Jun 2025 06:47:43 GMT
+recorded_with: VCR 6.3.1

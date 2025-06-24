@@ -4,7 +4,7 @@ Turbo.session.drive = true;
 // import Stimulus from "@hotwired/stimulus";
 import "./controllers"; // Stimulus コントローラーを読み込む
 import "./channels/chat_room_channel";
-import "./controllers/menu";
+// import "./controllers/menu";
 import "./search_loading";
 
 // Turboを明示的に有効化

@@ -9,14 +9,17 @@ const createChatRoomChannel = (roomId) => {
       if (messagesContainer) {
         const currentUserId = document.getElementById("current-user-id")?.value;
         const isCurrentUser = data.user_id == currentUserId;
-        const alignmentClass = isCurrentUser ? "justify-end" : "justify-start";
-        const bgColorClass = isCurrentUser ? "bg-green-200 text-right" : "bg-gray-100 text-left";
+        const alignmentClass = isCurrentUser ? "justify-end text-right" : "justify-start text-left";
+        const bgColorClass = isCurrentUser ? "bg-green-200" : "bg-gray-100";
 
         messagesContainer.insertAdjacentHTML(
           "beforeend",
           `<div class="flex ${alignmentClass}">
-            <div class="p-2 w-[70%] ${bgColorClass} rounded-md my-1">
-              <strong>${data.user}:</strong> ${data.message}
+            <div class="flex-col max-w-[70%]">
+            <p class="text-xs text-left">${data.user} ${data.created_at}</p>
+              <div class="p-1 inline-block text-left break-words text-sm rounded-md my-1 ${bgColorClass}">
+                ${data.message}
+              </div>
             </div>
           </div>`
         );

@@ -34,8 +34,10 @@ gem "devise", "~> 4.9"
 gem "redis", "~> 5.3"
 gem "cssbundling-rails", "~> 1.4"
 gem "foreman", "~> 0.88"
-gem "httparty", "~> 0.22"
+gem "httparty", "~> 0.23"
 gem "dotenv-rails", "~> 3.1"
+gem "rails-i18n"
+gem "devise-i18n"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -50,20 +52,26 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
   gem "rspec-rails"
+  gem "letter_opener_web"
+  gem "faker"
+  gem "factory_bot_rails"
+  gem "webmock"
+  gem "database_cleaner-active_record"
+  gem "vcr"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
   gem "pry-byebug"
+  gem "bullet"
 end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
-  gem "factory_bot_rails"
-  gem "faker"
+  gem "simplecov", require: false
 end
 
 gem "tailwindcss-rails", "~> 3.3"
