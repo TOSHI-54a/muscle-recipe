@@ -84,11 +84,11 @@
 # 🧪テストカバレッジ（[SimpleCov](https://github.com/simplecov-ruby/simplecov)）
 | 項目 | カバレッジ率 |
 |---|---|
-| 全体 | 75.24% |
-| Models | 90.63% |
-| Controllers | 90.95% |
+| 全体 | 81.50% |
+| Models | 90.74% |
+| Controllers | 91.78% |
 
-*Rspec + FactoryBot によるテスト実施。
+*RSpec + FactoryBot によるテスト実施。
 
 <br/>
 
