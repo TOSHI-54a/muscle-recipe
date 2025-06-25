@@ -116,7 +116,7 @@ class SearchesController < ApplicationController
 
     if current_user
       search_count = SearchLog.where(user_id: current_user.id, search_time: Date.current.all_day).count
-      @search_limit = 10 - search_count
+      @search_limit = 5 - search_count
     else
       guest_last_search = cookies[:guest_searched_at]
       if guest_last_search.present? && Time.parse(guest_last_search).to_date == Date.today
